@@ -1,0 +1,3122 @@
+[
+  {
+    "input": "Scan all ports Run default,vuln scripts on 192.168.0.0/16",
+    "output": "nmap -p- --script default,vuln 192.168.0.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP, SNMP using TCP connect scan Perform OS detection using IPv6 on 2001:db8::3256",
+    "output": "nmap -p 80,161 -sT -O -6 2001:db8::3256"
+  },
+  {
+    "input": "Do a ping scan and traceroute on 10.0.0.0/28",
+    "output": "nmap -sn --traceroute 10.0.0.0/28"
+  },
+  {
+    "input": "Scan ports for SSH, SNMP using SYN scan and version detection on 192.168.100.0/28",
+    "output": "nmap -p 22,161 -sS -sV 192.168.100.0/28"
+  },
+  {
+    "input": "Scan ports for SSH, FTP Perform OS detection Run vuln scripts and traceroute on 192.168.0.0/28",
+    "output": "nmap -p 21,22 -O --script vuln --traceroute 192.168.0.0/28"
+  },
+  {
+    "input": "Simple scan of example.com",
+    "output": "nmap example.com"
+  },
+  {
+    "input": "Scan IPv6 host",
+    "output": "nmap -6 2001:db8::1"
+  },
+  {
+    "input": "Scan IPs from 10.0.0.1 to 10.0.0.20",
+    "output": "nmap 10.0.0.1-20"
+  },
+  {
+    "input": "Scan all ports on 192.168.1.1",
+    "output": "nmap -p- 192.168.1.1"
+  },
+  {
+    "input": "Show interfaces",
+    "output": "nmap -iflist"
+  },
+  {
+    "input": "Ping scan with no DNS on 192.168.1.0/24",
+    "output": "nmap -sn -n 192.168.1.0/24"
+  },
+  {
+    "input": "TCP SYN scan on 192.168.1.1",
+    "output": "nmap -sS 192.168.1.1"
+  },
+  {
+    "input": "UDP scan on 192.168.1.1",
+    "output": "nmap -sU 192.168.1.1"
+  },
+  {
+    "input": "Service version detection on 192.168.1.1",
+    "output": "nmap -sV 192.168.1.1"
+  },
+  {
+    "input": "OS detection on 192.168.1.1",
+    "output": "nmap -O 192.168.1.1"
+  },
+  {
+    "input": "Aggressive scan (OS, version, script scanning) on target",
+    "output": "nmap -A target"
+  },
+  {
+    "input": "Scan ports 1-100 and 8080 on host",
+    "output": "nmap -p 1-100,8080 host"
+  },
+  {
+    "input": "Scan list of hosts from file hosts.txt",
+    "output": "nmap -iL hosts.txt"
+  },
+  {
+    "input": "Exclude host 192.168.1.100 from scan of network 192.168.1.0/24",
+    "output": "nmap 192.168.1.0/24 --exclude 192.168.1.100"
+  },
+  {
+    "input": "TCP ACK scan on 192.168.1.1",
+    "output": "nmap -sA 192.168.1.1"
+  },
+  {
+    "input": "Full TCP connect scan on 192.168.1.1",
+    "output": "nmap -sT 192.168.1.1"
+  },
+  {
+    "input": "Scan using FIN packets on 192.168.1.1",
+    "output": "nmap -sF 192.168.1.1"
+  },
+  {
+    "input": "Scan common web ports with version detection on example.com",
+    "output": "nmap -p 80,443,8080 -sV example.com"
+  },
+  {
+    "input": "Perform a traceroute and detect OS on 10.0.0.5",
+    "output": "nmap --traceroute -O 10.0.0.5"
+  },
+  {
+    "input": "Scan target and save output in all formats (normal, XML, grepable)",
+    "output": "nmap -oA scan_results target"
+  },
+  {
+    "input": "Scan for all ports but do not ping the host first",
+    "output": "nmap -Pn -p- target"
+  },
+  {
+    "input": "Use the http-enum script on port 80 of target",
+    "output": "nmap -p 80 --script http-enum target"
+  },
+  {
+    "input": "Scan a subnet and only output hosts that are up",
+    "output": "nmap -sn -oG - 192.168.1.0/24 | grep Up"
+  },
+  {
+    "input": "Set a very slow timing template (T0) for a stealth scan",
+    "output": "nmap -sS -T0 target"
+  },
+  {
+    "input": "Scan ports from 1000 to 2000 on 10.0.0.1",
+    "output": "nmap -p 1000-2000 10.0.0.1"
+  },
+  {
+    "input": "Perform a scan with no DNS resolution",
+    "output": "nmap -n target"
+  },
+  {
+    "input": "Run safe scripts with version detection",
+    "output": "nmap -sV --script safe target"
+  },
+  {
+    "input": "Scan target using a decoy IP",
+    "output": "nmap -D RND:10 target"
+  },
+  {
+    "input": "Scan for ports 21, 22, 23, 25 and output to xml",
+    "output": "nmap -p 21,22,23,25 -oX scan.xml target"
+  },
+  {
+    "input": "Perform a SYN scan with a maximum number of retries set to 2",
+    "output": "nmap -sS --max-retries 2 target"
+  },
+  {
+    "input": "Scan using a specific source port 53",
+    "output": "nmap --source-port 53 target"
+  },
+  {
+    "input": "Scan a random set of 100 hosts on the network",
+    "output": "nmap -iR 100"
+  },
+  {
+    "input": "Scan for default script and save to normal output file",
+    "output": "nmap --script default -oN default_scan.txt target"
+  },
+  {
+    "input": "Scan UDP ports 53 and 161 on an IPv6 host with OS detection",
+    "output": "nmap -sU -p 53,161 -O -6 2001:db8::10"
+  },
+  {
+    "input": "Do a fast scan (top 100 ports) and skip host discovery",
+    "output": "nmap -F -Pn target"
+  },
+  {
+    "input": "Effectuer un balayage rapide et agressif avec le modèle de timing T4 sur 192.168.1.1",
+    "output": "nmap -T4 -F -A 192.168.1.1"
+  },
+  {
+    "input": "Balayage lent et furtif avec le modèle de timing le plus lent (T1) sur le réseau 10.0.0.0/24",
+    "output": "nmap -T1 -sS 10.0.0.0/24"
+  },
+  {
+    "input": "Effectuer un balayage SYN en utilisant la fragmentation IP pour éviter les pare-feu",
+    "output": "nmap -sS -f target.com"
+  },
+  {
+    "input": "Utiliser une taille de fragment MTU spécifique (8 octets) pour l'évasion",
+    "output": "nmap --mtu 8 target.com"
+  },
+  {
+    "input": "Ajouter 20 octets de données aléatoires aux paquets envoyés",
+    "output": "nmap --data-length 20 host.local"
+  },
+  {
+    "input": "Effectuer un scan zombie (Idle scan) en utilisant 10.0.0.5 comme machine zombie",
+    "output": "nmap -sI 10.0.0.5 target"
+  },
+  {
+    "input": "Scanner la cible en utilisant decoy1, decoy2 et moi-même (ME) comme adresses leurres",
+    "output": "nmap -D decoy1,decoy2,ME target"
+  },
+  {
+    "input": "Effectuer un scan de la liste d'hôtes sans envoyer de paquets (List Scan) sur la plage 192.168.5.0/24",
+    "output": "nmap -sL 192.168.5.0/24"
+  },
+  {
+    "input": "Scan sans ping des ports 22 et 8080",
+    "output": "nmap -Pn -p 22,8080 target"
+  },
+  {
+    "input": "Scanner et enregistrer la sortie dans un fichier au format grepable",
+    "output": "nmap -oG scan_grep.txt target"
+  },
+  {
+    "input": "Afficher le niveau de verbosité maximal (niveau 3)",
+    "output": "nmap -vvv target"
+  },
+  {
+    "input": "Exécuter le script de découverte du système d'exploitation SMB sur une cible",
+    "output": "nmap --script smb-os-discovery target"
+  },
+  {
+    "input": "Tenter un bruteforce de noms DNS sur le port 53",
+    "output": "nmap -p 53 --script dns-brute target"
+  },
+  {
+    "input": "Exécuter tous les scripts de la catégorie 'auth' sur un hôte",
+    "output": "nmap --script auth host.lan"
+  },
+  {
+    "input": "Définir le parallélisme maximal de la numérisation à 50",
+    "output": "nmap --max-parallelism 50 target"
+  },
+  {
+    "input": "Effectuer un scan SCTP INIT",
+    "output": "nmap -sY target"
+  },
+  {
+    "input": "Effectuer un scan des protocoles IP pour trouver les protocoles supportés",
+    "output": "nmap -sO target"
+  },
+  {
+    "input": "Définir un délai d'attente maximal par hôte à 5 minutes pour éviter d'attendre trop longtemps",
+    "output": "nmap --host-timeout 5m target"
+  },
+  {
+    "input": "Utiliser l'option de balayage de hachage de port",
+    "output": "nmap --port-ratio 0.1 target"
+  },
+  {
+    "input": "Scanner un réseau et exclure les hôtes listés dans un fichier 'exclus.txt'",
+    "output": "nmap 192.168.1.0/24 --exclude-file exclus.txt"
+  },
+  {
+    "input": "Définir la temporisation initiale du RTT à 100 millisecondes",
+    "output": "nmap --initial-rtt-timeout 100ms target"
+  },
+  {
+    "input": "Utiliser la vérification de sommes de contrôle (checksums) pour les paquets bruts",
+    "output": "nmap --send-eth target"
+  },
+  {
+    "input": "Scanner uniquement les ports ouverts (Open ports) en utilisant un scan de type NULL sur 192.168.10.1",
+    "output": "nmap -sN --open 192.168.10.1"
+  },
+  {
+    "input": "Scanner les ports ayant un ratio de découverte élevé de 0.9",
+    "output": "nmap --port-ratio 0.9 target"
+  },
+  {
+    "input": "Définir la version la plus agressive pour la détection de services",
+    "output": "nmap -sV --version-intensity 9 target"
+  },
+  {
+    "input": "Définir la version la moins agressive pour la détection de services",
+    "output": "nmap -sV --version-intensity 0 target"
+  },
+  {
+    "input": "Utiliser l'option de balayage de hachage de port",
+    "output": "nmap --port-ratio 0.1 target"
+  },
+  {
+    "input": "Tenter un balayage de type 'Maimon' sur une adresse IP spécifique",
+    "output": "nmap -sM 172.16.0.5"
+  },
+  {
+    "input": "Balayer en utilisant le type de scan TCP Windows",
+    "output": "nmap -sW target"
+  },
+  {
+    "input": "Limiter la vitesse d'envoi des paquets à 100 paquets par seconde",
+    "output": "nmap --max-rate 100 target"
+  },
+  {
+    "input": "Balayer les ports UDP uniquement, en ignorant les ports TCP",
+    "output": "nmap -sU -p- target"
+  },
+  {
+    "input": "Spécifier une interface réseau à utiliser pour le scan (eth0)",
+    "output": "nmap -e eth0 target"
+  },
+  {
+    "input": "Définir un délai maximal d'attente pour la découverte de l'hôte à 20 secondes",
+    "output": "nmap --host-timeout 20s target"
+  },
+  {
+    "input": "Définir le nombre maximal de nouvelles tentatives pour un port à 1",
+    "output": "nmap --max-retries 1 target"
+  },
+  {
+    "input": "Utiliser un fichier de liste de ports personnalisé pour le scan",
+    "output": "nmap -p U:53,T:80,443 target"
+  },
+  {
+    "input": "Activer le mode débug de Nmap à un niveau élevé",
+    "output": "nmap -d9 target"
+  },
+  {
+    "input": "Ne pas faire de résolution DNS inverse des résultats",
+    "output": "nmap -n target"
+  },
+  {
+    "input": "Scan sans ping et sans résolution DNS",
+    "output": "nmap -Pn -n target"
+  },
+  {
+    "input": "Lancer les scripts d'énumération HTTP sur les ports 80 et 443",
+    "output": "nmap -p 80,443 --script http-enum target.com"
+  },
+  {
+    "input": "Utiliser un fichier d'entrée de la liste d'hôtes et exclure les hôtes inactifs",
+    "output": "nmap -iL hosts.txt --exclude-up"
+  },
+  {
+    "input": "Forcer le scan à utiliser des paquets Ethernet bruts",
+    "output": "nmap --send-eth target"
+  },
+  {
+    "input": "Définir une temporisation maximale de 500ms entre l'envoi des paquets",
+    "output": "nmap --scan-delay 500ms target"
+  },
+  {
+    "input": "Exécuter le script FTP anonymous login pour vérifier les connexions anonymes",
+    "output": "nmap --script ftp-anon target"
+  },
+  {
+    "input": "Effectuer un scan des cibles et enregistrer les résultats sous forme de fichier XML avec DTD",
+    "output": "nmap -oX - target > scan_with_dtd.xml"
+  },
+  {
+    "input": "Lancer les scripts SMB de la catégorie 'intrusive' sur un réseau (à utiliser avec prudence)",
+    "output": "nmap -p 445 --script smb-enum-shares target_network"
+  },
+  {
+    "input": "Utiliser l'option `--reason` pour afficher pourquoi un port est dans un état particulier",
+    "output": "nmap -sS --reason target"
+  },
+  {
+    "input": "Utiliser le script `http-headers` pour récupérer les en-têtes HTTP de la page d'accueil",
+    "output": "nmap -p 80 --script http-headers target.com"
+  },
+  {
+    "input": "Tester les faiblesses SSL/TLS, y compris l'énumération des chiffrements (cipher enumeration)",
+    "output": "nmap -p 443 --script ssl-enum-ciphers target"
+  },
+  {
+    "input": "Tenter un balayage des ports en utilisant le protocole IP version 4 de manière explicite",
+    "output": "nmap -4 target.com"
+  },
+  {
+    "input": "Tenter d'exploiter un service connu (exemple : la catégorie 'exploit')",
+    "output": "nmap --script exploit target"
+  },
+  {
+    "input": "Exécuter tous les scripts de la catégorie 'discovery' sur une plage d'adresses IP",
+    "output": "nmap --script discovery 192.168.20.0/24"
+  },
+  {
+    "input": "Afficher les informations de l'hôte et la version du service, avec une sortie détaillée (verbose)",
+    "output": "nmap -v -sV target"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets UDP à envoyer par seconde à 50",
+    "output": "nmap -sU --min-rate 50 target"
+  },
+  {
+    "input": "Scan sans ping en utilisant une temporisation des paquets de 10ms",
+    "output": "nmap -Pn --scan-delay 10ms target"
+  },
+  {
+    "input": "Scanner le port 80 avec le script qui essaie de 'doos'er une cible (simuler une attaque DoS)",
+    "output": "nmap -p 80 --script http-slowloris-check target"
+  },
+  {
+    "input": "Utiliser l'option `--ttl` pour définir le Time-To-Live des paquets sortants à 64",
+    "output": "nmap --ttl 64 target"
+  },
+  {
+    "input": "Détecter si une cible est un honeypot avec un script spécifique",
+    "output": "nmap --script honeypot-detect target"
+  },
+  {
+    "input": "Exclure tous les ports d'une analyse sauf ceux spécifiés",
+    "output": "nmap --exclude-ports 1-65535,T:1-65535 --include-ports 22,80 target"
+  },
+  {
+    "input": "Effectuer un balayage des hôtes en utilisant une requête ARP (ARP ping scan) sur le réseau local",
+    "output": "nmap -PR 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner une cible et enregistrer tous les formats de sortie avec le préfixe 'full_scan'",
+    "output": "nmap -A -oA full_scan target"
+  },
+  {
+    "input": "Scanner le port 22 et récupérer la clé d'hôte SSH",
+    "output": "nmap -p 22 --script ssh-hostkey target"
+  },
+  {
+    "input": "Définir l'adresse IP source du scan à 10.0.0.99",
+    "output": "nmap -S 10.0.0.99 target"
+  },
+  {
+    "input": "Scanner une liste d'hôtes et de ports provenant d'un fichier 'scan_targets.txt'",
+    "output": "nmap -iL scan_targets.txt"
+  },
+  {
+    "input": "Effectuer une détection de service très rapide (vitesse 1)",
+    "output": "nmap -sV --version-light target"
+  },
+  {
+    "input": "Lancer le script de découverte des services DNS broadcast",
+    "output": "nmap --script broadcast-dns-service-discovery"
+  },
+  {
+    "input": "Scanner un hôte et afficher toutes les informations de débogage",
+    "output": "nmap -d target"
+  },
+  {
+    "input": "Utiliser un proxy SOCKS4 pour la connexion",
+    "output": "nmap --proxies SOCKS4://10.0.0.254:1080 target"
+  },
+  {
+    "input": "Ne pas faire de découverte d'hôte et faire une numérisation du réseau sans attendre plus de 10 secondes",
+    "output": "nmap -Pn --host-timeout 10s 192.168.1.0/24"
+  },
+  {
+    "input": "Tenter un balayage des protocoles IP et afficher les raisons",
+    "output": "nmap -sO --reason target"
+  },
+  {
+    "input": "Scanner une cible pour toutes les vulnérabilités connues à l'aide du script vulners",
+    "output": "nmap --script vulners target"
+  },
+  {
+    "input": "Réaliser une recherche Whois sur un nom de domaine",
+    "output": "nmap --script whois target.com"
+  },
+  {
+    "input": "Scan sans ping et seulement les 10 ports les plus communs",
+    "output": "nmap -Pn --top-ports 10 target"
+  },
+  {
+    "input": "Utiliser une option IP (IP options) personnalisée pour le balayage",
+    "output": "nmap --ip-options 0x07 target"
+  },
+  {
+    "input": "Scanner le réseau en utilisant un ordre d'hôte aléatoire pour éviter la détection",
+    "output": "nmap --randomize-hosts 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner en utilisant le port source 53 (DNS) pour masquer le scan",
+    "output": "nmap -g 53 target.com"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon sur un port spécifique",
+    "output": "nmap -sM -p 8080 host"
+  },
+  {
+    "input": "Définir la taille minimale du groupe d'hôtes pour le balayage parallèle à 16",
+    "output": "nmap --min-hostgroup 16 10.0.0.0/16"
+  },
+  {
+    "input": "Ajouter les résultats du scan à un fichier de sortie normal existant",
+    "output": "nmap --append-output -oN scan_results.txt target"
+  },
+  {
+    "input": "Démarrer le scan avec une temporisation d'envoi de paquets de 20 millisecondes et un taux maximal de 10 paquets/s",
+    "output": "nmap --scan-delay 20ms --max-rate 10 target"
+  },
+  {
+    "input": "Lancer le script pour l'énumération des utilisateurs TFTP",
+    "output": "nmap -sU -p 69 --script tftp-enum target"
+  },
+  {
+    "input": "Exécuter les scripts de la catégorie 'fuzzer' sur un port UDP",
+    "output": "nmap -sU --script fuzzer -p 161 target"
+  },
+  {
+    "input": "Vérifier si un serveur HTTP est protégé par un pare-feu d'application Web (WAF)",
+    "output": "nmap -p 80 --script http-waf-detect target"
+  },
+  {
+    "input": "Récupérer des informations sur un serveur MySQL",
+    "output": "nmap -p 3306 --script mysql-info target"
+  },
+  {
+    "input": "Obtenir les commandes supportées par un serveur SMTP",
+    "output": "nmap -p 25 --script smtp-commands target"
+  },
+  {
+    "input": "Scanner tous les ports de la cible mais exclure les ports 23 (Telnet) et 5900-5910 (VNC)",
+    "output": "nmap -p- --exclude-ports 23,5900-5910 target"
+  },
+  {
+    "input": "Exécuter un scan FIN (furtif) et un scan de version agressif",
+    "output": "nmap -sF -sV --version-intensity 9 target"
+  },
+  {
+    "input": "Définir l'interface réseau pour le balayage et augmenter la verbosité à 2",
+    "output": "nmap -e eth1 -vv target"
+  },
+  {
+    "input": "Balayage des 10 ports les plus communs avec un délai minimum d'attente de 5 secondes par port",
+    "output": "nmap --top-ports 10 --min-rtt-timeout 5s target"
+  },
+  {
+    "input": "Effectuer un scan des ports TCP 1000-2000 et des ports UDP 53, 161 simultanément",
+    "output": "nmap -p T:1000-2000,U:53,161 target"
+  },
+  {
+    "input": "Scanner une cible et forcer Nmap à utiliser le mode de détection de version la plus complète",
+    "output": "nmap -sV --version-all target"
+  },
+  {
+    "input": "Lancer un scan avec détection d'OS mais uniquement sur les hôtes jugés prometteurs",
+    "output": "nmap -O --osscan-limit target"
+  },
+  {
+    "input": "Vérifier la vulnérabilité Heartbleed sur le port sécurisé 443",
+    "output": "nmap -p 443 --script ssl-heartbleed target"
+  },
+  {
+    "input": "Vérifier si un serveur NTP est vulnérable à l'attaque 'monlist'",
+    "output": "nmap -sU -p 123 --script ntp-monlist target"
+  },
+  {
+    "input": "Forcer Nmap à envoyer des paquets IP bruts (non Ethernet) pour le scan",
+    "output": "nmap --send-ip target"
+  },
+  {
+    "input": "Scanner la cible avec un délai minimal de 2 secondes avant la première réponse de l'hôte",
+    "output": "nmap --min-rtt-timeout 2s target"
+  },
+  {
+    "input": "Exécuter tous les scripts de la catégorie 'external' sur une cible",
+    "output": "nmap --script external target"
+  },
+  {
+    "input": "Rechercher des vulnérabilités MS-SQL et tenter de lister les bases de données",
+    "output": "nmap -p 1433 --script ms-sql-info,ms-sql-tables target"
+  },
+  {
+    "input": "Utiliser un scan TCP NULL (sans drapeaux) et le temps de temporisation le plus lent (T0)",
+    "output": "nmap -sN -T0 target"
+  },
+  {
+    "input": "Afficher le 'fingerprint' de la tentative de détection de la version du service",
+    "output": "nmap -sV --version-trace target"
+  },
+  {
+    "input": "Effectuer une détection de service minimale (intensité 1) pour les ports 80 et 443",
+    "output": "nmap -p 80,443 -sV --version-intensity 1 target"
+  },
+  {
+    "input": "Exclure tous les ports d'une analyse sauf ceux spécifiés",
+    "output": "nmap --exclude-ports 1-65535,T:1-65535 --include-ports 22,80 target"
+  },
+  {
+    "input": "Scanner une cible en utilisant une adresse MAC source spécifique (spoofée)",
+    "output": "nmap --spoof-mac 00:0A:E6:3F:A1:3C target"
+  },
+  {
+    "input": "Afficher uniquement les ports ouverts dans la sortie grepable",
+    "output": "nmap -oG - target | grep 'Ports:' | grep 'open'"
+  },
+  {
+    "input": "Effectuer un balayage des ports avec une chaîne de données personnalisée 'testdata' dans la charge utile du paquet",
+    "output": "nmap --data-string 'testdata' target"
+  },
+  {
+    "input": "Scanner tous les ports IPv6 et détecter les versions des services",
+    "output": "nmap -6 -p- -sV 2001:db8::101"
+  },
+  {
+    "input": "Définir un taux d'envoi minimal de 20 paquets par seconde et un parallélisme maximal de 10 hôtes",
+    "output": "nmap --min-rate 20 --max-parallelism 10 target"
+  },
+  {
+    "input": "Exécuter le script de force brute SNMP avec la chaîne de communauté 'public'",
+    "output": "nmap -sU -p 161 --script snmp-brute --script-args snmp-brute.communities=public target"
+  },
+  {
+    "input": "Scanner avec l'option IP 'Router Alert' (0x05)",
+    "output": "nmap --ip-options \\x05 target"
+  },
+  {
+    "input": "Utiliser le script 'http-methods' pour lister les méthodes HTTP supportées sur le port 80",
+    "output": "nmap -p 80 --script http-methods target"
+  },
+  {
+    "input": "Effectuer un balayage des hôtes en IPv6 sur un réseau en utilisant la découverte de voisin",
+    "output": "nmap -6 -sn 2001:db8::/64"
+  },
+  {
+    "input": "Exécuter un scan TCP ACK avec 3 nouvelles tentatives maximales pour chaque port",
+    "output": "nmap -sA --max-retries 3 target"
+  },
+  {
+    "input": "Définir la taille des paquets ICMP ping à 100 octets",
+    "output": "nmap -PE --data-length 100 target"
+  },
+  {
+    "input": "Utiliser l'option 'reason' et le mode verbeux pour afficher pourquoi un port est filtré",
+    "output": "nmap -vv --reason target"
+  },
+  {
+    "input": "Effectuer un scan SYN furtif et utiliser la résolution DNS du système (non brute-force)",
+    "output": "nmap -sS --system-dns target"
+  },
+  {
+    "input": "Désactiver la détection de version pour le port 25 uniquement lors d'un scan de version",
+    "output": "nmap -sV --exclude-ports 25 --version-exclude 25 target"
+  },
+  {
+    "input": "Définir la valeur ToS/DSCP des paquets IP sortants à 4",
+    "output": "nmap --ttl 64 --tos 4 target"
+  },
+  {
+    "input": "Exécuter un scan et enregistrer l'erreur standard et la sortie dans le même fichier",
+    "output": "nmap target > scan_output.txt 2>&1"
+  },
+  {
+    "input": "Lancer le script pour détecter la version d'un site WordPress sur le port 80",
+    "output": "nmap -p 80 --script http-wordpress-version target"
+  },
+  {
+    "input": "Ajouter 10 octets de données aléatoires aux paquets UDP pour les ports 123 (NTP)",
+    "output": "nmap -sU -p 123 --data-length 10 target"
+  },
+  {
+    "input": "Scanner un hôte et afficher tous les états de port possibles, même les ports ignorés",
+    "output": "nmap --allports target"
+  },
+  {
+    "input": "Désactiver la détection de l'hôte après le premier test de découverte",
+    "output": "nmap --disable-arp-ping target"
+  },
+  {
+    "input": "Utiliser l'option 'datagram' pour envoyer des datagrammes IP bruts",
+    "output": "nmap --datagram target"
+  },
+  {
+    "input": "Effectuer un scan d'une plage d'adresses IPv6 et exporter la sortie en XML",
+    "output": "nmap -6 -oX ipv6_scan.xml 2001:db8:1::1-20"
+  },
+  {
+    "input": "Tenter un balayage des protocoles IP en utilisant des options IP personnalisées",
+    "output": "nmap -sO --ip-options \\x00 target"
+  },
+  {
+    "input": "Exécuter le script de force brute pour les identifiants POP3",
+    "output": "nmap -p 110 --script pop3-brute target"
+  },
+  {
+    "input": "Effectuer un balayage et spécifier des serveurs DNS personnalisés à utiliser",
+    "output": "nmap --dns-servers 8.8.8.8,8.8.4.4 target"
+  },
+  {
+    "input": "Scanner une cible en utilisant un paquet avec un checksum IP incorrect pour l'évasion",
+    "output": "nmap --badsum target"
+  },
+  {
+    "input": "Exécuter un balayage et forcer la résolution de toutes les adresses IP possibles pour un nom d'hôte",
+    "output": "nmap --resolve-all target.com"
+  },
+  {
+    "input": "Définir la taille maximale du groupe d'hôtes pour le balayage parallèle à 4",
+    "output": "nmap --max-hostgroup 4 192.168.0.0/24"
+  },
+  {
+    "input": "Définir un délai maximal de 500ms entre les envois de paquets",
+    "output": "nmap --max-scan-delay 500ms target"
+  },
+  {
+    "input": "Tenter la force brute HTTP sur un chemin spécifique ('/admin') avec le script http-brute",
+    "output": "nmap -p 80 --script http-brute --script-args http-brute.path=/admin target"
+  },
+  {
+    "input": "Scanner le port 179 (BGP) avec détection de version et trace de la détection",
+    "output": "nmap -p 179 -sV --version-trace target"
+  },
+  {
+    "input": "Utiliser l'option de balayage des ports en mode liste pour afficher les ports avant de scanner",
+    "output": "nmap --list-scans target"
+  },
+  {
+    "input": "Lancer un scan de découverte pour tous les hôtes en utilisant un ping ICMP Timestamp",
+    "output": "nmap -PP 192.168.1.0/24"
+  },
+  {
+    "input": "Lancer un scan de découverte pour tous les hôtes en utilisant un ping ICMP Netmask",
+    "output": "nmap -PM 192.168.1.0/24"
+  },
+  {
+    "input": "Exécuter tous les scripts de la catégorie 'malware' sur une cible",
+    "output": "nmap --script malware target"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif avec un TTL de 10",
+    "output": "nmap -sM --ttl 10 target"
+  },
+  {
+    "input": "Exécuter un scan pour détecter les services UPnP (Universal Plug and Play) sur un réseau",
+    "output": "nmap -sU --script upnp-info 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner et tenter de lire les informations du registre du service RDP (Remote Desktop Protocol)",
+    "output": "nmap -p 3389 --script rdp-enum-settings target"
+  },
+  {
+    "input": "Forcer l'exécution de la détection d'OS, même si les ports ne sont pas prometteurs",
+    "output": "nmap -O --osscan-guess target"
+  },
+  {
+    "input": "Exécuter tous les scripts de la catégorie 'safe' et 'default' avec l'option aggressive (-A)",
+    "output": "nmap -A --script safe,default target"
+  },
+  {
+    "input": "Désactiver la vérification des sommes de contrôle (checksums) pour les paquets bruts (attention : non recommandé)",
+    "output": "nmap --send-eth --no-checksums target"
+  },
+  {
+    "input": "Utiliser un scan de type Xmas Tree (avec tous les drapeaux de contrôle TCP activés)",
+    "output": "nmap -sX target"
+  },
+  {
+    "input": "Scanner la cible et ignorer les paquets dont les informations de l'hôte (TTL) sont ambiguës",
+    "output": "nmap --ttl 2 target"
+  },
+  {
+    "input": "Exécuter le script pour détecter la version de Java RMI (Remote Method Invocation)",
+    "output": "nmap --script rmi-dumpregistry target"
+  },
+  {
+    "input": "Scan sans ping et sans résolution DNS, avec un taux minimal de 5 paquets par seconde",
+    "output": "nmap -Pn -n --min-rate 5 target"
+  },
+  {
+    "input": "Utiliser un Time-To-Live (TTL) de 100 pour la détection de l'OS",
+    "output": "nmap -O --max-ttl 100 target"
+  },
+  {
+    "input": "Effectuer un scan en utilisant les pings ICMP echo, timestamp et netmask pour la découverte de l'hôte",
+    "output": "nmap -PE -PP -PM target"
+  },
+  {
+    "input": "Scanner le port MongoDB (27017) et récupérer les informations de la base de données",
+    "output": "nmap -p 27017 --script mongodb-info target"
+  },
+  {
+    "input": "Scanner le port Redis (6379) et récupérer les informations du service",
+    "output": "nmap -p 6379 --script redis-info target"
+  },
+  {
+    "input": "Exécuter le script http-fingerprint et définir le délai d'expiration du script à 5 secondes",
+    "output": "nmap --script http-fingerprint --script-args http-fingerprint.timeout=5s target"
+  },
+  {
+    "input": "Scanner en ajoutant une chaîne de données de 25 octets 'AAAA...' au paquet",
+    "output": "nmap --data-length 25 --data-string 'A'*25 target"
+  },
+  {
+    "input": "Effectuer un scan rapide (Fast Scan) sans privilèges pour les 100 ports les plus courants",
+    "output": "nmap -F --unprivileged target"
+  },
+  {
+    "input": "Utiliser un scan de version léger et afficher les traces de détection de version",
+    "output": "nmap -sV --version-light --version-trace target"
+  },
+  {
+    "input": "Scanner une cible en usurpant une adresse MAC aléatoire",
+    "output": "nmap --spoof-mac 0 target"
+  },
+  {
+    "input": "Lancer le script de recherche de politique de domaine croisé HTTP",
+    "output": "nmap --script http-crossdomainxml target"
+  },
+  {
+    "input": "Effectuer un scan des ports TCP 1-1024 et des ports UDP 1-1024",
+    "output": "nmap -p T:1-1024,U:1-1024 target"
+  },
+  {
+    "input": "Scanner le port 21 (FTP) et vérifier le serveur pour les vulnérabilités de rebond (bounce)",
+    "output": "nmap -p 21 --script ftp-bounce target"
+  },
+  {
+    "input": "Forcer l'utilisation de la version 6 du protocole IP avec un scan SYN",
+    "output": "nmap -6 -sS 2001:db8::1"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN rapide et forcer Nmap à utiliser la résolution DNS du système d'exploitation",
+    "output": "nmap -F -sS --system-dns target"
+  },
+  {
+    "input": "Lancer un scan et tenter de détecter la version de tous les ports ouverts avec la plus faible intensité (0)",
+    "output": "nmap -sV --version-intensity 0 --open target"
+  },
+  {
+    "input": "Exécuter le script de force brute SSH en utilisant un dictionnaire de mots de passe personnalisé",
+    "output": "nmap -p 22 --script ssh-brute --script-args userdb=users.txt,passdb=passwords.txt target"
+  },
+  {
+    "input": "Scanner un hôte et afficher toutes les informations de débogage ainsi que les raisons de l'état des ports",
+    "output": "nmap -d --reason target"
+  },
+  {
+    "input": "Effectuer un balayage des ports avec des leurres aléatoires (5 adresses) et un balayage TCP ACK",
+    "output": "nmap -sA -D RND:5 target"
+  },
+  {
+    "input": "Exclure un bloc CIDR spécifique d'un balayage réseau plus large",
+    "output": "nmap 10.0.0.0/8 --exclude 10.10.0.0/16"
+  },
+  {
+    "input": "Récupérer la bannière des services sur les 1000 ports les plus courants avec un taux d'envoi minimal de 10 paquets/s",
+    "output": "nmap --script banner -p 1-1000 --min-rate 10 target"
+  },
+  {
+    "input": "Définir la temporisation maximale pour l'hôte à 1 minute et forcer le balayage avec le modèle de timing agressif (T5)",
+    "output": "nmap --host-timeout 1m -T5 target"
+  },
+  {
+    "input": "Exécuter tous les scripts de la catégorie 'intrusive' et de la catégorie 'safe' sur une cible",
+    "output": "nmap --script intrusive,safe target"
+  },
+  {
+    "input": "Scanner en utilisant un 'FIN scan' (furtif) et en spécifiant une interface réseau",
+    "output": "nmap -sF -e eth0 target"
+  },
+  {
+    "input": "Effectuer un scan pour détecter les services RPC (Remote Procedure Call) et tenter une attaque contre une CVE spécifique",
+    "output": "nmap --script rpcinfo --script-args rpcinfo.cve=CVE-2019-1234 target"
+  },
+  {
+    "input": "Utiliser un ping ARP (Address Resolution Protocol) pour la découverte d'hôte et afficher les détails en sortie normale",
+    "output": "nmap -PR -oN arp_ping_scan.txt 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner et récupérer les informations d'un serveur VNC sur le port 5900",
+    "output": "nmap -p 5900 --script vnc-info target"
+  },
+  {
+    "input": "Définir la temporisation maximale du RTT (Round Trip Time) pour la détection du système d'exploitation à 500 millisecondes",
+    "output": "nmap -O --osscan-limit --max-rtt-timeout 500ms target"
+  },
+  {
+    "input": "Exclure tous les hôtes listés dans le fichier 'blacklist.txt' du balayage",
+    "output": "nmap 192.168.1.0/24 --exclude-file blacklist.txt"
+  },
+  {
+    "input": "Scanner une cible et afficher le 'raison' de l'état du port pour les ports ouverts uniquement",
+    "output": "nmap --reason --open target"
+  },
+  {
+    "input": "Effectuer un balayage et exporter les résultats en format XML, tout en affichant un niveau de verbosité maximal",
+    "output": "nmap -vvv -oX scan_verbose.xml target"
+  },
+  {
+    "input": "Effectuer un scan des ports pour les services DNS et NTP en utilisant à la fois TCP et UDP",
+    "output": "nmap -p T:53,123,U:53,123 target"
+  },
+  {
+    "input": "Lancer le script de force brute Telnet avec un dictionnaire de mots de passe léger",
+    "output": "nmap -p 23 --script telnet-brute target"
+  },
+  {
+    "input": "Effectuer un ping scan en utilisant un ping ICMP echo et un ping ICMP timestamp",
+    "output": "nmap -sn -PE -PP 10.0.0.0/24"
+  },
+  {
+    "input": "Scanner et tenter d'énumérer les partages SMB sans utiliser de scripts intrusifs",
+    "output": "nmap -p 445 --script smb-enum-shares --script-args smb-enum-shares.unsafe=0 target"
+  },
+  {
+    "input": "Balayer uniquement le protocole IP version 132 (SCTP)",
+    "output": "nmap -sO -p 132 target"
+  },
+  {
+    "input": "Scan sans ping et sans résolution DNS avec l'utilisation de leurres aléatoires",
+    "output": "nmap -Pn -n -D RND:3 target"
+  },
+  {
+    "input": "Lancer un scan agressif et exporter tous les formats de sortie avec un préfixe personnalisé",
+    "output": "nmap -A -oA final_full_scan target"
+  },
+  {
+    "input": "Scanner et exporter les résultats en XML, puis les afficher en sortie standard (stdout) après le scan",
+    "output": "nmap -oX - target"
+  },
+  {
+    "input": "Définir la taille maximale du fragment IP à 16 octets pour l'évasion",
+    "output": "nmap -f -f --mtu 16 target"
+  },
+  {
+    "input": "Définir le nombre minimal de sondes d'exécution parallèles pour la détection des ports à 5",
+    "output": "nmap --min-parallelism 5 target"
+  },
+  {
+    "input": "Effectuer un balayage et lancer le script pour récupérer le titre HTTP du site web",
+    "output": "nmap -p 80,443 --script http-title target.com"
+  },
+  {
+    "input": "Définir le nombre maximal de sondes d'exécution parallèles pour la détection de services à 2",
+    "output": "nmap -sV --version-max-parallelism 2 target"
+  },
+  {
+    "input": "Scanner un hôte en utilisant une adresse IP source bidon (spoofée) non locale",
+    "output": "nmap -S 172.16.2.1 target"
+  },
+  {
+    "input": "Utiliser un scan TCP NULL et un scan Xmas Tree en mode silencieux",
+    "output": "nmap -sN -sX -q target"
+  },
+  {
+    "input": "Exécuter le script de force brute SMB en spécifiant un utilisateur spécifique 'admin'",
+    "output": "nmap -p 445 --script smb-brute --script-args user=admin target"
+  },
+  {
+    "input": "Tenter de détecter la présence d'une base de données Oracle sur les ports standards",
+    "output": "nmap -p 1521,2483,2484 --script oracle-tns-version target"
+  },
+  {
+    "input": "Effectuer une détection d'OS en ignorant les ports non sécurisés (instables)",
+    "output": "nmap -O --osscan-tryall target"
+  },
+  {
+    "input": "Utiliser l'option `--ttl` pour définir le Time-To-Live des paquets sortants à 1",
+    "output": "nmap --ttl 1 target"
+  },
+  {
+    "input": "Balayer une plage d'hôtes en utilisant le ping TCP sur les ports 80 et 443 pour la découverte",
+    "output": "nmap -PS 80,443 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer une découverte d'hôte en utilisant des requêtes TCP SYN sur le port 902 et UDP sur le port 161",
+    "output": "nmap -PS 902 -PU 161 192.168.1.0/24"
+  },
+  {
+    "input": "Utiliser un scan de version léger (version-light) sur les 50 ports les plus courants",
+    "output": "nmap --top-ports 50 -sV --version-light target"
+  },
+  {
+    "input": "Scanner avec une taille de fragment IP de 32 octets et un délai minimal entre les paquets de 100ms",
+    "output": "nmap --mtu 32 --scan-delay 100ms target"
+  },
+  {
+    "input": "Effectuer un scan furtif de type TCP SYN avec un taux maximal de 1000 paquets par seconde sur l'interface eth0",
+    "output": "nmap -sS -e eth0 --max-rate 1000 target"
+  },
+  {
+    "input": "Afficher la trace de la détection d'OS et de la détection de version simultanément",
+    "output": "nmap -O -sV --version-trace --osscan-trace target"
+  },
+  {
+    "input": "Scanner une cible et définir l'adresse IP source sur une plage aléatoire pour la découverte d'hôte",
+    "output": "nmap -sn -S RND:10 192.168.1.0/24"
+  },
+  {
+    "input": "Exécuter le scan agressif (A) et exclure l'exécution de tous les scripts de la catégorie 'intrusive'",
+    "output": "nmap -A --script-exclude intrusive target"
+  },
+  {
+    "input": "Définir le nombre maximal d'hôtes qui seront scannés simultanément à 5",
+    "output": "nmap --max-hostgroup 5 192.168.0.0/16"
+  },
+  {
+    "input": "Scanner les ports 80 et 443 et forcer le script http-brute à utiliser uniquement l'utilisateur 'admin'",
+    "output": "nmap -p 80,443 --script http-brute --script-args http-brute.userdb=admin target"
+  },
+  {
+    "input": "Effectuer un balayage et sauvegarder la sortie en format normal, tout en affichant uniquement les ports ouverts",
+    "output": "nmap -oN open_ports.txt --open target"
+  },
+  {
+    "input": "Utiliser le script pour récupérer les enregistrements DNS A, CNAME, et MX d'un domaine",
+    "output": "nmap --script dns-srv-lookup target.com"
+  },
+  {
+    "input": "Scanner en utilisant un délai d'attente d'initialisation du RTT maximal de 30 secondes",
+    "output": "nmap --initial-rtt-timeout 30s target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN rapide et forcer Nmap à utiliser la résolution DNS du système d'exploitation",
+    "output": "nmap -F -sS --system-dns target"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif avec un TTL de 5 et sans résolution DNS",
+    "output": "nmap -sM --ttl 5 -n target"
+  },
+  {
+    "input": "Définir le taux minimal de paquets à 100 paquets par seconde et ignorer les délais d'attente RTT",
+    "output": "nmap --min-rate 100 --initial-rtt-timeout 0 target"
+  },
+  {
+    "input": "Exécuter un scan et n'afficher que les lignes de sortie commençant par 'Host' dans le format grepable",
+    "output": "nmap -oG - target | grep 'Host'"
+  },
+  {
+    "input": "Afficher toutes les interfaces réseau avec les routes système et les informations de l'hôte distant (mode verbeux)",
+    "output": "nmap --iflist -v"
+  },
+  {
+    "input": "Scanner les ports de 60000 à 65535 uniquement",
+    "output": "nmap -p 60000-65535 target"
+  },
+  {
+    "input": "Utiliser un ping ICMP echo et un scan d'écoute UDP (UDP listening ping) pour la découverte",
+    "output": "nmap -PE -PU 192.168.1.0/24"
+  },
+  {
+    "input": "Utiliser le script http-fingerprint avec un argument pour le nombre maximum de redirections (5)",
+    "output": "nmap -p 80 --script http-fingerprint --script-args http.max-redirect=5 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports en utilisant le protocole IP 17 (UDP) explicitement avec le flag de scan de protocole",
+    "output": "nmap -sO -p 17 target"
+  },
+  {
+    "input": "Scanner les hôtes listés dans un fichier d'entrée et effectuer une détection de version légère",
+    "output": "nmap -iL hosts.txt -sV --version-light"
+  },
+  {
+    "input": "Effectuer un scan des ports et forcer la résolution DNS inverse pour la liste des hôtes scannés",
+    "output": "nmap -R target"
+  },
+  {
+    "input": "Utiliser une taille de fragment MTU de 8 et l'adresse IP source 1.2.3.4",
+    "output": "nmap --mtu 8 -S 1.2.3.4 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter 10 octets d'une chaîne de données hexadécimale personnalisée au paquet",
+    "output": "nmap -sS --data-string '\\xAA\\xBB\\xCC\\xDD\\xEE\\xFF\\x00\\x11\\x22\\x33' target"
+  },
+  {
+    "input": "Utiliser le script http-fingerprint avec un argument pour ignorer la vérification de la taille du corps (body size check)",
+    "output": "nmap --script http-fingerprint --script-args http-fingerprint.skip-size target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et n'afficher que les ports qui sont dans l'état 'filtré' (filtered)",
+    "output": "nmap -oG - target | grep 'Ports:' | grep 'filtered'"
+  },
+  {
+    "input": "Utiliser un ping TCP sur le port 22 et un ping ICMP echo pour la découverte de l'hôte",
+    "output": "nmap -sn -PS 22 -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets à envoyer par hôte à 10 pour une détection plus fiable",
+    "output": "nmap --min-sendto-rate 10 target"
+  },
+  {
+    "input": "Scanner le port 143 (IMAP) et lancer le script de force brute IMAP",
+    "output": "nmap -p 143 --script imap-brute target"
+  },
+  {
+    "input": "Effectuer un balayage et exporter la sortie en format normal, en désactivant le récapitulatif du port",
+    "output": "nmap -oN output.txt --no-stylesheet target"
+  },
+  {
+    "input": "Scanner une cible et forcer la résolution de l'hôte en utilisant uniquement IPv4",
+    "output": "nmap -4 target.com"
+  },
+  {
+    "input": "Utiliser le script pour l'énumération des bases de données PostgreSQL sur le port 5432",
+    "output": "nmap -p 5432 --script pgsql-enum-tables target"
+  },
+  {
+    "input": "Effectuer un scan TCP ACK et un scan de version agressif avec le template de timing T4",
+    "output": "nmap -sA -sV -T4 target"
+  },
+  {
+    "input": "Utiliser l'option `--ttl` pour définir le Time-To-Live à 255 (TTL maximum)",
+    "output": "nmap --ttl 255 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et définir le nombre minimal de tentatives RTT (Round Trip Time) à 5",
+    "output": "nmap -sS --min-rtt-retries 5 target"
+  },
+  {
+    "input": "Scanner une cible et définir la taille maximale du groupe d'hôtes pour les hôtes lents à 1",
+    "output": "nmap --max-hostgroup 1 target"
+  },
+  {
+    "input": "Lancer le script pour tenter de détecter les noms d'utilisateurs via le service SMTP",
+    "output": "nmap -p 25 --script smtp-enum-users target"
+  },
+  {
+    "input": "Exclure les ports 80 à 90 de la détection de version et effectuer une analyse agressive",
+    "output": "nmap -A --version-exclude 80-90 target"
+  },
+  {
+    "input": "Scanner avec une adresse IP source bidon et utiliser un délai de balayage minimal de 50 millisecondes",
+    "output": "nmap -S 172.16.0.1 --scan-delay 50ms target"
+  },
+  {
+    "input": "Scanner les hôtes en utilisant le protocole IP IGMP (protocole 2) pour la découverte",
+    "output": "nmap -sO -p 2 target"
+  },
+  {
+    "input": "Utiliser le script http-auth-finder pour localiser des pages nécessitant une authentification HTTP",
+    "output": "nmap -p 80,443 --script http-auth-finder target"
+  },
+  {
+    "input": "Effectuer un scan des ports et forcer la résolution de l'hôte en utilisant uniquement IPv6",
+    "output": "nmap -6 target.com"
+  },
+  {
+    "input": "Scanner en utilisant un délai maximal de 2 secondes entre les tentatives d'envoi pour chaque port",
+    "output": "nmap --max-retries 0 --host-timeout 2s target"
+  },
+  {
+    "input": "Afficher les détails des paquets envoyés et reçus (mode trace) pendant un scan TCP ACK",
+    "output": "nmap -sA --packet-trace target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et ne pas faire de résolution DNS inverse, en utilisant le mode de timing par défaut T3",
+    "output": "nmap -T3 -n target"
+  },
+  {
+    "input": "Exécuter le script pour détecter la version du service Memcached sur le port 11211",
+    "output": "nmap -p 11211 --script memcached-info target"
+  },
+  {
+    "input": "Effectuer une découverte d'hôte en utilisant des pings ICMP echo, timestamp et netmask simultanément",
+    "output": "nmap -sn -PE -PP -PM 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner une cible et définir l'option IP (IP options) à 0x1337",
+    "output": "nmap --ip-options 0x1337 target"
+  },
+  {
+    "input": "Lancer le scan avec la détection de version la plus complète et le modèle de timing le plus rapide (T5)",
+    "output": "nmap -sV --version-all -T5 target"
+  },
+  {
+    "input": "Scanner les ports 80 et 443 et exclure l'exécution du script 'http-title'",
+    "output": "nmap -p 80,443 --script-exclude http-title target"
+  },
+  {
+    "input": "Définir le nombre minimal d'hôtes à scanner en parallèle à 10 et le maximum à 20",
+    "output": "nmap --min-hostgroup 10 --max-hostgroup 20 10.0.0.0/16"
+  },
+  {
+    "input": "Effectuer un balayage et exporter la sortie à la fois en format normal et en format grepable dans un seul fichier",
+    "output": "nmap -oN results.txt -oG results.txt target"
+  },
+  {
+    "input": "Scanner un hôte et forcer l'utilisation de l'interface 'eth0' pour les pings de découverte",
+    "output": "nmap -sn -e eth0 target"
+  },
+  {
+    "input": "Utiliser le script http-brute en définissant un seul mot de passe à tester : 'Pa$$w0rd1'",
+    "output": "nmap -p 80 --script http-brute --script-args passdb=Pa$$w0rd1 target"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon et forcer la vérification de tous les paquets pour le 'checksum' (somme de contrôle)",
+    "output": "nmap -sM --send-eth target"
+  },
+  {
+    "input": "Scanner le port 80 et utiliser le script http-useragent pour se faire passer pour un navigateur spécifique",
+    "output": "nmap -p 80 --script http-useragent --script-args http.useragent='Mozilla/5.0' target"
+  },
+  {
+    "input": "Définir le nombre maximal d'essais pour la détection d'OS à 3",
+    "output": "nmap -O --max-os-tries 3 target"
+  },
+  {
+    "input": "Scan sans ping et sans résolution DNS, avec un taux minimal de 1 paquet par seconde pour une furtivité maximale",
+    "output": "nmap -Pn -n --min-rate 1 target"
+  },
+  {
+    "input": "Effectuer un scan et afficher les informations de débogage de niveau 6",
+    "output": "nmap -d6 target"
+  },
+  {
+    "input": "Scanner une cible et ajouter la sortie à un fichier XML existant",
+    "output": "nmap --append-output -oX results.xml target"
+  },
+  {
+    "input": "Définir un taux minimal d'envoi de paquets à 500 par seconde et un taux maximal à 1000 par seconde",
+    "output": "nmap --min-rate 500 --max-rate 1000 target"
+  },
+  {
+    "input": "Lancer un scan TCP Connect sur les ports 80 et 443 en utilisant la résolution DNS du système",
+    "output": "nmap -sT -p 80,443 --system-dns target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et définir un délai maximal de 1 seconde pour la détection de services",
+    "output": "nmap -sV --service-timeout 1s target"
+  },
+  {
+    "input": "Scanner le réseau et exclure les hôtes de 192.168.1.10 à 192.168.1.20",
+    "output": "nmap 192.168.1.0/24 --exclude 192.168.1.10-20"
+  },
+  {
+    "input": "Effectuer un scan SYN furtif et forcer le temps de vie (TTL) à 1 pour les pings de découverte",
+    "output": "nmap -sS -sn --ttl 1 target"
+  },
+  {
+    "input": "Utiliser l'option de balayage de hachage de port à 0.5 pour cibler les ports les plus probables",
+    "output": "nmap --port-ratio 0.5 target"
+  },
+  {
+    "input": "Effectuer un balayage et lancer le script pour récupérer les titres HTTP avec une profondeur de recherche maximale de 2",
+    "output": "nmap -p 80,443 --script http-title --script-args http-title.max-depth=2 target"
+  },
+  {
+    "input": "Scanner les ports 22 et 23 et désactiver la détection de version pour ces deux ports",
+    "output": "nmap -p 22,23 -sV --version-exclude 22,23 target"
+  },
+  {
+    "input": "Utiliser le script de détection de version SMB avec le mode verbosité maximum (niveau 3)",
+    "output": "nmap -vvv -p 445 --script smb-os-discovery target"
+  },
+  {
+    "input": "Effectuer un scan des ports et forcer la lecture du fichier de configuration nmap.conf",
+    "output": "nmap --datadir /path/to/nmap.conf target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et désactiver la vérification du checksum des paquets",
+    "output": "nmap -sS --no-checksums target"
+  },
+  {
+    "input": "Utiliser le script http-brute pour tenter une attaque sur un chemin spécifique et exporter les résultats en format XML",
+    "output": "nmap -p 80 --script http-brute --script-args http-brute.path=/login -oX brute_scan.xml target"
+  },
+  {
+    "input": "Scanner une cible et définir le numéro de séquence TCP initial à 1000",
+    "output": "nmap --initial-seq 1000 target"
+  },
+  {
+    "input": "Afficher les informations de débogage de niveau maximum (9)",
+    "output": "nmap -d9 target"
+  },
+  {
+    "input": "Effectuer un balayage et définir un taux maximal d'envoi de paquets très lent (0.1 paquet/s)",
+    "output": "nmap --max-rate 0.1 target"
+  },
+  {
+    "input": "Utiliser un scan de version agressif et afficher tous les ports, y compris ceux qui ne sont pas scannés",
+    "output": "nmap -sV -A --allports target"
+  },
+  {
+    "input": "Scanner le port 21 (FTP) et spécifier un fichier d'utilisateurs et de mots de passe pour le script ftp-brute",
+    "output": "nmap -p 21 --script ftp-brute --script-args userdb=users.txt,passdb=passwords.txt target"
+  },
+  {
+    "input": "Effectuer un scan de la liste d'hôtes sans résolution DNS et exporter la sortie en format grepable",
+    "output": "nmap -sL -n -oG list.gnmap 192.168.0.0/24"
+  },
+  {
+    "input": "Définir la quantité minimale de tentatives RTT pour la détection des services à 1",
+    "output": "nmap -sV --min-rtt-retries 1 target"
+  },
+  {
+    "input": "Effectuer un scan furtif (SYN) avec des paquets fragmentés et un faible TTL (Time-To-Live) de 2",
+    "output": "nmap -sS -f --ttl 2 target"
+  },
+  {
+    "input": "Définir le port source à 20 et effectuer un scan TCP FIN furtif",
+    "output": "nmap -sF -g 20 target"
+  },
+  {
+    "input": "Effectuer un scan de version agressif avec le niveau de verbosité maximal et afficher les traces de paquets",
+    "output": "nmap -sV -vvv --packet-trace target"
+  },
+  {
+    "input": "Scanner les hôtes d'un fichier et désactiver la résolution de noms pour tous les résultats",
+    "output": "nmap -iL hosts.txt -n"
+  },
+  {
+    "input": "Utiliser le script de détection de version SMB et forcer le protocole SMBv3",
+    "output": "nmap -p 445 --script smb-os-discovery --script-args smb-protocol=SMB3 target"
+  },
+  {
+    "input": "Définir une limite de 10 hôtes pour le balayage parallèle des hôtes lents",
+    "output": "nmap --max-hostgroup 10 --min-hostgroup 1 target_network"
+  },
+  {
+    "input": "Effectuer un balayage et exporter la sortie en XML sans le DTD (Document Type Definition)",
+    "output": "nmap -oX - --noninteractive target"
+  },
+  {
+    "input": "Scanner un réseau et désactiver la vérification des adresses cibles (No-Verify)",
+    "output": "nmap --unprivileged --no-verify 192.168.1.0/24"
+  },
+  {
+    "input": "Utiliser l'option de balayage des ports pour inclure les ports 1000 à 2000 et exclure le port 1500",
+    "output": "nmap -p 1000-2000 --exclude-ports 1500 target"
+  },
+  {
+    "input": "Lancer le script ssh-brute et spécifier le nombre maximal d'essais pour chaque utilisateur à 2",
+    "output": "nmap -p 22 --script ssh-brute --script-args ssh-brute.tries=2 target"
+  },
+  {
+    "input": "Scanner en utilisant un scan UDP et définir un RTT minimal de 500ms",
+    "output": "nmap -sU --min-rtt-timeout 500ms target"
+  },
+  {
+    "input": "Effectuer un balayage et afficher les informations de débogage de niveau 7",
+    "output": "nmap -d7 target"
+  },
+  {
+    "input": "Effectuer un scan de type IP Protocol et afficher les raisons d'état",
+    "output": "nmap -sO --reason target"
+  },
+  {
+    "input": "Scanner une cible et définir la temporisation minimale RTT pour une nouvelle tentative de port à 500 millisecondes",
+    "output": "nmap --min-rtt-timeout 500ms target"
+  },
+  {
+    "input": "Exécuter le script ssh-hostkey et exporter la sortie vers un fichier XML normalisé",
+    "output": "nmap -p 22 --script ssh-hostkey -oX ssh_key_scan.xml target"
+  },
+  {
+    "input": "Désactiver le ping ARP et utiliser uniquement le ping ICMP echo pour la découverte d'hôte sur le réseau local",
+    "output": "nmap -sn -PE --disable-arp-ping 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner un sous-réseau et sauvegarder la sortie dans tous les formats avec le niveau de verbosité maximal",
+    "output": "nmap -vvv -A -oA full_scan_verbose 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner et exporter la sortie XML vers la sortie standard (stdout) pour un traitement ultérieur",
+    "output": "nmap -oX - target"
+  },
+  {
+    "input": "Utiliser le script http-auth-finder et spécifier une liste de chemins à vérifier à partir d'un fichier 'paths.txt'",
+    "output": "nmap -p 80 --script http-auth-finder --script-args http-auth-finder.paths=paths.txt target"
+  },
+  {
+    "input": "Définir le nombre maximal de sondes parallèles pour le balayage de ports à 50",
+    "output": "nmap --max-parallelism 50 target"
+  },
+  {
+    "input": "Effectuer un scan TCP ACK furtif et définir un délai minimal de 50ms entre les envois de paquets",
+    "output": "nmap -sA --scan-delay 50ms target"
+  },
+  {
+    "input": "Exclure une plage spécifique de ports de tous les types de balayage",
+    "output": "nmap -p- --exclude-ports 135-139 target"
+  },
+  {
+    "input": "Scanner en utilisant le modèle de timing le plus agressif (T5) et forcer la détection d'OS",
+    "output": "nmap -O -T5 target"
+  },
+  {
+    "input": "Scanner un hôte IPv6 et récupérer les enregistrements DNS à l'aide d'un script",
+    "output": "nmap -6 --script dns-srv-lookup 2001:db8::1"
+  },
+  {
+    "input": "Scanner une cible et tenter de détecter la version du service en utilisant la trace la plus détaillée (niveau de débogage 9)",
+    "output": "nmap -sV --version-trace -d9 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et définir le 'tos' (Type of Service) à 16 pour le paquet IP",
+    "output": "nmap --tos 16 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 8",
+    "output": "nmap -d8 target"
+  },
+  {
+    "input": "Utiliser le script http-brute pour tenter une attaque sur un chemin spécifique et exporter les résultats en format normal",
+    "output": "nmap -p 80 --script http-brute --script-args http-brute.path=/admin/login -oN brute_admin_scan.txt target"
+  },
+  {
+    "input": "Définir le numéro de séquence TCP initial et le numéro d'identification IP initial pour le scan",
+    "output": "nmap --initial-seq 1000 --id-sequence 2000 target"
+  },
+  {
+    "input": "Effectuer un balayage et forcer la détection de version la plus complète sans dépasser un délai de 5 secondes par service",
+    "output": "nmap -sV --version-all --service-timeout 5s target"
+  },
+  {
+    "input": "Scanner le réseau et exclure les hôtes dont le nom commence par 'serveur'",
+    "output": "nmap 192.168.1.0/24 --exclude serveur*"
+  },
+  {
+    "input": "Utiliser un scan TCP NULL furtif et ajouter 10 octets de données aléatoires au paquet",
+    "output": "nmap -sN --data-length 10 target"
+  },
+  {
+    "input": "Effectuer un ping scan avec un ping ICMP echo et utiliser un Time-To-Live (TTL) de 64",
+    "output": "nmap -sn -PE --ttl 64 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner les ports 20 et 21 (FTP) et exécuter le script de récupération de la version des services",
+    "output": "nmap -p 20,21 --script ftp-anon target"
+  },
+  {
+    "input": "Effectuer un balayage et forcer la résolution de noms pour les hôtes avec un timeout de 10 secondes",
+    "output": "nmap -R --host-timeout 10s target"
+  },
+  {
+    "input": "Effectuer un scan et afficher les informations de débogage de niveau 5",
+    "output": "nmap -d5 target"
+  },
+  {
+    "input": "Utiliser le script http-brute pour tenter une attaque sur le chemin par défaut sans mot de passe, mais avec une liste d'utilisateurs",
+    "output": "nmap -p 80 --script http-brute --script-args userdb=users.txt target"
+  },
+  {
+    "input": "Scanner une cible et définir l'identifiant initial du fragment IP (fragment ID) à 5000",
+    "output": "nmap --id-sequence 5000 target"
+  },
+  {
+    "input": "Effectuer un balayage et exporter la sortie en format normal avec un niveau de verbosité intermédiaire (2)",
+    "output": "nmap -vv -oN verbose_output.txt target"
+  },
+  {
+    "input": "Utiliser l'option `--ttl` pour définir le Time-To-Live à une valeur aléatoire entre 1 et 100",
+    "output": "nmap --ttl 1-100 target"
+  },
+  {
+    "input": "Scanner une cible en forçant le port source à 80 (HTTP) pour les paquets sortants",
+    "output": "nmap -g 80 target"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et ajouter un 'padding' de données aléatoires de 50 octets",
+    "output": "nmap -sM --data-length 50 target"
+  },
+  {
+    "input": "Lancer le script pour l'énumération des utilisateurs SMB en utilisant un dictionnaire d'utilisateurs spécifique",
+    "output": "nmap -p 445 --script smb-enum-users --script-args smb-enum-users.users='john,jane,admin' target"
+  },
+  {
+    "input": "Scanner un réseau et définir le nombre maximal de pings parallèles à 10 pour la découverte d'hôte",
+    "output": "nmap -sn --max-parallelism 10 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un balayage des ports et désactiver la vérification des paquets pour le DTD (Document Type Definition)",
+    "output": "nmap -oX output.xml --no-stylesheet target"
+  },
+  {
+    "input": "Effectuer un scan furtif très lent (T1) avec détection de version sur la cible",
+    "output": "nmap -sS -T1 -sV target"
+  },
+  {
+    "input": "Afficher uniquement les ports ouverts dans le format grepable et enregistrer dans un fichier",
+    "output": "nmap --open -oG open_ports.gnmap target"
+  },
+  {
+    "input": "Utiliser le script http-auth-finder avec le chemin /admin et les identifiants 'test:pass'",
+    "output": "nmap -p 80 --script http-auth-finder --script-args http-auth-finder.path=/admin,http-auth-finder.user=test,http-auth-finder.pass=pass target"
+  },
+  {
+    "input": "Lancer le script finger sur le port 79",
+    "output": "nmap -p 79 --script finger target"
+  },
+  {
+    "input": "Découverte d'hôte avec ping ICMP echo et ping TCP SYN sur le port 902",
+    "output": "nmap -sn -PE -PS 902 192.168.1.0/24"
+  },
+  {
+    "input": "Scan avec une longueur de données de paquet de 40 octets",
+    "output": "nmap --data-length 40 target"
+  },
+  {
+    "input": "Définir un délai maximal de 5 secondes entre les tentatives de scan de port",
+    "output": "nmap --max-scan-delay 5s target"
+  },
+  {
+    "input": "Scanner la cible et exporter la sortie XML vers un fichier sans DTD pour un parsing simple",
+    "output": "nmap -oX output.xml --no-stylesheet target"
+  },
+  {
+    "input": "Scanner les ports avec un taux minimal de 5 paquets par seconde et une temporisation RTT maximale de 10 secondes",
+    "output": "nmap --min-rate 5 --max-rtt-timeout 10s target"
+  },
+  {
+    "input": "Effectuer une détection d'OS en ignorant les hôtes pour lesquels les données d'empreinte digitale sont insuffisantes",
+    "output": "nmap -O --osscan-limit target"
+  },
+  {
+    "input": "Utiliser le script dns-brute avec 5 threads pour un balayage plus rapide",
+    "output": "nmap --script dns-brute --script-args dns-brute.threads=5 target.com"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN avec des leurres aléatoires et utiliser l'interface spécifique eth1",
+    "output": "nmap -sS -D RND:3 -e eth1 target"
+  },
+  {
+    "input": "Effectuer un scan SYN furtif et un scan TCP Connect sur les 100 ports les plus communs",
+    "output": "nmap -sS -sT --top-ports 100 target"
+  },
+  {
+    "input": "Scanner et définir le Time-To-Live (TTL) à une valeur spécifique (128)",
+    "output": "nmap --ttl 128 target"
+  },
+  {
+    "input": "Exécuter un scan NULL, FIN, et Xmas combiné",
+    "output": "nmap -sF -sX -sN target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et définir un délai d'attente maximal pour la détection de la version du service à 500 millisecondes",
+    "output": "nmap -sV --service-timeout 500ms target"
+  },
+  {
+    "input": "Lancer les scripts d'information SNMP et de force brute SNMP ensemble",
+    "output": "nmap -sU -p 161 --script snmp-info,snmp-brute target"
+  },
+  {
+    "input": "Afficher les statistiques du scan toutes les 5 secondes et inclure la raison des états des ports",
+    "output": "nmap --stats-every 5s --reason target"
+  },
+  {
+    "input": "Scanner les ports TCP de 1025 à 65535 uniquement",
+    "output": "nmap -p T:1025-65535 target"
+  },
+  {
+    "input": "Forcer la détection d'OS avec la limite de tentatives à 1",
+    "output": "nmap -O --osscan-limit --max-os-tries 1 target"
+  },
+  {
+    "input": "Effectuer un scan TCP Connect sur le port 80 avec une charge utile HTTP personnalisée 'GET /index.html'",
+    "output": "nmap -sT -p 80 --data-string 'GET /index.html' target"
+  },
+  {
+    "input": "Définir l'interface réseau à 'eth0' et utiliser le port source 53 pour l'évasion",
+    "output": "nmap -e eth0 -g 53 target"
+  },
+  {
+    "input": "Utiliser un ping scan sans DNS, avec ICMP echo, et limiter le taux de paquets à 50/seconde",
+    "output": "nmap -n -sn -PE --max-rate 50 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan SYN avec fragmentation et une taille MTU de 24",
+    "output": "nmap -sS -f --mtu 24 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN sur le port 80 et un ping UDP sur le port 161 pour la découverte d'hôte",
+    "output": "nmap -PS 80 -PU 161 target"
+  },
+  {
+    "input": "Scanner les ports avec un délai minimal de 1 seconde entre les tentatives d'envoi de paquets",
+    "output": "nmap --scan-delay 1s target"
+  },
+  {
+    "input": "Définir la valeur ToS/DSCP des paquets IP sortants à 48 (Minimal-delay)",
+    "output": "nmap --tos 48 target"
+  },
+  {
+    "input": "Utiliser le script http-fingerprint et afficher la sortie brute du script (trace de débogage)",
+    "output": "nmap -p 80 --script http-fingerprint -d target"
+  },
+  {
+    "input": "Scanner et forcer la détection de version la plus complète et la détection d'OS en mode verbeux",
+    "output": "nmap -A -v --version-all target"
+  },
+  {
+    "input": "Définir l'identifiant initial du fragment IP (fragment ID) à 1",
+    "output": "nmap --id-sequence 1 target"
+  },
+  {
+    "input": "Scanner le port 25 et tenter la force brute SMTP avec un seul nom d'utilisateur",
+    "output": "nmap -p 25 --script smtp-brute --script-args smtp-brute.users=user1 target"
+  },
+  {
+    "input": "Effectuer un balayage et exporter la sortie en XML sans afficher le DTD (Document Type Definition)",
+    "output": "nmap -oX output.xml --no-stylesheet target"
+  },
+  {
+    "input": "Utiliser un scan de type NULL sur les 10 ports les plus communs",
+    "output": "nmap -sN --top-ports 10 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et définir le nombre maximal de retries par hôte à 1",
+    "output": "nmap -sS --max-retries 1 target"
+  },
+  {
+    "input": "Lancer le script pour vérifier les vulnérabilités par déni de service (DoS)",
+    "output": "nmap --script dos target"
+  },
+  {
+    "input": "Afficher le 'fingerprint' détaillé de la détection d'OS de la cible",
+    "output": "nmap -O --osscan-trace target"
+  },
+  {
+    "input": "Effectuer un balayage des ports avec 10 tentatives maximales de reconnexion pour chaque port",
+    "output": "nmap --max-retries 10 target"
+  },
+  {
+    "input": "Utiliser le ping ICMP echo pour la découverte d'hôte et définir le numéro d'identification IP initial à 100",
+    "output": "nmap -PE --id-sequence 100 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner la cible et ignorer le port 80 de tous les balayages",
+    "output": "nmap -p- --exclude 80 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et définir le temps d'attente RTT initial à 1 minute pour les réseaux lents",
+    "output": "nmap -sS --initial-rtt-timeout 1m target"
+  },
+  {
+    "input": "Lancer le scan de version en mode verbeux et afficher la trace de la détection de version",
+    "output": "nmap -sV -v --version-trace target"
+  },
+  {
+    "input": "Exécuter le script http-brute en utilisant un fichier de mots de passe et un nombre de threads spécifique",
+    "output": "nmap -p 80 --script http-brute --script-args passdb=passwords.txt,brute.threads=10 target"
+  },
+  {
+    "input": "Scanner une cible et définir l'identifiant initial du fragment IP (fragment ID) à une valeur aléatoire",
+    "output": "nmap --id-sequence RND target"
+  },
+  {
+    "input": "Effectuer un balayage et afficher les informations de débogage de niveau 4",
+    "output": "nmap -d4 target"
+  },
+  {
+    "input": "Utiliser un ping scan sans DNS et sans paquets ARP pour la découverte d'hôte",
+    "output": "nmap -sn -n --disable-arp-ping 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner les ports TCP 1-100 et les ports UDP 50-150",
+    "output": "nmap -p T:1-100,U:50-150 target"
+  },
+  {
+    "input": "Effectuer un scan TCP ACK furtif avec des paquets fragmentés et un faible TTL (2)",
+    "output": "nmap -sA -f --ttl 2 target"
+  },
+  {
+    "input": "Lancer le script http-open-proxy pour vérifier si un serveur web est un proxy ouvert",
+    "output": "nmap -p 80 --script http-open-proxy target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et afficher les statistiques de l'analyse toutes les 10 secondes",
+    "output": "nmap -sS --stats-every 10s target"
+  },
+  {
+    "input": "Utiliser le script http-fingerprint et afficher les informations de trace de détection de version",
+    "output": "nmap -p 80 --script http-fingerprint --version-trace target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP du paquet IP à 8 (High-throughput)",
+    "output": "nmap --tos 8 target"
+  },
+  {
+    "input": "Définir le numéro de séquence TCP initial à 5000 et le port source à 443",
+    "output": "nmap --initial-seq 5000 -g 443 target"
+  },
+  {
+    "input": "Effectuer un scan UDP des 10 ports les plus courants avec un délai maximal de 5 secondes par port",
+    "output": "nmap -sU --top-ports 10 --max-rtt-timeout 5s target"
+  },
+  {
+    "input": "Lancer un scan agressif et exclure tous les scripts de la catégorie 'dos' (Denial of Service)",
+    "output": "nmap -A --script-exclude dos target"
+  },
+  {
+    "input": "Scanner le port 21 (FTP) et spécifier un fichier d'utilisateurs spécifique pour le bruteforce",
+    "output": "nmap -p 21 --script ftp-brute --script-args userdb=ftp_users.txt target"
+  },
+  {
+    "input": "Effectuer un ping scan en utilisant uniquement le ping ICMP timestamp et l'interface eth0",
+    "output": "nmap -sn -PP -e eth0 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner les ports avec un taux minimal de 100 paquets par seconde et une temporisation minimale RTT de 100ms",
+    "output": "nmap --min-rate 100 --min-rtt-timeout 100ms target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et n'afficher que les ports qui sont dans l'état 'open|filtered'",
+    "output": "nmap -oG - target | grep 'Ports:' | grep 'open|filtered'"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de verbosité maximal et le temps de vie (TTL) à 10",
+    "output": "nmap -vvv -oN final_scan.txt --ttl 10 target"
+  },
+  {
+    "input": "Utiliser le script dns-brute avec une profondeur de recherche maximale de 2",
+    "output": "nmap --script dns-brute --script-args dns-brute.threads=5,dns-brute.max-depth=2 target.com"
+  },
+  {
+    "input": "Scanner la cible et ignorer le scan des ports si la détection d'OS n'est pas possible",
+    "output": "nmap -sS -O --osscan-only target"
+  },
+  {
+    "input": "Effectuer un ping scan en utilisant un ping ICMP echo et un ping TCP ACK sur les ports 80, 443, 22",
+    "output": "nmap -sn -PE -PS 80,443,22 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner et exporter la sortie XML avec une DTD personnalisée",
+    "output": "nmap -oX custom_scan.xml --stylesheet custom.xsl target"
+  },
+  {
+    "input": "Définir la taille minimale du RTT à 50ms et la taille maximale à 500ms",
+    "output": "nmap --min-rtt-timeout 50ms --max-rtt-timeout 500ms target"
+  },
+  {
+    "input": "Lancer le script de force brute SSH en utilisant uniquement le mode de remplissage par mot de passe (password-only mode)",
+    "output": "nmap -p 22 --script ssh-brute --script-args ssh-brute.passonly=true target"
+  },
+  {
+    "input": "Afficher les informations de débogage de niveau 2 et la trace des paquets",
+    "output": "nmap -d2 --packet-trace target"
+  },
+  {
+    "input": "Utiliser un scan TCP NULL furtif et définir le numéro d'identification IP initial à une valeur très élevée",
+    "output": "nmap -sN --id-sequence 65000 target"
+  },
+  {
+    "input": "Scanner avec un délai d'attente hôte de 10 minutes (10m) et l'option 'reason'",
+    "output": "nmap --host-timeout 10m --reason target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour les ports 1-100",
+    "output": "nmap -sV --version-exclude 1-100 target"
+  },
+  {
+    "input": "Scanner une cible et ajouter la sortie au format normal à un fichier existant",
+    "output": "nmap --append-output -oN existing_scan.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et désactiver le 'backoff' du délai de temporisation (en limitant les tentatives à 0)",
+    "output": "nmap -sS --max-retries 0 target"
+  },
+  {
+    "input": "Lancer le script pour vérifier les vulnérabilités Heartbleed sur les ports 8443 et 9443",
+    "output": "nmap -p 8443,9443 --script ssl-heartbleed target"
+  },
+  {
+    "input": "Définir le port source à 53 et le numéro de séquence initial à 10000 pour le scan",
+    "output": "nmap -g 53 --initial-seq 10000 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et afficher les statistiques de l'analyse toutes les 30 secondes",
+    "output": "nmap -sS --stats-every 30s target"
+  },
+  {
+    "input": "Utiliser le script http-fingerprint et exclure la détection de version pour le port 80",
+    "output": "nmap --script http-fingerprint --version-exclude 80 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format 'normal' en ajoutant de la verbosité à un fichier existant",
+    "output": "nmap -oN output.txt --append-output -vv target"
+  },
+  {
+    "input": "Effectuer un scan sans ping et sans résolution DNS, avec un taux minimal de 1 paquet par 5 secondes",
+    "output": "nmap -Pn -n --min-rate 0.2 target"
+  },
+  {
+    "input": "Exclure le port 0 (rarement utilisé) du balayage des ports",
+    "output": "nmap -p- --exclude-ports 0 target"
+  },
+  {
+    "input": "Lancer le scan de détection de version avec une intensité de 5",
+    "output": "nmap -sV --version-intensity 5 target"
+  },
+  {
+    "input": "Utiliser le script pour l'énumération des utilisateurs SMB en définissant le nombre maximal de threads à 5",
+    "output": "nmap -p 445 --script smb-enum-users --script-args smb-enum-users.max-threads=5 target"
+  },
+  {
+    "input": "Effectuer un scan sur une cible en utilisant une adresse MAC usurpée spécifique",
+    "output": "nmap --spoof-mac 00:11:22:33:44:55 target"
+  },
+  {
+    "input": "Scanner les ports avec un délai minimal de 500ms entre les envois de paquets et un taux minimal de 1 paquet/s",
+    "output": "nmap --scan-delay 500ms --min-rate 1 target"
+  },
+  {
+    "input": "Effectuer un ping scan avec un ping ICMP netmask et désactiver la vérification du checksum",
+    "output": "nmap -sn -PM --no-checksums 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner et forcer la résolution DNS pour la liste des hôtes scannés avec une verbosité maximale",
+    "output": "nmap -R -vvv target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et définir le Time-To-Live (TTL) à 1 pour les paquets de balayage",
+    "output": "nmap -sS --ttl 1 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 1",
+    "output": "nmap -d1 target"
+  },
+  {
+    "input": "Utiliser le script http-auth-finder et ignorer les chemins d'accès par défaut (default paths)",
+    "output": "nmap -p 80 --script http-auth-finder --script-args http-auth-finder.path=/custom_login target"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets à envoyer par hôte à 20 pour une détection plus fiable",
+    "output": "nmap --min-sendto-rate 20 target"
+  },
+  {
+    "input": "Effectuer un scan UDP des ports 161 (SNMP) et 53 (DNS) avec un taux maximal de 50 paquets par seconde",
+    "output": "nmap -sU -p 53,161 --max-rate 50 target"
+  },
+  {
+    "input": "Scanner une cible et forcer la résolution de l'hôte en utilisant uniquement IPv4 et le port source 80",
+    "output": "nmap -4 -g 80 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et n'afficher que les lignes de sortie contenant l'état 'open' ou 'filtered' dans le format grepable",
+    "output": "nmap -oG - target | grep 'Ports:' | grep 'open\\|filtered'"
+  },
+  {
+    "input": "Lancer le script pour l'énumération des utilisateurs SMB en utilisant une liste d'utilisateurs spécifique",
+    "output": "nmap -p 445 --script smb-enum-users --script-args smb-enum-users.users='guest,support' target"
+  },
+  {
+    "input": "Utiliser un scan de type Xmas Tree furtif avec des paquets fragmentés et une taille MTU de 8",
+    "output": "nmap -sX -f --mtu 8 target"
+  },
+  {
+    "input": "Scanner une cible et définir la temporisation maximale RTT à 200 millisecondes (pour les réseaux rapides)",
+    "output": "nmap --max-rtt-timeout 200ms target"
+  },
+  {
+    "input": "Effectuer un scan des ports et forcer l'utilisation d'une interface spécifique ('eth1') et un port source spécifique (12345)",
+    "output": "nmap -e eth1 -g 12345 target"
+  },
+  {
+    "input": "Lancer le script http-methods pour lister les méthodes et utiliser un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fenêtre TCP initiale de 256",
+    "output": "nmap -sS --initial-window 256 target"
+  },
+  {
+    "input": "Scanner en ajoutant 100 octets de données aléatoires au paquet ICMP ping",
+    "output": "nmap -PE --data-length 100 target"
+  },
+  {
+    "input": "Lancer le script http-brute en utilisant un utilisateur et un mot de passe très spécifique ('testuser', 'testpass')",
+    "output": "nmap -p 80 --script http-brute --script-args userdb=testuser,passdb=testpass target"
+  },
+  {
+    "input": "Définir un délai maximal d'attente pour le balayage des ports à 30 secondes",
+    "output": "nmap --max-scan-delay 30s target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et afficher les raisons d'état des ports pour les 10 ports les plus communs",
+    "output": "nmap --top-ports 10 --reason target"
+  },
+  {
+    "input": "Scanner et forcer Nmap à ne pas effectuer de rebond de port (port bounce)",
+    "output": "nmap --disable-arp-ping --disable-port-bounce target"
+  },
+  {
+    "input": "Utiliser un scan de version agressif avec une intensité de 6",
+    "output": "nmap -sV --version-intensity 6 target"
+  },
+  {
+    "input": "Scanner tous les ports et exclure la détection d'OS",
+    "output": "nmap -p- -Pn target"
+  },
+  {
+    "input": "Afficher les informations de débogage de niveau 3 et la trace des paquets",
+    "output": "nmap -d3 --packet-trace target"
+  },
+  {
+    "input": "Lancer le script pour vérifier si le serveur SMTP est vulnérable à l'énumération d'utilisateurs avec le mode verbeux",
+    "output": "nmap -p 25 --script smtp-enum-users -v target"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon avec un taux maximal de 5 paquets par seconde",
+    "output": "nmap -sM --max-rate 5 target"
+  },
+  {
+    "input": "Scanner et définir le 'tos' (Type of Service) à 10 pour le paquet IP",
+    "output": "nmap --tos 10 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et définir le nombre minimal de paquets à envoyer par hôte à 5",
+    "output": "nmap -sS --min-sendto-rate 5 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les statistiques du scan toutes les 1 minute (60s)",
+    "output": "nmap --stats-every 60s target"
+  },
+  {
+    "input": "Utiliser le script http-methods avec le chemin /api/v1/",
+    "output": "nmap -p 80 --script http-methods --script-args http-methods.path=/api/v1/ target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et définir le 'tos' (Type of Service) à 20 pour le paquet IP",
+    "output": "nmap --tos 20 target"
+  },
+  {
+    "input": "Scanner et forcer la détection de version avec le niveau d'intensité le plus bas (0)",
+    "output": "nmap -sV --version-intensity 0 target"
+  },
+  {
+    "input": "Définir la taille maximale de la fenêtre TCP initiale à 4096",
+    "output": "nmap --initial-window 4096 target"
+  },
+  {
+    "input": "Utiliser un scan de type IP Protocol et afficher les raisons d'état des ports",
+    "output": "nmap -sO --reason target"
+  },
+  {
+    "input": "Scanner un réseau et exclure tous les ports d'une analyse sauf les ports HTTP, HTTPS, et SSH",
+    "output": "nmap -p 80,443,22 target_network"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon avec une longueur de données de paquet de 100 octets",
+    "output": "nmap -sM --data-length 100 target"
+  },
+  {
+    "input": "Scanner une cible et désactiver le 'backoff' du délai de temporisation (en limitant les tentatives à 1)",
+    "output": "nmap --max-retries 1 target"
+  },
+  {
+    "input": "Effectuer un scan UDP des 20 ports les plus courants",
+    "output": "nmap -sU --top-ports 20 target"
+  },
+  {
+    "input": "Lancer le script smb-enum-shares et spécifier une interface réseau pour le scan",
+    "output": "nmap -p 445 --script smb-enum-shares -e eth0 target"
+  },
+  {
+    "input": "Scanner en utilisant une taille de fragment IP de 48 octets",
+    "output": "nmap --mtu 48 target"
+  },
+  {
+    "input": "Définir le port source à 60000 et le numéro de séquence initial à 1000 pour le scan",
+    "output": "nmap -g 60000 --initial-seq 1000 target"
+  },
+  {
+    "input": "Lancer le scan de version avec une intensité de 7",
+    "output": "nmap -sV --version-intensity 7 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et afficher les informations de débogage de niveau maximum (9)",
+    "output": "nmap -d9 target"
+  },
+  {
+    "input": "Utiliser le script http-methods et forcer l'utilisation de HTTPS",
+    "output": "nmap -p 443 --script http-methods --script-args https=true target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 30 minutes",
+    "output": "nmap --host-timeout 30m target"
+  },
+  {
+    "input": "Scanner sans ping et sans résolution DNS, avec l'option d'envoi de paquets Ethernet bruts",
+    "output": "nmap -Pn -n --send-eth target"
+  },
+  {
+    "input": "Utiliser un ping TCP sur le port 143 et un ping UDP sur le port 443 pour la découverte d'hôte",
+    "output": "nmap -PS 143 -PU 443 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et définir le nombre maximal de retries à 5 par port",
+    "output": "nmap -sS --max-retries 5 target"
+  },
+  {
+    "input": "Scanner les ports 80 et 443 et exclure le script 'http-title' du balayage",
+    "output": "nmap -p 80,443 --script-exclude http-title target"
+  },
+  {
+    "input": "Afficher la trace des paquets envoyés et reçus lors d'un scan de détection d'OS",
+    "output": "nmap -O --packet-trace target"
+  },
+  {
+    "input": "Définir la taille maximale du groupe d'hôtes pour le balayage parallèle à 256",
+    "output": "nmap --max-hostgroup 256 10.0.0.0/8"
+  },
+  {
+    "input": "Scanner une cible et définir la taille maximale de la fenêtre TCP initiale à 8192",
+    "output": "nmap --initial-window 8192 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et afficher les informations de débogage de niveau 7 avec la trace des paquets",
+    "output": "nmap -d7 --packet-trace target"
+  },
+  {
+    "input": "Utiliser le script http-fingerprint et exclure la détection de version pour les ports 80 et 443",
+    "output": "nmap --script http-fingerprint --version-exclude 80,443 target"
+  },
+  {
+    "input": "Définir un délai maximal de 4 heures pour l'expiration de l'hôte",
+    "output": "nmap --host-timeout 4h target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans ping ARP",
+    "output": "nmap -R --disable-arp-ping target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN sur les ports 1-1000 et exclure les ports 80 et 443",
+    "output": "nmap -sS -p 1-1000 --exclude-ports 80,443 target"
+  },
+  {
+    "input": "Lancer le scan de version avec une intensité de 8 et un timeout de service de 1 seconde",
+    "output": "nmap -sV --version-intensity 8 --service-timeout 1s target"
+  },
+  {
+    "input": "Utiliser le script pour l'énumération des utilisateurs SMB et définir la liste des utilisateurs à partir d'un fichier",
+    "output": "nmap -p 445 --script smb-enum-users --script-args smb-enum-users.userfile=custom_users.txt target"
+  },
+  {
+    "input": "Scanner en utilisant le port source 137 (NetBIOS) et le port destination 137",
+    "output": "nmap -g 137 -p 137 target"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le TTL à une valeur très faible (1)",
+    "output": "nmap -sM --ttl 1 target"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets à envoyer par hôte à 1 et le taux minimal de paquets à 100/s",
+    "output": "nmap --min-sendto-rate 1 --min-rate 100 target"
+  },
+  {
+    "input": "Scanner et exporter la sortie en format normal avec un niveau de verbosité maximal et afficher les raisons d'état",
+    "output": "nmap -vvv -oN final_output.txt --reason target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fenêtre TCP initiale de 1024",
+    "output": "nmap -sS --initial-window 1024 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 6 avec la trace des paquets",
+    "output": "nmap -d6 --packet-trace target"
+  },
+  {
+    "input": "Lancer le scan de version avec une intensité de 9 et une temporisation RTT minimale de 100ms",
+    "output": "nmap -sV --version-intensity 9 --min-rtt-timeout 100ms target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 2 heures",
+    "output": "nmap --host-timeout 2h target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping TCP",
+    "output": "nmap -R -sn -PU 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 21 (FTP)",
+    "output": "nmap -sM -g 21 target"
+  },
+  {
+    "input": "Utiliser le script http-methods avec le chemin /v1/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/v1/api/ target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 58 (ICMPv6) pour la découverte",
+    "output": "nmap -sO -p 58 target"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets à envoyer par hôte à 1 et la quantité maximale à 5",
+    "output": "nmap --min-sendto-rate 1 --max-sendto-rate 5 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour les ports 1025-2000",
+    "output": "nmap -sV --version-exclude 1025-2000 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 8",
+    "output": "nmap -oN debug_output.txt -d8 target"
+  },
+  {
+    "input": "Lancer le script de force brute SMB en utilisant uniquement le mode de remplissage par utilisateur (user-only mode)",
+    "output": "nmap -p 445 --script smb-brute --script-args smb-brute.useronly=true target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fenêtre TCP initiale de 65535 (maximum)",
+    "output": "nmap -sS --initial-window 65535 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 5 avec la trace des paquets",
+    "output": "nmap -d5 --packet-trace target"
+  },
+  {
+    "input": "Lancer le scan de version avec une intensité de 0 et une temporisation RTT maximale de 1 seconde",
+    "output": "nmap -sV --version-intensity 0 --max-rtt-timeout 1s target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 30 secondes",
+    "output": "nmap --host-timeout 30s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping UDP",
+    "output": "nmap -R -sn -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 80 (HTTP)",
+    "output": "nmap -sM -g 80 target"
+  },
+  {
+    "input": "Utiliser le script http-methods et exclure le balayage de la racine ('/')",
+    "output": "nmap -p 80 --script http-methods --script-args http-methods.path=/api target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 1 (ICMP) pour la découverte (par défaut, mais explicite)",
+    "output": "nmap -sO -p 1 target"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets à envoyer par hôte à 10 et la quantité maximale à 20",
+    "output": "nmap --min-sendto-rate 10 --max-sendto-rate 20 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf le port 22",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 22 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format XML avec un niveau de débogage de 7",
+    "output": "nmap -oX debug_scan.xml -d7 target"
+  },
+  {
+    "input": "Lancer le script de force brute SSH en utilisant un dictionnaire d'utilisateurs spécifique",
+    "output": "nmap -p 22 --script ssh-brute --script-args userdb=ssh_users.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser le port source 80 pour l'évasion, sans privilèges (unprivileged)",
+    "output": "nmap -sS -g 80 --unprivileged target"
+  },
+  {
+    "input": "Scanner une cible et définir les tentatives maximales de retransmission à 0 (aucune retransmission)",
+    "output": "nmap --max-retries 0 target"
+  },
+  {
+    "input": "Lancer le scan de version avec le mode d'intensité maximale et exporter au format WebXML",
+    "output": "nmap -sV --version-all --webxml -oX scan.xml target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN lent (T1) avec un délai d'attente RTT initial de 30 secondes",
+    "output": "nmap -sS -T1 --initial-rtt-timeout 30s target"
+  },
+  {
+    "input": "Effectuer un ping scan et désactiver le ping ARP pour une découverte d'hôte silencieuse",
+    "output": "nmap -sn --disable-arp-ping 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner et afficher uniquement les ports ouverts, en exportant la sortie au format XML",
+    "output": "nmap --open -oX open_only.xml target"
+  },
+  {
+    "input": "Scanner et exporter la sortie en XML, en incluant la raison de l'état des ports",
+    "output": "nmap --reason -oX reason_scan.xml target"
+  },
+  {
+    "input": "Utiliser le script http-title avec une profondeur de recherche maximale de 3",
+    "output": "nmap -p 80 --script http-title --script-args http-title.max-depth=3 target"
+  },
+  {
+    "input": "Scanner tous les ports, effectuer la détection d'OS, et exporter au format Grepable",
+    "output": "nmap -p- -O -oG all_ports_os.gnmap target"
+  },
+  {
+    "input": "Scanner avec le paramètre ToS/DSCP défini à 32 (High-reliability)",
+    "output": "nmap --tos 32 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et définir la taille de la fenêtre TCP initiale à 4096 (un multiple courant)",
+    "output": "nmap -sS --initial-window 4096 target"
+  },
+  {
+    "input": "Lancer le script pour vérifier les connexions FTP anonymes en spécifiant le nom d'utilisateur 'anonymous'",
+    "output": "nmap -p 21 --script ftp-anon --script-args ftp-anon.user=anonymous target"
+  },
+  {
+    "input": "Effectuer un scan avec un TTL (Time-To-Live) très élevé de 254 (presque max) et un scan TCP Maimon",
+    "output": "nmap -sM --ttl 254 target"
+  },
+  {
+    "input": "Définir le port source à 21 (FTP) et le port de destination à 80 pour le balayage",
+    "output": "nmap -g 21 -p 80 target"
+  },
+  {
+    "input": "Exécuter le script http-brute en utilisant un dictionnaire de mots de passe personnalisé et en désactivant le mode SSL/TLS",
+    "output": "nmap -p 80 --script http-brute --script-args passdb=custom.txt,http-brute.ssl=false target"
+  },
+  {
+    "input": "Effectuer un scan de version agressif avec le niveau d'intensité maximal (9) et la temporisation minimale RTT à 10ms",
+    "output": "nmap -sV --version-intensity 9 --min-rtt-timeout 10ms target"
+  },
+  {
+    "input": "Scanner les hôtes d'un fichier et exporter la sortie en XML, en affichant les statistiques toutes les 10 minutes",
+    "output": "nmap -iL hosts.txt -oX file_scan.xml --stats-every 10m"
+  },
+  {
+    "input": "Effectuer un balayage des ports et n'afficher que les ports qui sont dans l'état 'closed' (fermé)",
+    "output": "nmap -oG - target | grep 'Ports:' | grep 'closed'"
+  },
+  {
+    "input": "Utiliser un ping TCP sur les ports 1-100 pour la découverte d'hôte, sans résolution DNS",
+    "output": "nmap -sn -PS 1-100 -n 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner et définir la taille maximale du groupe d'hôtes pour le balayage parallèle à 1 (balayage séquentiel)",
+    "output": "nmap --max-hostgroup 1 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une adresse IP source bidon aléatoire (RND) pour l'évasion",
+    "output": "nmap -sS -S RND target"
+  },
+  {
+    "input": "Lancer le script de recherche de politique de domaine croisé HTTP avec un timeout de 2 secondes",
+    "output": "nmap -p 80 --script http-crossdomainxml --script-args http.timeout=2s target"
+  },
+  {
+    "input": "Scanner en utilisant le modèle de timing 'paranoid' (T0) et forcer la détection d'OS",
+    "output": "nmap -O -T0 target"
+  },
+  {
+    "input": "Scanner le port 23 (Telnet) et lancer le script pour récupérer la bannière du service, en exportant la sortie en format normal",
+    "output": "nmap -p 23 --script banner -oN telnet_banner.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fenêtre TCP initiale de 512",
+    "output": "nmap -sS --initial-window 512 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 4 avec la trace des paquets",
+    "output": "nmap -d4 --packet-trace target"
+  },
+  {
+    "input": "Lancer le scan de version avec une intensité de 1 et une temporisation RTT maximale de 200ms",
+    "output": "nmap -sV --version-intensity 1 --max-rtt-timeout 200ms target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 90 secondes",
+    "output": "nmap --host-timeout 90s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping ICMP netmask",
+    "output": "nmap -R -sn -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 443 (HTTPS)",
+    "output": "nmap -sM -g 443 target"
+  },
+  {
+    "input": "Utiliser le script http-methods avec le chemin /v2/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/v2/api/ target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 2 (IGMP) pour la découverte",
+    "output": "nmap -sO -p 2 target"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets à envoyer par hôte à 2 et la quantité maximale à 8",
+    "output": "nmap --min-sendto-rate 2 --max-sendto-rate 8 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf le port 80",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 80 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 6",
+    "output": "nmap -oN debug_output.txt -d6 target"
+  },
+  {
+    "input": "Lancer le script de force brute SMB en utilisant un dictionnaire de mots de passe personnalisé",
+    "output": "nmap -p 445 --script smb-brute --script-args passdb=smb_passwords.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fenêtre TCP initiale de 128",
+    "output": "nmap -sS --initial-window 128 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 3 avec la trace des paquets",
+    "output": "nmap -d3 --packet-trace target"
+  },
+  {
+    "input": "Lancer le scan de version avec une intensité de 2 et une temporisation RTT maximale de 50ms",
+    "output": "nmap -sV --version-intensity 2 --max-rtt-timeout 50ms target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 5 minutes",
+    "output": "nmap --host-timeout 5m target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping ICMP timestamp",
+    "output": "nmap -R -sn -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 22 (SSH)",
+    "output": "nmap -sM -g 22 target"
+  },
+  {
+    "input": "Utiliser le script http-methods avec le chemin /v3/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/v3/api/ target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 6 (TCP) pour la découverte (par défaut, mais explicite)",
+    "output": "nmap -sO -p 6 target"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets à envoyer par hôte à 3 et la quantité maximale à 7",
+    "output": "nmap --min-sendto-rate 3 --max-sendto-rate 7 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf le port 443",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 443 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 5",
+    "output": "nmap -oN debug_output.txt -d5 target"
+  },
+  {
+    "input": "Lancer le script de force brute SMB en utilisant un dictionnaire d'utilisateurs spécifique",
+    "output": "nmap -p 445 --script smb-brute --script-args userdb=smb_users.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fenêtre TCP initiale de 2048",
+    "output": "nmap -sS --initial-window 2048 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 2 avec la trace des paquets",
+    "output": "nmap -d2 --packet-trace target"
+  },
+  {
+    "input": "Lancer le scan de version avec une intensité de 3 et une temporisation RTT maximale de 100ms",
+    "output": "nmap -sV --version-intensity 3 --max-rtt-timeout 100ms target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 15 minutes",
+    "output": "nmap --host-timeout 15m target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping ARP",
+    "output": "nmap -R -sn --disable-arp-ping 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 25 (SMTP)",
+    "output": "nmap -sM -g 25 target"
+  },
+  {
+    "input": "Utiliser le script http-methods avec le chemin /v4/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/v4/api/ target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 17 (UDP) pour la découverte (par défaut, mais explicite)",
+    "output": "nmap -sO -p 17 target"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets à envoyer par hôte à 4 et la quantité maximale à 6",
+    "output": "nmap --min-sendto-rate 4 --max-sendto-rate 6 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf le port 21",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 21 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 4",
+    "output": "nmap -oN debug_output.txt -d4 target"
+  },
+  {
+    "input": "Lancer le script de force brute SSH en utilisant un dictionnaire de mots de passe personnalisé",
+    "output": "nmap -p 22 --script ssh-brute --script-args passdb=ssh_passwords.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fenêtre TCP initiale de 16384",
+    "output": "nmap -sS --initial-window 16384 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 1 avec la trace des paquets",
+    "output": "nmap -d1 --packet-trace target"
+  },
+  {
+    "input": "Lancer le scan de version avec une intensité de 4 et une temporisation RTT maximale de 250ms",
+    "output": "nmap -sV --version-intensity 4 --max-rtt-timeout 250ms target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 45 minutes",
+    "output": "nmap --host-timeout 45m target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping TCP",
+    "output": "nmap -R -sn -PU 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 53 (DNS)",
+    "output": "nmap -sM -g 53 target"
+  },
+  {
+    "input": "Utiliser le script http-methods avec le chemin /admin/v1/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/admin/v1/ target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 50 (ESP) pour la découverte",
+    "output": "nmap -sO -p 50 target"
+  },
+  {
+    "input": "Définir la quantité minimale de paquets à envoyer par hôte à 5 et la quantité maximale à 5",
+    "output": "nmap --min-sendto-rate 5 --max-sendto-rate 5 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf le port 23",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 23 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 3",
+    "output": "nmap -oN debug_output.txt -d3 target"
+  },
+  {
+    "input": "Lancer le script de force brute Telnet en utilisant un dictionnaire de mots de passe personnalisé",
+    "output": "nmap -p 23 --script telnet-brute --script-args passdb=telnet_passwords.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et envoyer des paquets avec un checksum invalide (pour l'évasion)",
+    "output": "nmap -sS --badsum target"
+  },
+  {
+    "input": "Scanner une cible en utilisant le scan de fenêtre (Window Scan) en mode agressif (T5)",
+    "output": "nmap -sW -T5 target"
+  },
+  {
+    "input": "Effectuer un scan TCP ACK avec un délai minimal de 200 millisecondes entre les paquets",
+    "output": "nmap -sA --scan-delay 200ms target"
+  },
+  {
+    "input": "Scanner avec un port source aléatoire et une taille maximale de fragment de 8 octets",
+    "output": "nmap --source-port RND --mtu 8 target"
+  },
+  {
+    "input": "Définir le taux maximal d'envoi de paquets à 0.5 paquet par seconde pour une furtivité extrême",
+    "output": "nmap --max-rate 0.5 target"
+  },
+  {
+    "input": "Scanner le protocole IP version 89 (OSPF) sur la cible",
+    "output": "nmap -sO -p 89 target"
+  },
+  {
+    "input": "Lancer le script pour récupérer les informations du service Redis sur le port par défaut",
+    "output": "nmap -p 6379 --script redis-info target"
+  },
+  {
+    "input": "Définir le délai minimal de scan à 50ms et le TTL à 64",
+    "output": "nmap --min-scan-delay 50ms --ttl 64 target"
+  },
+  {
+    "input": "Effectuer un scan agressif (A) avec la verbosité maximale et la trace des paquets",
+    "output": "nmap -A -vvv --packet-trace target"
+  },
+  {
+    "input": "Scanner les ports 1-5000 avec une détection de version d'intensité 1",
+    "output": "nmap -p 1-5000 -sV --version-intensity 1 target"
+  },
+  {
+    "input": "Scanner avec le paramètre ToS/DSCP défini à 56 (Internetwork Control)",
+    "output": "nmap --tos 56 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de 'DEADBEEF'",
+    "output": "nmap -sS --data-string '\\xDE\\xAD\\xBE\\xEF' target"
+  },
+  {
+    "input": "Scanner et définir le 'tos' (Type of Service) à 4 (Low-cost) pour le paquet IP",
+    "output": "nmap --tos 4 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fenêtre TCP initiale de 32768",
+    "output": "nmap -sS --initial-window 32768 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 47 (GRE) sur la cible",
+    "output": "nmap -sO -p 47 target"
+  },
+  {
+    "input": "Définir le nombre maximal d'hôtes pour le balayage parallèle à 4096",
+    "output": "nmap --max-hostgroup 4096 10.0.0.0/8"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 9 avec la trace des paquets",
+    "output": "nmap -d9 --packet-trace target"
+  },
+  {
+    "input": "Utiliser un scan de version agressif avec le niveau d'intensité maximal (9) et sans afficher les titres HTTP (http-title)",
+    "output": "nmap -sV --version-intensity 9 --script-exclude http-title target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 6 heures",
+    "output": "nmap --host-timeout 6h target"
+  },
+  {
+    "input": "Effectuer un ping scan avec ping ICMP echo et ping netmask, excluant le ping TCP",
+    "output": "nmap -sn -PE -PM --disable-tcp-ping 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner les ports avec un taux minimal de 0.01 paquet par seconde (très lent) et exporter la sortie en XML",
+    "output": "nmap --min-rate 0.01 -oX ultra_slow_scan.xml target"
+  },
+  {
+    "input": "Lancer le script ssh-brute et définir le nombre maximal d'essais à 1",
+    "output": "nmap -p 22 --script ssh-brute --script-args ssh-brute.tries=1 target"
+  },
+  {
+    "input": "Scanner et forcer la détection de version et d'OS en ignorant les hôtes pour lesquels les données d'empreinte digitale sont insuffisantes",
+    "output": "nmap -A --osscan-limit --version-light target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure les ports 1000 à 2000 du balayage UDP",
+    "output": "nmap -p U:1-65535 --exclude-ports U:1000-2000 target"
+  },
+  {
+    "input": "Définir la taille du groupe d'hôtes minimum à 16 et maximum à 32 pour le balayage d'un réseau de classe C",
+    "output": "nmap --min-hostgroup 16 --max-hostgroup 32 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter 200 octets de données aléatoires au paquet",
+    "output": "nmap -sS --data-length 200 target"
+  },
+  {
+    "input": "Effectuer un ping scan avec les pings ICMP echo et timestamp, tout en désactivant le ping UDP",
+    "output": "nmap -sn -PE -PP --disable-udp-ping 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner une cible et définir les options IP à 'R' (Record Route) en mode verbeux",
+    "output": "nmap -v --ip-options R target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et afficher les statistiques toutes les 2 secondes",
+    "output": "nmap --stats-every 2s target"
+  },
+  {
+    "input": "Scanner un port spécifique et exporter la sortie XML vers stdout et la sortie grepable vers un fichier",
+    "output": "nmap -p 80 -oX - -oG output.gnmap target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 20% des ports les plus probables",
+    "output": "nmap --port-ratio 0.2 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 51 (AH - Authentication Header) pour la découverte",
+    "output": "nmap -sO -p 51 target"
+  },
+  {
+    "input": "Effectuer un scan TCP ACK furtif avec le port source 139 (NetBIOS Session Service)",
+    "output": "nmap -sA -g 139 target"
+  },
+  {
+    "input": "Lancer le script http-fingerprint et afficher les informations de trace de détection de version",
+    "output": "nmap -p 80 --script http-fingerprint --version-trace target"
+  },
+  {
+    "input": "Effectuer un scan sans ping et sans résolution DNS, avec le temps d'attente RTT initial à 50ms",
+    "output": "nmap -Pn -n --initial-rtt-timeout 50ms target"
+  },
+  {
+    "input": "Lancer le script pour l'énumération des utilisateurs SMB en utilisant une liste d'utilisateurs spécifique et un mot de passe personnalisé",
+    "output": "nmap -p 445 --script smb-enum-users --script-args userdb=users.txt,pass=custom_password target"
+  },
+  {
+    "input": "Scanner avec un taux minimal de 0.001 paquet par seconde (mode très furtif)",
+    "output": "nmap --min-rate 0.001 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fenêtre TCP initiale de 32",
+    "output": "nmap -sS --initial-window 32 target"
+  },
+  {
+    "input": "Scanner une cible et afficher les informations de débogage de niveau 10 (pour l'exhaustivité maximale)",
+    "output": "nmap -d10 target"
+  },
+  {
+    "input": "Lancer le script http-brute avec une seule tentative par mot de passe",
+    "output": "nmap -p 80 --script http-brute --script-args brute.tries=1 target"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le TTL à 2",
+    "output": "nmap -sM --ttl 2 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 3 (Gateway-to-Gateway) pour la découverte",
+    "output": "nmap -sO -p 3 target"
+  },
+  {
+    "input": "Définir le port source à 65534 (proche du maximum) pour le scan",
+    "output": "nmap -g 65534 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et définir un délai maximal d'attente pour la détection de services à 100 millisecondes",
+    "output": "nmap -sV --service-timeout 100ms target"
+  },
+  {
+    "input": "Scanner et forcer la détection de version et d'OS en mode 'ultra-verbeux' (niveau 4)",
+    "output": "nmap -A -vvvv target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.01% des ports les plus probables",
+    "output": "nmap --port-ratio 0.0001 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale spécifique 'CAFE'",
+    "output": "nmap -sS --data-string '\\xCA\\xFE' target"
+  },
+  {
+    "input": "Scanner et exporter la sortie en format normal avec un niveau de débogage de 10 (pour l'exhaustivité maximale)",
+    "output": "nmap -oN debug_output.txt -d10 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 16 octets",
+    "output": "nmap -sS --mtu 16 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 64 (Routine) pour le paquet IP",
+    "output": "nmap --tos 64 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /v5/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/v5/api/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 1 minute et 30 secondes",
+    "output": "nmap --host-timeout 90s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping TCP ACK",
+    "output": "nmap -R -sn -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 110 (POP3)",
+    "output": "nmap -sM -g 110 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.5% des ports les plus probables",
+    "output": "nmap --port-ratio 0.005 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 44 (IPv6 Hop-by-Hop Option) pour la découverte",
+    "output": "nmap -sO -p 44 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 22 et 80",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 22,80 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 2",
+    "output": "nmap -oN debug_output.txt -d2 target"
+  },
+  {
+    "input": "Lancer le script de force brute Telnet en utilisant un dictionnaire d'utilisateurs spécifique",
+    "output": "nmap -p 23 --script telnet-brute --script-args userdb=telnet_users.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '01020304'",
+    "output": "nmap -sS --data-string '\\x01\\x02\\x03\\x04' target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 32 octets",
+    "output": "nmap -sS --mtu 32 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 96 (Expedited Forwarding) pour le paquet IP",
+    "output": "nmap --tos 96 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /api/admin/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/api/admin/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 2 minutes et 30 secondes",
+    "output": "nmap --host-timeout 150s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping ICMP echo",
+    "output": "nmap -R -sn -PP 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 143 (IMAP)",
+    "output": "nmap -sM -g 143 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.005% des ports les plus probables",
+    "output": "nmap --port-ratio 0.00005 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 88 (EIGRP) pour la découverte",
+    "output": "nmap -sO -p 88 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 22, 80 et 443",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 22,80,443 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 1",
+    "output": "nmap -oN debug_output.txt -d1 target"
+  },
+  {
+    "input": "Lancer le script de force brute Telnet en utilisant un dictionnaire d'utilisateurs et de mots de passe personnalisé",
+    "output": "nmap -p 23 --script telnet-brute --script-args userdb=telnet_users.txt,passdb=telnet_passwords.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '5A5A5A'",
+    "output": "nmap -sS --data-string '\\x5A\\x5A\\x5A' target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 64 octets",
+    "output": "nmap -sS --mtu 64 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 160 (Voice Admit) pour le paquet IP",
+    "output": "nmap --tos 160 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /rest/v1/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/rest/v1/api/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 3 minutes et 30 secondes",
+    "output": "nmap --host-timeout 210s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping Netmask",
+    "output": "nmap -R -sn -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 20 (FTP Data)",
+    "output": "nmap -sM -g 20 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.001% des ports les plus probables",
+    "output": "nmap --port-ratio 0.00001 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 8 (EGP) pour la découverte",
+    "output": "nmap -sO -p 8 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 20, 21 et 22",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 20,21,22 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 0 (désactivé)",
+    "output": "nmap -oN debug_output.txt -d0 target"
+  },
+  {
+    "input": "Lancer le script de force brute SMB en utilisant une liste d'utilisateurs spécifique et en désactivant le remplissage par mot de passe",
+    "output": "nmap -p 445 --script smb-brute --script-args userdb=smb_users.txt,smb-brute.passonly=false target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '0F0F0F'",
+    "output": "nmap -sS --data-string '\\x0F\\x0F\\x0F' target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 128 octets",
+    "output": "nmap -sS --mtu 128 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 128 (High Throughput) pour le paquet IP",
+    "output": "nmap --tos 128 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /legacy/v1/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/legacy/v1/api/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 4 minutes et 30 secondes",
+    "output": "nmap --host-timeout 270s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping Timestamp",
+    "output": "nmap -R -sn -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 465 (SMTPS)",
+    "output": "nmap -sM -g 465 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.0005% des ports les plus probables",
+    "output": "nmap --port-ratio 0.000005 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 86 (ISO-IP) pour la découverte",
+    "output": "nmap -sO -p 86 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 21 et 25",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 21,25 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 0 (désactivé), mais tracer les paquets",
+    "output": "nmap -oN debug_output.txt -d0 --packet-trace target"
+  },
+  {
+    "input": "Lancer le script de force brute SSH en utilisant une liste d'utilisateurs et de mots de passe personnalisés",
+    "output": "nmap -p 22 --script ssh-brute --script-args userdb=ssh_users.txt,passdb=ssh_passwords.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '0A0B0C'",
+    "output": "nmap -sS --data-string '\\x0A\\x0B\\x0C' target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 256 octets",
+    "output": "nmap -sS --mtu 256 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 192 (Voice) pour le paquet IP",
+    "output": "nmap --tos 192 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /api/legacy/v1/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/api/legacy/v1/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 5 minutes et 30 secondes",
+    "output": "nmap --host-timeout 330s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping ARP",
+    "output": "nmap -R -sn --disable-arp-ping 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 119 (NNTP)",
+    "output": "nmap -sM -g 119 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.0001% des ports les plus probables",
+    "output": "nmap --port-ratio 0.000001 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 10 (BGP) pour la découverte",
+    "output": "nmap -sO -p 10 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 20, 21 et 23",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 20,21,23 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 0 (désactivé), mais trace les paquets",
+    "output": "nmap -oN debug_output.txt -d0 --packet-trace target"
+  },
+  {
+    "input": "Lancer le script de force brute SMB en utilisant une liste d'utilisateurs spécifique et en désactivant le remplissage par mot de passe",
+    "output": "nmap -p 445 --script smb-brute --script-args userdb=smb_users.txt,smb-brute.passonly=false target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de 'FFFF0000'",
+    "output": "nmap -sS --data-string '\\xFF\\xFF\\x00\\x00' target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 512 octets",
+    "output": "nmap -sS --mtu 512 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 224 (Voice Control) pour le paquet IP",
+    "output": "nmap --tos 224 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /api/v6/admin/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/api/v6/admin/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 7 minutes et 30 secondes",
+    "output": "nmap --host-timeout 450s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping ICMP netmask",
+    "output": "nmap -R -sn -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 49 (TACACS)",
+    "output": "nmap -sM -g 49 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.00005% des ports les plus probables",
+    "output": "nmap --port-ratio 0.0000005 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 4 (IPIP) pour la découverte",
+    "output": "nmap -sO -p 4 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 53 et 161",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 53,161 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 1 (désactivé), mais tracer les paquets",
+    "output": "nmap -oN debug_output.txt -d1 --packet-trace target"
+  },
+  {
+    "input": "Lancer le script de force brute VNC en utilisant un dictionnaire de mots de passe personnalisé",
+    "output": "nmap -p 5900 --script vnc-brute --script-args passdb=vnc_passwords.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '0F0A0F0A'",
+    "output": "nmap -sS --data-string '\\x0F\\x0A\\x0F\\x0A' target"
+  },
+  {
+    "input": "Définir le nombre maximal d'essais (retries) pour la détection d'OS à 3 et la version à 5",
+    "output": "nmap -O --max-os-tries 3 -sV --max-retries 5 target"
+  },
+  {
+    "input": "Effectuer un scan de fenêtre (Window Scan) en mode furtif (T1) avec une trace de paquets",
+    "output": "nmap -sW -T1 --packet-trace target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 59 (SKIP) pour la découverte",
+    "output": "nmap -sO -p 59 target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '010101' et définir la longueur des données à 6 octets",
+    "output": "nmap -sS --data-string '\\x01\\x01\\x01' --data-length 6 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.00001% des ports les plus probables",
+    "output": "nmap --port-ratio 0.0000001 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 240 (Voice Call Control) pour le paquet IP",
+    "output": "nmap --tos 240 target"
+  },
+  {
+    "input": "Effectuer un ping scan avec ping ICMP timestamp et ping netmask",
+    "output": "nmap -sn -PP -PM 192.168.1.0/24"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format Grepable avec un niveau de débogage de 2",
+    "output": "nmap -oG debug_output.gnmap -d2 target"
+  },
+  {
+    "input": "Lancer le script de recherche de politique de domaine croisé HTTP avec un timeout de 500 millisecondes",
+    "output": "nmap -p 80 --script http-crossdomainxml --script-args http.timeout=500ms target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 1 minute et 15 secondes",
+    "output": "nmap --host-timeout 75s target"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 179 (BGP)",
+    "output": "nmap -sM -g 179 target"
+  },
+  {
+    "input": "Scanner et forcer la détection de version et d'OS en mode 'ultra-verbeux' (niveau 5)",
+    "output": "nmap -A -vvvvv target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 1024 octets",
+    "output": "nmap -sS --mtu 1024 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 32 (Priority) pour le paquet IP",
+    "output": "nmap --tos 32 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /api/v7/public/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/api/v7/public/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 1 minute et 5 secondes",
+    "output": "nmap --host-timeout 65s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping Netmask",
+    "output": "nmap -R -sn -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 162 (SNMP Trap)",
+    "output": "nmap -sM -g 162 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.000005% des ports les plus probables",
+    "output": "nmap --port-ratio 0.00000005 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 53 (SWIPE) pour la découverte",
+    "output": "nmap -sO -p 53 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 22 et 23",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 22,23 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 0 (désactivé), mais trace les paquets",
+    "output": "nmap -oN debug_output.txt -d0 --packet-trace target"
+  },
+  {
+    "input": "Lancer le script de force brute SMB en utilisant une liste d'utilisateurs spécifique et en désactivant le remplissage par mot de passe",
+    "output": "nmap -p 445 --script smb-brute --script-args userdb=smb_users.txt,smb-brute.passonly=false target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '0101'",
+    "output": "nmap -sS --data-string '\\x01\\x01' target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 1500 octets (taille maximale de MTU Ethernet)",
+    "output": "nmap -sS --mtu 1500 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 80 (Data) pour le paquet IP",
+    "output": "nmap --tos 80 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /v8/legacy/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/v8/legacy/api/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 2 heures et 30 minutes",
+    "output": "nmap --host-timeout 150m target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping UDP",
+    "output": "nmap -R -sn -PS 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 587 (Submission)",
+    "output": "nmap -sM -g 587 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.000001% des ports les plus probables",
+    "output": "nmap --port-ratio 0.00000001 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 62 (CFTP) pour la découverte",
+    "output": "nmap -sO -p 62 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 53 et 80",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 53,80 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 1, mais tracer les paquets",
+    "output": "nmap -oN debug_output.txt -d1 --packet-trace target"
+  },
+  {
+    "input": "Lancer le script de force brute VNC en utilisant un dictionnaire d'utilisateurs spécifique",
+    "output": "nmap -p 5900 --script vnc-brute --script-args userdb=vnc_users.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '7A7B7C'",
+    "output": "nmap -sS --data-string '\\x7A\\x7B\\x7C' target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 1480 octets",
+    "output": "nmap -sS --mtu 1480 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 254 (Maximal) pour le paquet IP",
+    "output": "nmap --tos 254 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /v9/public/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/v9/public/api/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 3 heures et 30 minutes",
+    "output": "nmap --host-timeout 210m target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping UDP",
+    "output": "nmap -R -sn -PS 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 135 (MS RPC)",
+    "output": "nmap -sM -g 135 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.0000005% des ports les plus probables",
+    "output": "nmap --port-ratio 0.000000005 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 66 (RVD) pour la découverte",
+    "output": "nmap -sO -p 66 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 22 et 443",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 22,443 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 2, mais trace les paquets",
+    "output": "nmap -oN debug_output.txt -d2 --packet-trace target"
+  },
+  {
+    "input": "Lancer le script de force brute VNC en utilisant un dictionnaire d'utilisateurs et de mots de passe personnalisés",
+    "output": "nmap -p 5900 --script vnc-brute --script-args userdb=vnc_users.txt,passdb=vnc_passwords.txt target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '0D0A'",
+    "output": "nmap -sS --data-string '\\x0D\\x0A' target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et utiliser une taille de fragment IP de 1300 octets",
+    "output": "nmap -sS --mtu 1300 target"
+  },
+  {
+    "input": "Scanner une cible et définir la valeur ToS/DSCP à 184 (Network Control) pour le paquet IP",
+    "output": "nmap --tos 184 target"
+  },
+  {
+    "input": "Lancer le script http-methods avec le chemin /v10/admin/api/ et un niveau de verbosité maximal",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.path=/v10/admin/api/ target"
+  },
+  {
+    "input": "Définir un délai d'attente hôte maximal de 8 minutes et 30 secondes",
+    "output": "nmap --host-timeout 510s target"
+  },
+  {
+    "input": "Scanner et forcer la résolution de noms pour tous les hôtes sans utiliser le ping UDP",
+    "output": "nmap -R -sn -PS 192.168.1.0/24"
+  },
+  {
+    "input": "Effectuer un scan TCP Maimon furtif et définir le port source à 8080 (Proxy/Alt HTTP)",
+    "output": "nmap -sM -g 8080 target"
+  },
+  {
+    "input": "Utiliser un scan de port pour cibler les 0.0000001% des ports les plus probables",
+    "output": "nmap --port-ratio 0.000000001 target"
+  },
+  {
+    "input": "Scanner en utilisant le protocole IP version 6 (TCP) et exclure le balayage des ports 1 à 100",
+    "output": "nmap -sO -p 6 --exclude-ports 1-100 target"
+  },
+  {
+    "input": "Effectuer un balayage des ports et exclure la détection de services pour tous les ports sauf les ports 53 et 443",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 53,443 target"
+  },
+  {
+    "input": "Scanner une cible et exporter la sortie en format normal avec un niveau de débogage de 3, mais trace les paquets",
+    "output": "nmap -oN debug_output.txt -d3 --packet-trace target"
+  },
+  {
+    "input": "Lancer le script de force brute SMB en utilisant une liste d'utilisateurs spécifique et en désactivant la tentative de mot de passe par défaut",
+    "output": "nmap -p 445 --script smb-brute --script-args userdb=smb_users.txt,smb-brute.passonly=false target"
+  },
+  {
+    "input": "Effectuer un scan TCP SYN et ajouter une chaîne de données hexadécimale de '7E7F80'",
+    "output": "nmap -sS --data-string '\\x7E\\x7F\\x80' target"
+  }
+]
