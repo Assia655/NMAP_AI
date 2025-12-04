@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from agent_comprehension import comprehension_agent
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/comprehension", methods=["POST"])
 def comprehension():
@@ -11,8 +13,6 @@ def comprehension():
         return jsonify({"error": "Missing 'user_query'"}), 400
 
     user_query = data["user_query"]
-
-    # Appeler ton agent statique TF-IDF
     result = comprehension_agent(user_query)
 
     return jsonify(result), 200
