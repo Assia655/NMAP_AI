@@ -1,0 +1,137 @@
+# Dataset Annoté - Complexité Nmap
+# Format: requête | label (easy/medium/hard)
+
+# ========== EASY (Commandes basiques, scans simples) ==========
+nmap -sS 192.168.1.1|easy
+nmap -p 80 192.168.1.1|easy
+nmap -p 22 192.168.1.1|easy
+nmap 192.168.1.1|easy
+nmap -sn 192.168.1.0/24|easy
+ping scan on network|easy
+scan port 80 on target|easy
+check if host is up|easy
+simple port scan|easy
+scan single port|easy
+basic nmap scan|easy
+quick scan target|easy
+nmap -p 443 example.com|easy
+scan web server port|easy
+check ssh port|easy
+nmap -p 21 192.168.1.1|easy
+scan ftp port|easy
+nmap -p 25 mail.example.com|easy
+scan smtp port|easy
+nmap -sn 10.0.0.0/24|easy
+ping sweep network|easy
+discover hosts network|easy
+nmap -p 3306 database.local|easy
+scan mysql port|easy
+nmap -p 5432 postgres.local|easy
+check postgresql port|easy
+nmap -p 1433 sqlserver.local|easy
+scan mssql port|easy
+nmap -p 27017 mongo.local|easy
+check mongodb port|easy
+nmap -p 6379 redis.local|easy
+scan redis port|easy
+c'est quoi un scan SYN|easy
+qu'est-ce qu'un port ouvert|easy
+comment scanner un port|easy
+nmap basique commande|easy
+différence TCP UDP|easy
+qu'est-ce que nmap|easy
+comment utiliser nmap|easy
+nmap tutoriel débutant|easy
+
+# ========== MEDIUM (Scans avancés, détection version/OS) ==========
+nmap -A 192.168.1.1|medium
+nmap -sV 192.168.1.1|medium
+nmap -O 192.168.1.1|medium
+nmap -p- 192.168.1.1|medium
+nmap --script vuln 192.168.1.1|medium
+scan all ports with version detection|medium
+detect operating system target|medium
+run vulnerability scripts|medium
+nmap -sS -sV 192.168.1.1|medium
+syn scan with version detection|medium
+nmap -sU -p 53,161 192.168.1.1|medium
+udp scan dns snmp|medium
+nmap -sV --script http-title 192.168.1.1|medium
+scan web server get title|medium
+nmap -p 1-1000 -sV 192.168.1.1|medium
+scan first 1000 ports version|medium
+nmap -A -T4 192.168.1.0/24|medium
+aggressive scan entire subnet|medium
+nmap -sS -sV -O 192.168.1.1|medium
+syn scan version os detection|medium
+nmap --script ssh-brute 192.168.1.1|medium
+brute force ssh service|medium
+nmap --script ftp-anon 192.168.1.1|medium
+check anonymous ftp access|medium
+nmap --script smb-enum-shares 192.168.1.1|medium
+enumerate smb shares|medium
+nmap -sV --script ssl-enum-ciphers 192.168.1.1|medium
+check ssl ciphers supported|medium
+nmap --script mysql-databases 192.168.1.1|medium
+enumerate mysql databases|medium
+nmap -p 80,443 --script http-methods 192.168.1.1|medium
+check http methods allowed|medium
+nmap --script dns-zone-transfer 192.168.1.1|medium
+attempt dns zone transfer|medium
+différence scan TCP UDP|medium
+qu'est-ce que la détection version|medium
+comment utiliser scripts NSE|medium
+nmap scan rapide vs complet|medium
+optimiser temps scan nmap|medium
+nmap timing templates T0-T5|medium
+comment détecter OS avec nmap|medium
+nmap fingerprinting technique|medium
+qu'est-ce qu'un scan SYN|medium
+avantages scan stealth|medium
+nmap options courantes|medium
+comment scanner subnet entier|medium
+
+# ========== HARD (Scripts personnalisés, automation, évasion) ==========
+créer script python automatiser scan nmap|hard
+parser résultat XML en JSON|hard
+utiliser NSE avec programmation Lua|hard
+nmap -f -D RND:10 192.168.1.1|hard
+fragmentation with decoys|hard
+nmap --data-length 25 -T0 192.168.1.1|hard
+random data slow timing evade IDS|hard
+nmap -sS -Pn --spoof-mac 0 192.168.1.1|hard
+stealth scan no ping spoof mac|hard
+nmap --scan-delay 1s --max-parallelism 1 192.168.1.1|hard
+slow scan evade detection|hard
+créer custom NSE script lua|hard
+développer plugin nmap personnalisé|hard
+intégrer nmap dans pipeline CI/CD|hard
+automatiser scans nmap avec ansible|hard
+nmap API REST service python|hard
+dashboard temps réel résultats nmap|hard
+machine learning classifier ports ouverts|hard
+corrélation résultats nmap avec OSINT|hard
+nmap distributed scanning architecture|hard
+bypass firewall avec fragmentation|hard
+éviter détection IDS/IPS nmap|hard
+nmap spoofing source IP|hard
+scan through proxy chains|hard
+nmap timing optimization algorithm|hard
+custom TCP/IP stack manipulation|hard
+nmap raw socket programming|hard
+kernel bypass techniques nmap|hard
+if target behind firewall use fragmentation|hard
+optimize scan if network slow|hard
+adapt timing based on response|hard
+conditional scanning logic|hard
+dynamic target selection|hard
+intelligent port prioritization|hard
+context-aware scanning strategy|hard
+multi-stage reconnaissance workflow|hard
+comment écrire script NSE complexe|hard
+nmap scripting engine architecture interne|hard
+optimiser performance scans massifs|hard
+gérer faux positifs détection version|hard
+techniques avancées évasion firewall|hard
+nmap kernel modules custom|hard
+intégration nmap avec SIEM|hard
