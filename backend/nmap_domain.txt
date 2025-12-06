@@ -1,20 +1,283 @@
 nmap scan
+scan reseau
+network scanning
 port scanning
+open ports detection
+discover open ports
+scan network hosts
+nmap basic scan
 tcp scan
 udp scan
 syn scan
+connect scan
 nmap -sS
+nmap -sT
 nmap -sU
-scan reseau
-detection version
-detection os
-nmap -sV
-nmap -O
-scripts nse
-vulnerability scanning
-fingerprinting
-firewall evasion
-ping sweep
 nmap -sn
+ping sweep
+host discovery
+arp discovery
+port enumeration
+version detection
+nmap version scan
+service version detection
+nmap -sV
+banner grabbing
+os detection
+os fingerprinting
+operating system detection
+nmap -O
+os fingerprint
+aggressive scan
+nmap -A
+nse scripts
+nmap scripting engine
+nmap --script vuln
+nmap --script default
+nmap --script safe
+vulnerability scanning
 service enumeration
-discover open ports
+enum services
+http enumeration
+ftp enumeration
+smb enumeration
+ssh enumeration
+smtp enumeration
+dns enumeration
+firewall evasion
+ids evasion
+bypass firewall
+bypass ids
+decoy scan
+nmap -D
+fragmentation scan
+nmap -f
+mtu scan
+nmap --mtu
+idle scan
+nmap -sI
+source ip spoofing
+ttl manipulation
+timing obfuscation
+nmap timing
+nmap -T0
+nmap -T1
+nmap -T2
+nmap -T3
+nmap -T4
+nmap -T5
+fast scan
+quick scan
+performance scan
+high speed scan
+parallel scanning
+xmas scan
+nmap -sX
+null scan
+nmap -sN
+fin scan
+nmap -sF
+ack scan
+nmap -sA
+window scan
+nmap -sW
+maimon scan
+nmap -sM
+idle zombie scan
+protocol scan
+nmap -sO
+scan udp services
+scan tcp services
+network protocol detection
+ipv6 scanning
+ipv4 scanning
+router discovery
+icmp scanning
+dns scanning
+ftp scanning
+ssh scanning
+smtp scanning
+http scanning
+https scanning
+snmp scanning
+smb scanning
+xml output
+json output
+grepable output
+nmap -oX
+nmap -oN
+nmap -oG
+save scan results
+export scan results
+full port scan
+all ports scan
+nmap -p-
+top ports scan
+nmap --top-ports
+stealth scan
+deep scan
+comprehensive scan
+audit network
+security scan
+scan my network
+find open ports on my machine
+analyse network security
+scan a target
+check services running
+run a vulnerability scan
+detect operating system of host
+find all devices on network
+map my network
+audit my server
+is my port open
+scan a website
+scan an ip address
+scan a range of ips
+scan networks for vulnerabilities
+network reconnaissance
+remote host scanning
+security auditing
+nmap network mapper
+scan remote hosts
+scan internal network
+scan external network
+security assessment scan
+port state detection
+identify open services
+check running daemons
+service fingerprinting
+host fingerprinting
+how to scan a machine
+show me open ports
+scan for vulnerabilities
+check if my server is exposed
+scan my router
+what ports are open on this host
+scan my website for issues
+test my firewall
+test my security
+what services are running on this IP
+scan with stealth mode
+scan quietly without detection
+nmap -vv
+nmap -vvv
+nmap verbose scan
+nmap quiet scan
+nmap --reason
+nmap --open
+nmap -Pn
+disable ping
+skip host discovery
+traceroute scan
+nmap --traceroute
+nmap -6
+ipv6 scan
+nmap --resolve-all
+nmap -sL
+list scan
+nmap list targets
+nmap --packet-trace
+nmap raw packets
+timing template
+timing optimization
+scan faster
+scan slower
+optimize scan speed
+latency detection
+packet rate control
+adjust scan speed
+nmap performance tuning
+timing template aggressive
+timing template paranoid
+nmap vulners
+nmap smb scripts
+nmap http scripts
+nmap dns scripts
+exploit detection scripts
+ssl scripts
+tls scanning
+ssl enumeration
+detect weak ciphers
+check tls versions
+ssl certificate scan
+scan for outdated services
+scan for weak protocols
+scan for vulnerable services
+detect old versions
+check insecure ports
+find vulnerabilities on server
+identify weak services
+check service exposure
+scan subnet
+scan entire subnet
+scan cidr range
+nmap -iL
+scan list of hosts
+target list scan
+dhcp discovery
+router port scan
+firewall port check
+network inventory
+network mapping
+network topology discovery
+scan cloud server
+scan virtual machine
+scan container
+scan docker container
+scan kubernetes node
+scan aws instance
+scan azure vm
+scan gcp compute instance
+simulate attack
+penetration test scan
+pentest scan
+ethical hacking scan
+security testing
+scan quietly like attacker
+stealthy enumeration
+evade detection nmap
+avoid being detected
+enumerate running services
+enumerate services on this machine
+show me running services
+list all services on this host
+find running services on this server
+what services are running on this system
+identify running daemons
+enumerate active services
+perform a stealth scan
+perform a stealth scan using nmap
+run a stealthy syn scan
+perform a syn stealth scan
+stealthily scan the target using nmap -sS
+how to run a stealth scan
+detect the operating system of this host
+determine os version of the target
+identify the os running on this machine
+find which os this device uses
+detect service versions on this host
+what versions are running on open ports
+identify service versions
+detect software versions using nmap
+test this machine for open ports
+check which ports are open
+scan to see open ports
+find open ports on this system
+discover exposed ports
+please scan this host for vulnerabilities
+can you run a network scan
+i want to scan this ip address
+scan this target using nmap
+perform a vulnerability assessment
+audit this server for security issues
+find all devices connected to my network
+find all hosts connected to my local network
+discover all devices on my LAN
+find every device on my wifi network
+list all devices connected to this network
+scan my local network to find devices
+detect devices on local network
+find all hosts on local network
+discover active devices on this subnet
+scan my LAN for connected devices
+list connected machines on the network
