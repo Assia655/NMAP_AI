@@ -1,283 +1,334 @@
-nmap scan
-scan reseau
-network scanning
-port scanning
-open ports detection
-discover open ports
-scan network hosts
-nmap basic scan
-tcp scan
-udp scan
-syn scan
-connect scan
-nmap -sS
-nmap -sT
-nmap -sU
-nmap -sn
-ping sweep
-host discovery
-arp discovery
-port enumeration
-version detection
-nmap version scan
+scan all ports on target
+scan ports on 192.168.1.1
+scan all ports with default scripts
+scan port 80 and 443
+scanning for open ports
+tcp syn scan on target
+udp scan on host
+full tcp connect scan
+scan ports 1-100
+scan common web ports
+scanner tous les ports
+scanner les ports ouverts
+scanner le port 80
+balayage des ports tcp
+scan syn sur cible
+scanner ports 21 22 23 25
+scanner tout les services actifs
+scan rapide ports courants
+rechercher ports ouverts
+discover hosts on network
+ping scan on subnet
+discover active hosts
+host discovery on 192.168.0.0/24
+find all machines on network
+enumerate hosts
+discover machines on network
+host enumeration
+find online hosts
+detect active machines
+découvrir les hôtes du réseau
+découvrir les machines actives
+ping scan réseau local
+énumération des hôtes
+trouver machines connectées
+découverte réseau
+identifier hôtes actifs
+enumération des machines
+rechercher hôtes en ligne
+detect service version
 service version detection
-nmap -sV
-banner grabbing
-os detection
-os fingerprinting
-operating system detection
-nmap -O
-os fingerprint
-aggressive scan
-nmap -A
-nse scripts
-nmap scripting engine
-nmap --script vuln
-nmap --script default
-nmap --script safe
-vulnerability scanning
-service enumeration
-enum services
-http enumeration
-ftp enumeration
-smb enumeration
-ssh enumeration
-smtp enumeration
-dns enumeration
-firewall evasion
-ids evasion
-bypass firewall
-bypass ids
-decoy scan
-nmap -D
-fragmentation scan
-nmap -f
-mtu scan
-nmap --mtu
-idle scan
-nmap -sI
-source ip spoofing
-ttl manipulation
-timing obfuscation
-nmap timing
-nmap -T0
-nmap -T1
-nmap -T2
-nmap -T3
-nmap -T4
-nmap -T5
-fast scan
-quick scan
-performance scan
-high speed scan
-parallel scanning
-xmas scan
-nmap -sX
-null scan
-nmap -sN
-fin scan
-nmap -sF
-ack scan
-nmap -sA
-window scan
-nmap -sW
-maimon scan
-nmap -sM
-idle zombie scan
-protocol scan
-nmap -sO
-scan udp services
-scan tcp services
-network protocol detection
-ipv6 scanning
-ipv4 scanning
-router discovery
-icmp scanning
-dns scanning
-ftp scanning
-ssh scanning
-smtp scanning
-http scanning
-https scanning
-snmp scanning
-smb scanning
-xml output
-json output
-grepable output
-nmap -oX
-nmap -oN
-nmap -oG
-save scan results
-export scan results
-full port scan
-all ports scan
-nmap -p-
-top ports scan
-nmap --top-ports
-stealth scan
-deep scan
-comprehensive scan
-audit network
-security scan
-scan my network
-find open ports on my machine
-analyse network security
-scan a target
-check services running
-run a vulnerability scan
-detect operating system of host
-find all devices on network
-map my network
-audit my server
-is my port open
-scan a website
-scan an ip address
-scan a range of ips
-scan networks for vulnerabilities
-network reconnaissance
-remote host scanning
-security auditing
-nmap network mapper
-scan remote hosts
-scan internal network
-scan external network
-security assessment scan
-port state detection
-identify open services
-check running daemons
-service fingerprinting
-host fingerprinting
-how to scan a machine
-show me open ports
-scan for vulnerabilities
-check if my server is exposed
-scan my router
-what ports are open on this host
-scan my website for issues
-test my firewall
-test my security
-what services are running on this IP
-scan with stealth mode
-scan quietly without detection
-nmap -vv
-nmap -vvv
-nmap verbose scan
-nmap quiet scan
-nmap --reason
-nmap --open
-nmap -Pn
-disable ping
-skip host discovery
-traceroute scan
-nmap --traceroute
-nmap -6
-ipv6 scan
-nmap --resolve-all
-nmap -sL
-list scan
-nmap list targets
-nmap --packet-trace
-nmap raw packets
-timing template
-timing optimization
-scan faster
-scan slower
-optimize scan speed
-latency detection
-packet rate control
-adjust scan speed
-nmap performance tuning
-timing template aggressive
-timing template paranoid
-nmap vulners
-nmap smb scripts
-nmap http scripts
-nmap dns scripts
-exploit detection scripts
-ssl scripts
-tls scanning
-ssl enumeration
-detect weak ciphers
-check tls versions
-ssl certificate scan
-scan for outdated services
-scan for weak protocols
-scan for vulnerable services
-detect old versions
-check insecure ports
-find vulnerabilities on server
-identify weak services
-check service exposure
-scan subnet
-scan entire subnet
-scan cidr range
-nmap -iL
-scan list of hosts
-target list scan
-dhcp discovery
-router port scan
-firewall port check
-network inventory
-network mapping
-network topology discovery
-scan cloud server
-scan virtual machine
-scan container
-scan docker container
-scan kubernetes node
-scan aws instance
-scan azure vm
-scan gcp compute instance
-simulate attack
-penetration test scan
-pentest scan
-ethical hacking scan
-security testing
-scan quietly like attacker
-stealthy enumeration
-evade detection nmap
-avoid being detected
-enumerate running services
-enumerate services on this machine
-show me running services
-list all services on this host
-find running services on this server
-what services are running on this system
-identify running daemons
-enumerate active services
-perform a stealth scan
-perform a stealth scan using nmap
-run a stealthy syn scan
-perform a syn stealth scan
-stealthily scan the target using nmap -sS
-how to run a stealth scan
-detect the operating system of this host
-determine os version of the target
-identify the os running on this machine
-find which os this device uses
-detect service versions on this host
-what versions are running on open ports
+determine service versions
+version detection on target
 identify service versions
-detect software versions using nmap
-test this machine for open ports
-check which ports are open
-scan to see open ports
-find open ports on this system
-discover exposed ports
-please scan this host for vulnerabilities
-can you run a network scan
-i want to scan this ip address
-scan this target using nmap
-perform a vulnerability assessment
-audit this server for security issues
-find all devices connected to my network
-find all hosts connected to my local network
-discover all devices on my LAN
-find every device on my wifi network
-list all devices connected to this network
-scan my local network to find devices
-detect devices on local network
-find all hosts on local network
-discover active devices on this subnet
-scan my LAN for connected devices
-list connected machines on the network
+sV flag for versions
+banner grabbing
+detect software versions
+identify running services
+service identification
+détection de version
+identification des services
+détecter les versions logiciel
+banner grabbing
+identifier les services en cours
+détection des services actifs
+déterminer versions des services
+analyse des bannières
+os detection on target
+detect operating system
+identify os remote
+remote os detection
+aggressive scan os
+determine os fingerprint
+os fingerprinting
+detect system type
+identify remote os
+system detection
+détection du système exploitation
+identifier os distant
+déterminer système d'exploitation
+empreinte digitale os
+detection os remote
+reconnaissance système
+identifier système cible
+syn stealth scan
+syn scan stealthy
+stealth scan
+ack scan
+fin scan
+null scan
+xmas scan
+ack firewall bypass
+scan evasion technique
+evade detection
+scan syn furtif
+scan ack
+scan fin
+technique d'évasion
+contourner pare-feu
+scan discret
+scanner sans être détecté
+technique stealth
+run default scripts
+run vulnerability scripts
+nse script scanning
+execute nse scripts
+vuln script category
+safe script category
+discovery script category
+auth script category
+run custom scripts
+exécuter scripts par défaut
+scripts de vulnérabilité
+scripts nse
+scripts de découverte
+scripts de sécurité
+exécuter scripts nmap
+catégorie vuln scripts
+traceroute to target
+network path discovery
+route discovery
+traceroute scan
+path to host
+hop discovery
+network topology
+trace path to target
+traceroute vers cible
+découvrir chemin réseau
+traceroute réseau
+découverte de route
+topologie réseau
+trace du chemin
+map network topology
+network reconnaissance
+network mapping
+map subnet
+create network map
+survey network
+reconnaissance réseau
+explore network
+mapper réseau
+cartographie réseau
+reconnaissance réseau
+explorer réseau
+cartographie topologie
+mapping réseau local
+vulnerability scanning
+scan for vulnerabilities
+detect vulnerabilities
+check cve
+vulnerability assessment
+security audit
+vulnerability detection
+exploit detection
+find security issues
+scan vulnérabilités
+détection vulnérabilités
+évaluation sécurité
+audit de sécurité
+rechercher vulnérabilités
+détection de failles
+firewall evasion
+evasion technique
+bypass firewall
+timing template
+slow timing
+aggressive timing
+fragment packets
+decoy scanning
+idle scan zombie
+source port spoofing
+contourner pare-feu
+technique d'évasion
+fragmentation paquets
+scan zombie
+leurre d'adresse
+spoofing port source
+timing template
+template timing
+scan ip range
+scan subnet
+scan cidr notation
+scan list from file
+scan random hosts
+scan specific ips
+target discovery
+target enumeration
+scan network range
+scan address range
+scanner plage ip
+scan réseau subnet
+scan liste fichier
+cible découverte
+scanner plage adresses
+save scan results
+output xml format
+output normal format
+grepable output
+log scan results
+output formats
+create report
+save output file
+verbose output
+detailed results
+enregistrer résultats
+sortie fichier
+format xml
+format greppable
+résultats détaillés
+sortie verbose
+générer rapport
+aggressive scan
+timing control
+parallel scanning
+max retries
+skip ping check
+no dns resolution
+reverse dns lookup
+source port specification
+packet fragmentation
+data length randomization
+scan agressif
+contrôle timing
+scan parallèle
+max retries
+pas de vérification ping
+pas de résolution dns
+fragmentation paquets
+données aléatoires
+list scan only
+idle scan
+arp scan
+arp ping
+icmp ping
+icmp echo request
+icmp timestamp request
+icmp mask request
+udp ping
+tcp ping
+list scan
+idle scan
+arp scan
+ping icmp
+echo request
+scan arp
+ipv6 scan
+scan ipv6 address
+ipv6 target
+2001:db8::1
+ipv6 reconnaissance
+ipv6 host discovery
+ipv6 port scanning
+scan ipv6
+adresse ipv6
+cible ipv6
+reconnaissance ipv6
+scan domain
+scan example.com
+scan by hostname
+dns resolution
+reverse dns
+hostname lookup
+domain enumeration
+domain discovery
+scanner domaine
+scan nom d'hôte
+résolution dns
+énumération domaine
+découverte domaine
+fast scan
+slow scan
+timing optimization
+performance tuning
+parallel threads
+scan speed
+throughput optimization
+cpu optimization
+scan rapide
+scan lent
+optimisation vitesse
+optimisation performance
+parallélisme
+avoid detection
+stealth mode
+hide scan
+undetectable scan
+ips bypass
+ids evasion
+detection avoidance
+stay under radar
+rester discret
+éviter détection
+mode furtif
+bypass ids
+contourner ips
+full scan
+complete scan
+thorough scan
+deep scan
+comprehensive audit
+full system audit
+complete reconnaissance
+all checks scan
+scan complet
+scan thorough
+audit complet
+audit complet système
+reconnaissance complète
+service enumeration
+service discovery
+what services running
+identify services
+service mapping
+service inventory
+service detection
+running services
+énumération services
+découverte services
+identifier services
+services en cours
+inventaire services
+scan ssh port
+scan http port
+scan https port
+scan ftp port
+scan smtp port
+scan snmp port
+scan telnet port
+scan dns port
+scan ldap port
+scan kerberos port
+scanner port ssh
+scanner port http
+scanner port https
+scanner port ftp
+scanner port smtp
+show interfaces
+list interfaces
+interface enumeration
+local interfaces
+network interfaces
+interface discovery
+afficher interfaces
+lister interfaces
+énumération interfaces
