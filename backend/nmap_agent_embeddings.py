@@ -6,12 +6,12 @@ warnings.filterwarnings('ignore')
 
 try:
     import spacy
-    nlp = spacy.load("fr_core_news_sm")
+    nlp = spacy.load("en_core_web_sm")
     print("✅ spaCy modèle français chargé")
 except:
     print("⚠️  spaCy non installé. Exécute:")
     print("    pip install spacy")
-    print("    python -m spacy download fr_core_news_sm")
+    print("    python -m spacy download en_core_web_sm")
 
 
 class NMAPEmbeddingAgent:
