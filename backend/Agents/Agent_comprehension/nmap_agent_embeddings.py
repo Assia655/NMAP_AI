@@ -7,7 +7,7 @@ warnings.filterwarnings('ignore')
 try:
     import spacy
     nlp = spacy.load("en_core_web_sm")
-    print("✅ spaCy modèle français chargé")
+    print("✅ spaCy modèle Anglais chargé")
 except:
     print("⚠️  spaCy non installé. Exécute:")
     print("    pip install spacy")
