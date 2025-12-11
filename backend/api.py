@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Import de ton agent
 try:
-    from nmap_agent_embeddings import NMAPEmbeddingAgent
+    from backend.Agents.Agent_comprehension.nmap_agent_embeddings import NMAPEmbeddingAgent
     print("Agent importé avec succès")
 except Exception as e:
     print(f"Erreur import agent : {e}")

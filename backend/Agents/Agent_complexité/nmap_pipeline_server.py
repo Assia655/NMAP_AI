@@ -18,7 +18,7 @@ Usage:
 
 from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS
-from agent_complexity_slm_embeddings import ComplexityClassifierSLM
+from backend.Agents.Agent_complexité.agent_complexity_slm_embeddings import ComplexityClassifierSLM
 import requests
 import re
 
