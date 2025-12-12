@@ -1,0 +1,141 @@
+# Dataset Annoté - Complexité Nmap
+# Format: requête | label (easy/medium/hard)
+
+# ========== EASY (Scans basiques, ports simples) ==========
+Scan port 80 on the target host|easy
+Check if port 22 is open on the target|easy
+Perform a basic TCP scan on the target|easy
+Scan the SSH port on the remote server|easy
+Check if the web server port is open|easy
+Perform a ping sweep on the network|easy
+Discover active hosts on the subnet|easy
+Scan FTP port on the target machine|easy
+Check if SMTP port is accessible|easy
+Perform a simple port scan on the target|easy
+Scan the MySQL default port|easy
+Check if PostgreSQL port is open|easy
+Scan MongoDB port on the server|easy
+Check Redis port status on target|easy
+Perform basic host discovery on network|easy
+Scan DNS port on the target|easy
+Check if HTTP port is responding|easy
+Perform a quick connectivity test|easy
+Scan HTTPS port on the web server|easy
+Check if the target host is reachable|easy
+Scan common service ports on target|easy
+Perform network discovery on local subnet|easy
+Check if mail server port is open|easy
+Scan database port on remote host|easy
+Perform basic reconnaissance on target|easy
+Check if single port is accessible|easy
+Scan standard web ports on server|easy
+Perform simple network enumeration|easy
+Check target availability and response|easy
+Scan specific port on remote machine|easy
+Perform basic network mapping|easy
+Check if service port is listening|easy
+Scan known application ports|easy
+Perform lightweight host detection|easy
+Check remote service availability|easy
+Scan default service configurations|easy
+Perform quick network assessment|easy
+Check basic port accessibility|easy
+
+# ========== MEDIUM (Scans avancés, détection services/OS) ==========
+Scan all TCP ports on the target host|medium
+Detect the operating system of the target machine|medium
+Run an aggressive scan to gather more information about the target|medium
+Perform service version detection on all open ports|medium
+Scan all ports and identify running services|medium
+Detect OS and enumerate services on the target|medium
+Run vulnerability detection scripts against the target|medium
+Perform comprehensive port scan with version identification|medium
+Scan UDP ports for DNS and SNMP services|medium
+Detect web server version and retrieve HTTP headers|medium
+Scan the first 1000 ports with service detection|medium
+Perform aggressive scan on the entire subnet|medium
+Combine SYN scan with operating system detection|medium
+Run SSH enumeration scripts on the target|medium
+Check for anonymous FTP access on the server|medium
+Enumerate SMB shares on the target machine|medium
+Detect supported SSL/TLS ciphers on the target|medium
+Enumerate MySQL databases on the remote server|medium
+Check allowed HTTP methods on the web application|medium
+Attempt DNS zone transfer from the target server|medium
+Perform service fingerprinting on open ports|medium
+Detect service versions and banner information|medium
+Run comprehensive network service enumeration|medium
+Perform stealth SYN scan with version detection|medium
+Scan with both OS and service identification|medium
+Run security audit scripts against the target|medium
+Perform timing-optimized comprehensive scan|medium
+Detect vulnerabilities using NSE scripts|medium
+Enumerate all network services on target|medium
+Perform advanced port scanning with fingerprinting|medium
+Run default NSE scripts for service enumeration|medium
+Detect and identify all running services|medium
+Perform full TCP scan with OS detection|medium
+Run brute-force authentication scripts|medium
+Enumerate web server directories and files|medium
+Detect application versions on open ports|medium
+Perform script-based vulnerability assessment|medium
+Run network service discovery with details|medium
+Detect security misconfigurations on target|medium
+Perform complete network reconnaissance|medium
+Scan entire network with service identification|medium
+Run automated security scanning scripts|medium
+Detect open ports and enumerate services|medium
+Perform aggressive network enumeration|medium
+
+# ========== HARD (Scripts personnalisés, automation, évasion) ==========
+Create and execute a Python script to automate nmap scans with custom parameters|hard
+Parse nmap XML output and convert results into JSON format for analysis|hard
+Develop a custom NSE script using Lua to detect specific vulnerabilities|hard
+Bypass firewall detection using packet fragmentation and multiple decoy hosts|hard
+Evade IDS detection by using slow timing and randomized data payloads|hard
+Perform stealth scan with MAC address spoofing and disabled ping probes|hard
+Execute extremely slow scan to avoid triggering security systems|hard
+Create custom NSE script for targeted vulnerability detection|hard
+Develop personalized nmap plugin with advanced features|hard
+Integrate nmap scanning into automated CI/CD security pipeline|hard
+Automate distributed security scans using Ansible playbooks|hard
+Build REST API service to orchestrate and manage nmap scans|hard
+Create real-time dashboard to visualize and analyze scan results|hard
+Implement machine learning model to classify and prioritize open ports|hard
+Correlate nmap scan results with OSINT data for enhanced intelligence|hard
+Design and deploy distributed scanning architecture across multiple nodes|hard
+Bypass enterprise firewall using advanced fragmentation techniques|hard
+Avoid detection by sophisticated IDS/IPS systems during reconnaissance|hard
+Spoof source IP addresses to mask scan origin|hard
+Route scan traffic through multiple proxy chains|hard
+Optimize timing algorithms to balance speed and stealth|hard
+Manipulate TCP/IP stack parameters for custom packet crafting|hard
+Implement raw socket programming to enhance nmap capabilities|hard
+Use kernel-level bypass techniques for privileged scanning|hard
+Apply conditional scanning logic based on firewall behavior|hard
+Dynamically optimize scan timing based on network conditions|hard
+Adapt scanning strategy based on target response patterns|hard
+Implement intelligent conditional scanning framework|hard
+Design adaptive target selection algorithm for large networks|hard
+Create smart port prioritization system based on threat intelligence|hard
+Develop context-aware scanning methodology for different environments|hard
+Build multi-stage automated reconnaissance workflow|hard
+Write complex NSE script with conditional logic and state management|hard
+Optimize nmap performance for massive scale network scanning|hard
+Implement advanced filtering to reduce false positives in detection|hard
+Develop sophisticated firewall evasion and bypass techniques|hard
+Create custom kernel modules to extend nmap functionality|hard
+Integrate nmap scanning with enterprise SIEM platform|hard
+Build comprehensive automated penetration testing framework|hard
+Deploy distributed scanning infrastructure with load balancing|hard
+Implement machine learning-based adaptive timing algorithm|hard
+Design advanced stealth scanning methodology for high-security targets|hard
+Develop custom packet crafting and manipulation techniques|hard
+Create sophisticated evasion strategy for enterprise security controls|hard
+Build intelligent distributed scan scheduling and coordination system|hard
+Implement anomaly detection using machine learning on scan results|hard
+Design distributed stress testing framework using nmap|hard
+Create advanced custom protocol analysis and fingerprinting tools|hard
+Develop enhanced network fingerprinting with behavioral analysis|hard
+Build automated vulnerability assessment platform with orchestration|hard
+Implement sophisticated traffic analysis and pattern recognition system|hard

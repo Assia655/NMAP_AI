@@ -40,13 +40,13 @@ def process():
     
     # Afficher dans le terminal
     print("\n" + "="*60)
-    print(f"🟢 REQUÊTE EASY REÇUE #{request_count}")
+    print(f" REQUÊTE EASY REÇUE #{request_count}")
     print("="*60)
-    print(f"⏰ Heure: {datetime.now().strftime('%H:%M:%S')}")
-    print(f"📝 Query: {query}")
-    print(f"📊 Classification: {data.get('classification', {})}")
-    print(f"🎯 Port: 5004")
-    print(f"🤖 Modèle: KG-RAG (Knowledge Graph)")
+    print(f" Heure: {datetime.now().strftime('%H:%M:%S')}")
+    print(f" Query: {query}")
+    print(f" Classification: {data.get('classification', {})}")
+    print(f" Port: 5004")
+    print(f" Modèle: KG-RAG (Knowledge Graph)")
     print("="*60 + "\n")
     
     return jsonify({
