@@ -7068,10 +7068,6 @@
   "output": "nmap --host-timeout 150m target"
 },
 {
-  "input": "Scan and force name resolution for all hosts without using UDP ping",
-  "output": "nmap -R -sn -PS 192.168.1.0/24"
-},
-{
   "input": "Perform a stealth TCP Maimon scan and set the source port to 587 (Submission)",
   "output": "nmap -sM -g 587 target"
 },
@@ -7116,10 +7112,6 @@
   "output": "nmap --host-timeout 210m target"
 },
 {
-  "input": "Scan and force name resolution for all hosts without using UDP ping",
-  "output": "nmap -R -sn -PS 192.168.1.0/24"
-},
-{
   "input": "Perform a stealth TCP Maimon scan and set the source port to 135 (MS RPC)",
   "output": "nmap -sM -g 135 target"
 },
@@ -7162,10 +7154,6 @@
 {
   "input": "Set a maximum host timeout of 8 minutes and 30 seconds",
   "output": "nmap --host-timeout 510s target"
-},
-{
-  "input": "Scan and force name resolution for all hosts without using UDP ping",
-  "output": "nmap -R -sn -PS 192.168.1.0/24"
 },
 {
   "input": "Perform a stealth TCP Maimon scan and set the source port to 8080 (Proxy/Alt HTTP)",
