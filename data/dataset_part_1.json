@@ -1,0 +1,1674 @@
+[
+  {
+    "input": "Perform a TCP ACK scan with a minimum delay of 200 milliseconds between packets",
+    "output": "nmap -sA --scan-delay 200ms target"
+  },
+  {
+    "input": "Scan a target and export the output in normal format with a debug level of 4",
+    "output": "nmap -oN debug_output.txt -d4 target"
+  },
+  {
+    "input": "Scan ports for SSH, HTTPS, FTP using UDP scan and version detection on 10.0.0.0/28",
+    "output": "nmap -p T:21,22,443 -sS -sV 10.0.0.0/28"
+  },
+  {
+    "input": "Scan ports for HTTPS, SNMP and version detection on 192.168.100.47",
+    "output": "nmap -p U:161,T:443 -sU -sS -sV 192.168.100.47"
+  },
+  {
+    "input": "Pingless scan of ports 22 and 8080",
+    "output": "nmap -Pn -p 22,8080 target"
+  },
+  {
+    "input": "Scan ports for SSH using SYN scan with faster timing and traceroute on 192.168.1.20",
+    "output": "nmap -p 22 -sS -T5 --traceroute 192.168.1.20"
+  },
+  {
+    "input": "Perform a stealthy TCP Maimon scan and add random data padding of 50 bytes",
+    "output": "nmap -sM --data-length 50 target"
+  },
+  {
+    "input": "Scan ports for SSH, FTP using TCP connect scan and version detection. Run auth scripts on 192.168.1.0/24",
+    "output": "nmap -p 21,22 -sT -sV --script auth 192.168.1.0/24"
+  },
+  {
+    "input": "Use a Time-To-Live (TTL) of 100 for OS detection",
+    "output": "nmap -O --ttl 100 target"
+  },
+  {
+    "input": "Scan ports for SSH, DNS, RDP, SNMP and version detection with faster timing on 192.168.0.0/16",
+    "output": "nmap -p U:53,161,T:22,3389 -sU -sS -sV -T5 192.168.0.0/16"
+  },
+  {
+    "input": "Scan all ports on 10.0.0.50",
+    "output": "nmap -p- 10.0.0.50"
+  },
+  {
+    "input": "Set a minimum packet sending rate of 500 per second and a maximum rate of 1000 per second",
+    "output": "nmap --min-rate 500 --max-rate 1000 target"
+  },
+  {
+    "input": "Scan ports for HTTP, SNMP, Telnet using SYN scan Perform OS detection and version detection on 192.168.1.0/24",
+    "output": "nmap -p 23,80,161 -sS -sU -O -sV 192.168.1.0/24"
+  },
+  {
+    "input": "Scan a target and force host resolution using only IPv4 and source port 80",
+    "output": "nmap -4 -g 80 -R target"
+  },
+  {
+    "input": "Scan port 80 and use the http-useragent script to impersonate a specific browser",
+    "output": "nmap -p 80 --script http-useragent --script-args http.useragent='Mozilla/5.0' target"
+  },
+  {
+    "input": "Scan all ports using SYN scan Perform OS detection and version detection with faster timing on 192.168.100.0/24",
+    "output": "nmap -p- -sS -O -sV -T5 192.168.100.0/24"
+  },
+  {
+    "input": "Scan ports for FTP, MySQL with faster timing and traceroute on 192.168.100.0/28",
+    "output": "nmap -p 21,3306 -sS -T5 --traceroute 192.168.100.0/28"
+  },
+  {
+    "input": "Scan ports for SSH, Telnet using SYN scan Run default scripts on 10.0.0.0/28",
+    "output": "nmap -p 22,23 -sS -sC 10.0.0.0/28"
+  },
+  {
+    "input": "Scan all ports using SYN scan Perform OS detection and traceroute on 192.168.0.0/28",
+    "output": "nmap -p- -sS -O --traceroute 192.168.0.0/28"
+  },
+  {
+    "input": "Scan all ports Run default scripts with faster timing on 192.168.0.0/24",
+    "output": "nmap -p- -sS -sC -T5 192.168.0.0/24"
+  },
+  {
+    "input": "Scan ports for HTTPS, SMTP, DNS and version detection Run discovery scripts on 192.168.100.112",
+    "output": "nmap -p 25,53,443 -sS -sU -sV --script discovery 192.168.100.112"
+  },
+  {
+    "input": "Scan ports for FTP, SMTP, DNS, Telnet using SYN scan with faster timing on 172.16.0.83",
+    "output": "nmap -p 21,23,25,53 -sS -sU -T5 172.16.0.83"
+  },
+  {
+    "input": "Perform a scan using ICMP echo, timestamp, and netmask pings for host discovery",
+    "output": "nmap -PE -PP -PM target"
+  },
+  {
+    "input": "Scan and force name resolution for all hosts without using TCP ACK ping",
+    "output": "nmap -R -sn 192.168.1.0/24"
+  },
+  {
+    "input": "Do a ping scan on 192.168.1.39",
+    "output": "nmap -sn 192.168.1.39"
+  },
+  {
+    "input": "Scan ports for RDP using SYN scan Perform OS detection and version detection with faster timing on 192.168.0.101",
+    "output": "nmap -p 3389 -sS -O -sV -T5 192.168.0.101"
+  },
+  {
+    "input": "Scan ports for RDP Perform OS detection and version detection Run default,vuln scripts on 192.168.1.227",
+    "output": "nmap -p 3389 -sS -O -sV --script default,vuln 192.168.1.227"
+  },
+  {
+    "input": "Scan ports for SSH, DNS, RDP, SNMP and version detection on 192.168.1.0/16",
+    "output": "nmap -p 22,53,161,3389 -sS -sU -sV 192.168.1.0/16"
+  },
+  {
+    "input": "Scan all ports Run default,vuln scripts on 192.168.0.0/16",
+    "output": "nmap -p- -sS --script default,vuln 192.168.0.0/16"
+  },
+  {
+    "input": "Perform a host list scan without DNS resolution and export the output in grepable format",
+    "output": "nmap -sL -n -oG list.gnmap 192.168.0.0/24"
+  },
+  {
+    "input": "Scan ports for HTTP, SMTP using TCP connect scan Perform OS detection and version detection on 172.16.0.52",
+    "output": "nmap -p 80,25 -sT -O -sV 172.16.0.52"
+  },
+  {
+    "input": "Do a ping scan on 10.0.0.0/28",
+    "output": "nmap -sn 10.0.0.0/28"
+  },
+  {
+    "input": "Launch a host discovery scan for all hosts using an ICMP Timestamp ping",
+    "output": "nmap -sn -PP 192.168.1.0/24"
+  },
+  {
+    "input": "Scan ports for SSH, SMTP and version detection Run default scripts on 10.0.0.0/28",
+    "output": "nmap -p 22,25 -sS -sV -sC 10.0.0.0/28"
+  },
+  {
+    "input": "Scan ports for HTTP, Telnet using UDP scan and version detection Run default,vuln scripts with faster timing on 192.168.1.212",
+    "output": "nmap -p 80,23 -sU -sV --script default,vuln -T5 192.168.1.212"
+  },
+  {
+    "input": "Scan all ports and version detection with faster timing on 192.168.100.195",
+    "output": "nmap -p- -sV -T5 192.168.100.195"
+  },
+  {
+    "input": "Set the minimum packet rate to 1 and maximum packet rate to 5",
+    "output": "nmap --min-rate 1 --max-rate 5 target"
+  },
+  {
+    "input": "Scan port 21 (FTP) and specify a user and password file for the ftp-brute script",
+    "output": "nmap -p 21 --script ftp-brute --script-args userdb=users.txt,passdb=passwords.txt target"
+  },
+  {
+    "input": "Perform a TCP SYN scan using a custom MTU of 1024 bytes",
+    "output": "nmap -sS --mtu 1024 target"
+  },
+  {
+    "input": "Do a ping scan on 192.168.100.0/28",
+    "output": "nmap -sn 192.168.100.0/28"
+  },
+  {
+    "input": "Scan ports for DNS using TCP connect scan on 10.0.0.0/24",
+    "output": "nmap -p 53 -sT 10.0.0.0/24"
+  },
+  {
+    "input": "Set a maximum host timeout of 2 minutes and 30 seconds",
+    "output": "nmap --host-timeout 150s target"
+  },
+  {
+    "input": "Scan all ports but exclude ports 23 and 5900-5910",
+    "output": "nmap -p- --exclude-ports 23,5900-5910 target"
+  },
+  {
+    "input": "Scan ports for SNMP using UDP scan on 192.168.100.0/28",
+    "output": "nmap -p 161 -sU 192.168.100.0/28"
+  },
+  {
+    "input": "Display detailed service version fingerprint information",
+    "output": "nmap -sV --version-trace target"
+  },
+  {
+    "input": "Scan ports for SSH and FTP Perform OS detection Run vuln scripts and traceroute on 192.168.0.0/28",
+    "output": "nmap -p 21,22 -sS -O --script vuln --traceroute 192.168.0.0/28"
+  },
+  {
+    "input": "Set the maximum number of retries for a port to 1",
+    "output": "nmap --max-retries 1 target"
+  },
+  {
+    "input": "Scan all ports using UDP scan Perform OS detection and version detection Run default,vuln scripts on 192.168.0.51",
+    "output": "nmap -p- -sU -O -sV --script default,vuln 192.168.0.51"
+  },
+  {
+    "input": "Set the minimum host group size for parallel scanning to 16",
+    "output": "nmap --min-hostgroup 16 10.0.0.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP, MySQL, Telnet using UDP scan with faster timing and traceroute on 192.168.0.99",
+    "output": "nmap -p 80,3306,23 -sU -T5 --traceroute 192.168.0.99"
+  },
+  {
+    "input": "Use the most aggressive timing template and force OS detection",
+    "output": "nmap -O -T5 target"
+  },
+  {
+    "input": "Scan ports for HTTPS using UDP scan and version detection on 192.168.1.60",
+    "output": "nmap -p 443 -sU -sV 192.168.1.60"
+  },
+  {
+    "input": "Scan ports for HTTP with faster timing using IPv6",
+    "output": "nmap -p 80 -T5 -6 2001:db8::70"
+  },
+  {
+    "input": "Scan target and save output in all formats",
+    "output": "nmap -oA scan_results target"
+  },
+  {
+    "input": "Do a ping scan on 192.168.100.0/16",
+    "output": "nmap -sn 192.168.100.0/16"
+  },
+  {
+    "input": "Scan ports for FTP and SMTP using TCP connect scan with version detection and traceroute",
+    "output": "nmap -p 21,25 -sT -sV --traceroute target"
+  },
+  {
+    "input": "Scan ports for MySQL and Telnet using TCP connect scan Perform OS detection",
+    "output": "nmap -p 23,3306 -sT -O 192.168.100.0/28"
+  },
+  {
+    "input": "Perform a SYN scan with a maximum number of retries set to 2",
+    "output": "nmap -sS --max-retries 2 target"
+  },
+  {
+    "input": "Scan all ports and version detection on 192.168.1.0/16",
+    "output": "nmap -p- -sV 192.168.1.0/16"
+  },
+  {
+    "input": "Scan ports for SSH using TCP connect scan with faster timing",
+    "output": "nmap -p 22 -sT -T5 192.168.1.0/24"
+  },
+  {
+    "input": "Use a custom MTU of 8 and spoof source IP address 1.2.3.4",
+    "output": "nmap --mtu 8 -S 1.2.3.4 target"
+  },
+  {
+    "input": "Scan all ports using UDP scan Perform OS detection Run auth scripts",
+    "output": "nmap -p- -sU -O --script auth 10.0.0.0/16"
+  },
+  {
+    "input": "Perform a TCP SYN scan and display scan statistics every 10 seconds",
+    "output": "nmap -sS --stats-every 10s target"
+  },
+  {
+    "input": "Scan hosts listed in an input file and perform light version detection",
+    "output": "nmap -iL hosts.txt -sV --version-light"
+  },
+  {
+    "input": "Scan UDP ports only",
+    "output": "nmap -sU -p- target"
+  },
+  {
+    "input": "Scan all ports using SYN scan on 10.0.0.0/16",
+    "output": "nmap -p- -sS 10.0.0.0/16"
+  },
+  {
+    "input": "Set a maximum host timeout of 3 hours and 30 minutes",
+    "output": "nmap --host-timeout 210m target"
+  },
+  {
+    "input": "Scan ports for RDP and version detection with faster timing on 192.168.100.0/28",
+    "output": "nmap -p 3389 -sV -T5 192.168.100.0/28"
+  },
+  {
+    "input": "Scan ports for HTTP on 192.168.1.33",
+    "output": "nmap -p 80 192.168.1.33"
+  },
+  {
+    "input": "Scan ports for HTTP, HTTPS, MySQL, SNMP using UDP scan and version detection Run default,vuln scripts with faster timing on 192.168.1.0/16",
+    "output": "nmap -p 80,443,3306,161 -sU -sV --script default,vuln -T5 192.168.1.0/16"
+  },
+  {
+    "input": "Scan all ports on 192.168.1.1",
+    "output": "nmap -p- 192.168.1.1"
+  },
+  {
+    "input": "Scan using IP protocol version 17 (UDP) for discovery (default, but explicit)",
+    "output": "nmap -sO -p 17 target"
+  },
+  {
+    "input": "Scan all ports Perform OS detection on 10.0.0.0/16",
+    "output": "nmap -p- -O 10.0.0.0/16"
+  },
+  {
+    "input": "Scan and force version detection with the lowest intensity level (0)",
+    "output": "nmap -sV --version-intensity 0 target"
+  },
+  {
+    "input": "Perform a TCP Maimon scan with a maximum rate of 5 packets per second",
+    "output": "nmap -sM --max-rate 5 target"
+  },
+  {
+    "input": "Scan ports for SSH, FTP, MySQL, RDP using TCP connect scan Perform OS detection with faster timing and traceroute on 172.16.0.0/24",
+    "output": "nmap -p 21,22,3306,3389 -sT -O -T5 --traceroute 172.16.0.0/24"
+  },
+  {
+    "input": "Scan ports for SSH, HTTP, MySQL, SNMP using SYN scan on 172.16.0.0/16",
+    "output": "nmap -p 22,80,3306,161 -sS 172.16.0.0/16"
+  },
+  {
+    "input": "Scan ports for HTTPS, MySQL and version detection on 192.168.0.0/16",
+    "output": "nmap -p 443,3306 -sV 192.168.0.0/16"
+  },
+  {
+    "input": "Scan ports for SNMP with faster timing on 192.168.1.0/28",
+    "output": "nmap -p 161 -T5 192.168.1.0/28"
+  },
+  {
+    "input": "Scan and attempt to enumerate SMB shares without using intrusive scripts",
+    "output": "nmap -p 445 --script smb-enum-shares --script-args smb-enum-shares.unsafe=0 target"
+  },
+  {
+    "input": "Scan ports for SSH, HTTP, SMTP, RDP Perform OS detection and version detection Run malware scripts on 192.168.0.0/24",
+    "output": "nmap -p 22,25,80,3389 -O -sV --script malware 192.168.0.0/24"
+  },
+  {
+    "input": "Scan all ports and version detection on 192.168.1.0/28",
+    "output": "nmap -p- -sV 192.168.1.0/28"
+  },
+  {
+    "input": "Scan and save the output to a file in grepable format",
+    "output": "nmap -oG scan_grep.txt target"
+  },
+  {
+    "input": "Do a ping scan on 172.16.0.0/28",
+    "output": "nmap -sn 172.16.0.0/28"
+  },
+  {
+    "input": "Use the http-enum script on port 80 of target",
+    "output": "nmap -p 80 --script http-enum target"
+  },
+  {
+    "input": "Scan and export the XML output with a custom DTD",
+    "output": "nmap -oX custom_scan.xml --stylesheet custom.xsl target"
+  },
+  {
+    "input": "Perform a TCP Maimon scan and force the checking of all packets for the 'checksum'",
+    "output": "nmap -sM --send-eth target"
+  },
+  {
+    "input": "Scan ports for DNS on 192.168.100.0/24",
+    "output": "nmap -p 53 192.168.100.0/24"
+  },
+  {
+    "input": "Scan all ports with faster timing on 192.168.0.0/16",
+    "output": "nmap -p- -T5 192.168.0.0/16"
+  },
+  {
+    "input": "Scan all ports using SYN scan Run malware scripts using IPv6 on 2001:db8::9514",
+    "output": "nmap -p- -sS --script malware -6 2001:db8::9514"
+  },
+  {
+    "input": "Set the ToS/DSCP value of outgoing IP packets to 48 (Minimal-delay)",
+    "output": "nmap --tos 48 target"
+  },
+  {
+    "input": "Scan all ports using UDP scan with faster timing on 10.0.0.0/28",
+    "output": "nmap -p- -sU -T5 10.0.0.0/28"
+  },
+  {
+    "input": "Scan ports for HTTPS using SYN scan and version detection on 192.168.0.0/24",
+    "output": "nmap -p 443 -sS -sV 192.168.0.0/24"
+  },
+  {
+    "input": "Launch the SMB brute-force script using a custom password dictionary",
+    "output": "nmap -p 445 --script smb-brute --script-args passdb=smb_passwords.txt target"
+  },
+  {
+    "input": "Set a very slow timing template (T0) for a stealth scan",
+    "output": "nmap -sS -T0 target"
+  },
+  {
+    "input": "Scan ports for FTP using UDP scan and version detection with faster timing on 10.0.0.0/16",
+    "output": "nmap -p 21 -sU -sV -T5 10.0.0.0/16"
+  },
+  {
+    "input": "Display the trace of sent and received packets (packet trace mode) during a TCP ACK scan",
+    "output": "nmap -sA --packet-trace target"
+  },
+  {
+    "input": "Scan ports for RDP with faster timing on 192.168.100.245",
+    "output": "nmap -p 3389 -T5 192.168.100.245"
+  },
+  {
+    "input": "Display maximum verbosity level (level 3)",
+    "output": "nmap -vvv target"
+  },
+  {
+    "input": "Use the 'datagram' option to send raw IP datagrams",
+    "output": "nmap --datagram target"
+  },
+  {
+    "input": "Perform a fast TCP SYN scan and force Nmap to use the operating system's DNS resolution",
+    "output": "nmap -F -sS --system-dns target"
+  },
+  {
+    "input": "Scan ports for FTP, SMTP, MySQL, RDP and version detection on 192.168.0.0/24",
+    "output": "nmap -p 21,25,3306,3389 -sV 192.168.0.0/24"
+  },
+  {
+    "input": "Scan ports for HTTP, DNS using UDP scan using IPv6 on 2001:db8::7880",
+    "output": "nmap -p 53,80 -sU -6 2001:db8::7880"
+  },
+  {
+    "input": "Scan all ports using SYN scan Perform OS detection on 10.0.0.0/28",
+    "output": "nmap -p- -sS -O 10.0.0.0/28"
+  },
+  {
+    "input": "Scan ports for SMTP using TCP connect scan and version detection Run malware scripts on 10.0.0.22",
+    "output": "nmap -p 25 -sT -sV --script malware 10.0.0.22"
+  },
+  {
+    "input": "Attempt an IP protocol scan and display the reasons",
+    "output": "nmap -sO --reason target"
+  },
+  {
+    "input": "Show interfaces",
+    "output": "nmap --iflist"
+  },
+  {
+    "input": "Scan ports for HTTPS, SMTP, MySQL, Telnet using SYN scan and version detection on 172.16.0.0/16",
+    "output": "nmap -p 25,443,3306,23 -sS -sV 172.16.0.0/16"
+  },
+  {
+    "input": "Set the minimum quantity of UDP packets to send per second to 50",
+    "output": "nmap -sU --min-rate 50 target"
+  },
+  {
+    "input": "Scan ports 20 and 21 (FTP) and execute the service version retrieval script",
+    "output": "nmap -p 20,21 --script ftp-anon target"
+  },
+  {
+    "input": "Scan all ports and version detection on 172.16.0.0/28",
+    "output": "nmap -p- -sV 172.16.0.0/28"
+  },
+  {
+    "input": "Scan IPs from 10.0.0.1 to 10.0.0.20",
+    "output": "nmap 10.0.0.1-20"
+  },
+  {
+    "input": "Scan a range of hosts using TCP ping on ports 80 and 443 for discovery",
+    "output": "nmap -sn -PS80,443 192.168.1.0/24"
+  },
+  {
+    "input": "Scan IP range 192.168.1.1-10",
+    "output": "nmap 192.168.1.1-10"
+  },
+  {
+    "input": "Use a TCP ping on port 22 and an ICMP echo ping for host discovery",
+    "output": "nmap -sn -PS22 -PE 192.168.1.0/24"
+  },
+  {
+    "input": "Scan ports for SMTP, Telnet Perform OS detection on 10.0.0.0/16",
+    "output": "nmap -p 25,23 -O 10.0.0.0/16"
+  },
+  {
+    "input": "Scan a target and export the output in normal format with a debug level of 0 (disabled), but trace packets",
+    "output": "nmap -oN debug_output.txt -d0 --packet-trace target"
+  },
+  {
+    "input": "Display only open ports in grepable output",
+    "output": "nmap -oG - target | grep 'Ports:' | grep 'open'"
+  },
+  {
+    "input": "Attempt to detect the presence of an Oracle database on standard ports",
+    "output": "nmap -p 1521,2483,2484 --script oracle-tns-version target"
+  },
+  {
+    "input": "Set the maximum host group size for parallel scanning to 4",
+    "output": "nmap --max-hostgroup 4 192.168.0.0/24"
+  },
+  {
+    "input": "Scan all ports Perform OS detection and version detection Run malware scripts on 10.0.0.239",
+    "output": "nmap -p- -O -sV --script malware 10.0.0.239"
+  },
+  {
+    "input": "Scan ports for HTTPS, RDP using UDP scan and version detection on 192.168.100.0/28",
+    "output": "nmap -p 443,3389 -sU -sV 192.168.100.0/28"
+  },
+  {
+    "input": "Scan a target using the Window Scan in aggressive mode (T5)",
+    "output": "nmap -sW -T5 target"
+  },
+  {
+    "input": "Launch the SMB brute-force script using a specific user list and disabling password filling",
+    "output": "nmap -p 445 --script smb-brute --script-args userdb=smb_users.txt,brute.passonly=false target"
+  },
+  {
+    "input": "Scan using IP protocol version 1 (ICMP) for discovery (default, but explicit)",
+    "output": "nmap -sO -p 1 target"
+  },
+  {
+    "input": "Scan all ports using UDP scan on 192.168.1.0/16",
+    "output": "nmap -p- -sU 192.168.1.0/16"
+  },
+  {
+    "input": "Perform a port scan and set the 'tos' (Type of Service) to 16 for the IP packet",
+    "output": "nmap --tos 16 target"
+  },
+  {
+    "input": "Use a port scan to target the 0.000005% most likely ports",
+    "output": "nmap --port-ratio 0.00000005 target"
+  },
+  {
+    "input": "Scan ports for MySQL and version detection on 192.168.1.0/16",
+    "output": "nmap -p 3306 -sV 192.168.1.0/16"
+  },
+  {
+    "input": "Scan ports for FTP, MySQL on 192.168.0.0/16",
+    "output": "nmap -p 21,3306 192.168.0.0/16"
+  },
+  {
+    "input": "Use the http-fingerprint script and exclude version detection for port 80",
+    "output": "nmap --script http-fingerprint -p 80 --exclude-ports 80 target"
+  },
+  {
+    "input": "Scan ports for HTTPS, FTP, SMTP, SNMP and version detection and traceroute on 172.16.0.0/28",
+    "output": "nmap -p 21,25,161,443 -sV --traceroute 172.16.0.0/28"
+  },
+  {
+    "input": "Perform a stealthy TCP Maimon scan and set the source port to 119 (NNTP)",
+    "output": "nmap -sM -g 119 target"
+  },
+  {
+    "input": "Scan all ports using SYN scan and version detection on 10.0.0.0/24",
+    "output": "nmap -p- -sS -sV 10.0.0.0/24"
+  },
+  {
+    "input": "Scan all ports on 192.168.1.132",
+    "output": "nmap -p- 192.168.1.132"
+  },
+  {
+    "input": "Scan all ports using UDP scan Perform OS detection with faster timing on 192.168.0.0/16",
+    "output": "nmap -p- -sU -O -T5 192.168.0.0/16"
+  },
+  {
+    "input": "Scan ports for RDP using SYN scan and version detection with faster timing on 172.16.0.0/16",
+    "output": "nmap -p 3389 -sS -sV -T5 172.16.0.0/16"
+  },
+  {
+    "input": "Perform a TCP SYN scan and add a hexadecimal data string of 'FFFF0000'",
+    "output": "nmap -sS --data-string 'FFFF0000' target"
+  },
+  {
+    "input": "Scan ports for SSH, SMTP and version detection on 192.168.0.0/28",
+    "output": "nmap -p 22,25 -sV 192.168.0.0/28"
+  },
+  {
+    "input": "Scan ports for SMTP, DNS, MySQL and version detection with faster timing on 10.0.0.0/16",
+    "output": "nmap -p 25,53,3306 -sV -T5 10.0.0.0/16"
+  },
+  {
+    "input": "Scan a host and display all debug information",
+    "output": "nmap -d target"
+  },
+  {
+    "input": "Scan ports for SSH, FTP using UDP scan and version detection on 10.0.0.0/16",
+    "output": "nmap -p 21,22 -sU -sV 10.0.0.0/16"
+  },
+  {
+    "input": "Scan an IPv6 host and retrieve DNS records using a script",
+    "output": "nmap -6 --script dns-srv-record 2001:db8::1"
+  },
+  {
+    "input": "Perform a TCP SYN scan and disable packet checksum verification",
+    "output": "nmap -sS --disable-arp-ping --no-checksums target"
+  },
+  {
+    "input": "Scan ports for SSH Perform OS detection Run vuln scripts on 192.168.100.0/28",
+    "output": "nmap -p 22 -O --script vuln 192.168.100.0/28"
+  },
+  {
+    "input": "Scan ports for HTTP, Telnet Perform OS detection on 192.168.1.0/24",
+    "output": "nmap -p 23,80 -O 192.168.1.0/24"
+  },
+  {
+    "input": "Scan all ports Perform OS detection and version detection Run default scripts on 172.16.0.50",
+    "output": "nmap -p- -O -sV --script default 172.16.0.50"
+  },
+  {
+    "input": "Set a maximum host discovery timeout to 20 seconds",
+    "output": "nmap --host-timeout 20s target"
+  },
+  {
+    "input": "Scan ports for HTTP, FTP, DNS, MySQL using SYN scan and version detection Run default,vuln scripts with faster timing on 172.16.0.0/28",
+    "output": "nmap -p 21,53,80,3306 -sS -sV --script default,vuln -T5 172.16.0.0/28"
+  },
+  {
+    "input": "Display the detailed 'fingerprint' of the target's OS detection",
+    "output": "nmap -O --osscan-guess target"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 192.168.1.0/24",
+    "output": "nmap -sn -T5 192.168.1.0/24"
+  },
+  {
+    "input": "Scan ports for HTTP using UDP scan Perform OS detection and version detection on 172.16.0.0/16",
+    "output": "nmap -p 80 -sU -O -sV 172.16.0.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP, SMTP and version detection with faster timing on 192.168.1.148",
+    "output": "nmap -p 25,80 -sV -T5 192.168.1.148"
+  },
+  {
+    "input": "Exclude ports 80 to 90 from version detection and perform an aggressive scan",
+    "output": "nmap -A --version-exclude 80-90 target"
+  },
+  {
+    "input": "Add 20 bytes of random data to the sent packets",
+    "output": "nmap --data-length 20 target"
+  },
+  {
+    "input": "Scan all ports and version detection on 192.168.1.0/28",
+    "output": "nmap -p- -sV 192.168.1.0/28"
+  },
+  {
+    "input": "Use the http-methods script with the path /admin/v1/ and a maximum verbosity level",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.test-all,path=/admin/v1/ target"
+  },
+  {
+    "input": "Scan ports for SSH, HTTP, FTP using UDP scan and version detection Run malware scripts on 192.168.1.0/16",
+    "output": "nmap -p 21,22,80 -sU -sV --script malware 192.168.1.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP and version detection Run vuln scripts on 192.168.100.0/16",
+    "output": "nmap -p 80 -sV --script vuln 192.168.100.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP, MySQL, SNMP and version detection on 192.168.1.0/16",
+    "output": "nmap -p 80,3306,161 -sV 192.168.1.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP, SNMP, Telnet using TCP connect scan Perform OS detection Run auth scripts with faster timing on 192.168.1.81",
+    "output": "nmap -p 23,80,161 -sT -O --script auth -T5 192.168.1.81"
+  },
+  {
+    "input": "Scan ports for FTP Perform OS detection and version detection with faster timing on 192.168.1.0/16",
+    "output": "nmap -p 21 -O -sV -T5 192.168.1.0/16"
+  },
+  {
+    "input": "Scan ports for RDP and version detection and traceroute on 192.168.100.0/24",
+    "output": "nmap -p 3389 -sV --traceroute 192.168.100.0/24"
+  },
+  {
+    "input": "Scan and force name resolution for all hosts without ARP ping",
+    "output": "nmap -R --disable-arp-ping target"
+  },
+  {
+    "input": "Perform a UDP scan of ports 161 (SNMP) and 53 (DNS) with a maximum rate of 50 packets per second",
+    "output": "nmap -sU -p 53,161 --max-rate 50 target"
+  },
+  {
+    "input": "Scan port 80 with the script that tries to 'doos' a target (simulate a DoS attack)",
+    "output": "nmap -p 80 --script http-slowloris target"
+  },
+  {
+    "input": "Scan specific ports 22,80,443 on 192.168.1.5",
+    "output": "nmap -p 22,80,443 192.168.1.5"
+  },
+  {
+    "input": "Launch a scan with OS detection but only on promising hosts",
+    "output": "nmap -O --osscan-limit target"
+  },
+  {
+    "input": "Scan ports for Telnet using TCP connect scan and version detection using IPv6 on 2001:db8::5766",
+    "output": "nmap -p 23 -sT -sV -6 2001:db8::5766"
+  },
+  {
+    "input": "Scan ports for DNS, Telnet using SYN scan Run safe scripts on 172.16.0.0/28",
+    "output": "nmap -p 23,53 -sS --script safe 172.16.0.0/28"
+  },
+  {
+    "input": "Aggressive scan on 192.168.1.3",
+    "output": "nmap -A 192.168.1.3"
+  },
+  {
+    "input": "Scan for default script and save to normal output file",
+    "output": "nmap --script default -oN default_scan.txt target"
+  },
+  {
+    "input": "Execute all scripts in the 'discovery' category on an IP address range",
+    "output": "nmap --script discovery 192.168.20.0/24"
+  },
+  {
+    "input": "Scan ports for HTTPS, SNMP Perform OS detection and version detection on 192.168.0.198",
+    "output": "nmap -p 443,161 -O -sV 192.168.0.198"
+  },
+  {
+    "input": "Scan ports for HTTP, RDP, SNMP, Telnet using TCP connect scan Perform OS detection and version detection Run discovery scripts on 172.16.0.0/24",
+    "output": "nmap -p 23,80,161,3389 -sT -O -sV --script discovery 172.16.0.0/24"
+  },
+  {
+    "input": "Perform a SYN scan with fragmentation and an MTU size of 24",
+    "output": "nmap -sS -f --mtu 24 target"
+  },
+  {
+    "input": "Scan ports for HTTP, FTP, DNS on 192.168.0.0/16",
+    "output": "nmap -p 21,53,80 192.168.0.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP on 192.168.0.0/24",
+    "output": "nmap -p 80 192.168.0.0/24"
+  },
+  {
+    "input": "Execute a scan and display only the output lines starting with 'Host' in grepable format",
+    "output": "nmap -oG - target | grep '^Host'"
+  },
+  {
+    "input": "Scan ports for SSH, FTP, RDP, Telnet using UDP scan on 192.168.1.0/16",
+    "output": "nmap -p 21,22,23,3389 -sU 192.168.1.0/16"
+  },
+  {
+    "input": "Scan all ports and version detection Run malware scripts on 192.168.1.0/28",
+    "output": "nmap -p- -sV --script malware 192.168.1.0/28"
+  },
+  {
+    "input": "Perform a TCP SYN scan and use an IP fragment size of 1500 bytes (maximum Ethernet MTU size)",
+    "output": "nmap -sS --mtu 1500 target"
+  },
+  {
+    "input": "Perform a TCP SYN scan and use an IP fragment size of 32 bytes",
+    "output": "nmap -sS --mtu 32 target"
+  },
+  {
+    "input": "Scan ports for MySQL, Telnet using TCP connect scan on 192.168.0.0/28",
+    "output": "nmap -p 23,3306 -sT 192.168.0.0/28"
+  },
+  {
+    "input": "Scan ports for DNS, MySQL, Telnet using SYN scan and version detection on 192.168.100.0/28",
+    "output": "nmap -p 23,53,3306 -sS -sV 192.168.100.0/28"
+  },
+  {
+    "input": "Scan ports for FTP, DNS, RDP, Telnet using SYN scan and version detection with faster timing on 172.16.0.0/16",
+    "output": "nmap -p 21,23,53,3389 -sS -sV -T5 172.16.0.0/16"
+  },
+  {
+    "input": "Scan a target and export the output in Grepable format with a debug level of 2",
+    "output": "nmap -oG debug_output.gnmap -d2 target"
+  },
+  {
+    "input": "Scan all ports on 192.168.1.0/24",
+    "output": "nmap -p- 192.168.1.0/24"
+  },
+  {
+    "input": "Scan all ports Perform OS detection Run discovery scripts and traceroute on 10.0.0.0/24",
+    "output": "nmap -p- -O --script discovery --traceroute 10.0.0.0/24"
+  },
+  {
+    "input": "Launch the http-brute script using a very specific user and password ('testuser', 'testpass')",
+    "output": "nmap -p 80 --script http-brute --script-args userdb={testuser},passdb={testpass} target"
+  },
+  {
+    "input": "Perform a TCP SYN scan and use an initial TCP window size of 512",
+    "output": "nmap -sS --initial-rtt-timeout 100ms --max-rtt-timeout 1000ms --min-rtt-timeout 50ms --initial-window 512 target"
+  },
+  {
+    "input": "Use a port scan to target the 0.0001% most likely ports",
+    "output": "nmap --port-ratio 0.000001 target"
+  },
+  {
+    "input": "Scan ports for HTTP, DNS Perform OS detection and version detection with faster timing on 192.168.1.0/28",
+    "output": "nmap -p 53,80 -O -sV -T5 192.168.1.0/28"
+  },
+  {
+    "input": "Launch the SSH brute-force script using a custom password dictionary",
+    "output": "nmap -p 22 --script ssh-brute --script-args passdb=ssh_passwords.txt target"
+  },
+  {
+    "input": "Scan all ports using TCP connect scan Run safe scripts on 192.168.0.0/16",
+    "output": "nmap -p- -sT --script safe 192.168.0.0/16"
+  },
+  {
+    "input": "Fast scan on 192.168.0.1",
+    "output": "nmap -F 192.168.0.1"
+  },
+  {
+    "input": "Scan port 23 (Telnet) and launch the script to retrieve the service banner, exporting the output in normal format",
+    "output": "nmap -p 23 --script banner -oN telnet_banner.txt target"
+  },
+  {
+    "input": "Scan ports for HTTP Perform OS detection and version detection on 192.168.1.0/28",
+    "output": "nmap -p 80 -O -sV 192.168.1.0/28"
+  },
+  {
+    "input": "Scan a target and display debug level 9 information with packet trace",
+    "output": "nmap -d9 --packet-trace target"
+  },
+  {
+    "input": "Scan all ports and version detection on 192.168.1.0/16",
+    "output": "nmap -p- -sV 192.168.1.0/16"
+  },
+  {
+    "input": "Perform a scan and display debug level 5 information",
+    "output": "nmap -d5 target"
+  },
+  {
+    "input": "Use the http-methods script with the path /v3/api/ and a maximum verbosity level",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.test-all,path=/v3/api/ target"
+  },
+  {
+    "input": "Perform a port scan and force reverse DNS resolution for the list of scanned hosts",
+    "output": "nmap -R target"
+  },
+  {
+    "input": "Scan a target for all known vulnerabilities using the 'vulners' script",
+    "output": "nmap --script vulners target"
+  },
+  {
+    "input": "Perform a stealthy TCP Maimon scan and set the TTL to a very low value (1)",
+    "output": "nmap -sM --ttl 1 target"
+  },
+  {
+    "input": "Scan ports for SSH, SMTP, DNS, RDP and version detection on 192.168.100.128",
+    "output": "nmap -p 22,25,53,3389 -sV 192.168.100.128"
+  },
+  {
+    "input": "Scan ports for MySQL using UDP scan Perform OS detection Run vuln scripts on 192.168.1.186",
+    "output": "nmap -p 3306 -sU -O --script vuln 192.168.1.186"
+  },
+  {
+    "input": "Launch the script to attempt to detect usernames via the SMTP service",
+    "output": "nmap -p 25 --script smtp-enum-users target"
+  },
+  {
+    "input": "Scan ports for MySQL using TCP connect scan and version detection with faster timing on 192.168.100.0/28",
+    "output": "nmap -p 3306 -sT -sV -T5 192.168.100.0/28"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 192.168.1.0/16",
+    "output": "nmap -sn -T5 192.168.1.0/16"
+  },
+  {
+    "input": "Scan and force name resolution for all hosts without using ARP ping",
+    "output": "nmap -R -sn --disable-arp-ping 192.168.1.0/24"
+  },
+  {
+    "input": "Scan ports for Telnet Perform OS detection and version detection with faster timing on 192.168.1.245",
+    "output": "nmap -p 23 -O -sV -T5 192.168.1.245"
+  },
+  {
+    "input": "Perform a scan and export the output in normal format, disabling the port summary",
+    "output": "nmap -oN output.txt --disable-port-summary target"
+  },
+  {
+    "input": "Use the http-methods script with the path /api/v1/",
+    "output": "nmap -p 80 --script http-methods --script-args http-methods.test-all,path=/api/v1/ target"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 192.168.0.144",
+    "output": "nmap -sn -T5 192.168.0.144"
+  },
+  {
+    "input": "Perform a port scan with a custom data string 'testdata' in the packet payload",
+    "output": "nmap --data-string 'testdata' target"
+  },
+  {
+    "input": "Perform a scan and specify custom DNS servers to use",
+    "output": "nmap --dns-servers 8.8.8.8,8.8.4.4 target"
+  },
+  {
+    "input": "Scan ports for SSH, DNS, Telnet Perform OS detection Run auth scripts using IPv6 on 2001:db8::4323",
+    "output": "nmap -p 22,23,53 -O --script auth -6 2001:db8::4323"
+  },
+  {
+    "input": "Scan ports for SMTP, DNS, MySQL, RDP using UDP scan and version detection on 192.168.0.0/28",
+    "output": "nmap -p 25,53,3306,3389 -sU -sV 192.168.0.0/28"
+  },
+  {
+    "input": "Scan ports for RDP, Telnet Perform OS detection and version detection Run malware scripts on 192.168.100.0/16",
+    "output": "nmap -p 23,3389 -O -sV --script malware 192.168.100.0/16"
+  },
+  {
+    "input": "Scan ports for SSH, HTTP, RDP, Telnet using SYN scan Run malware scripts with faster timing and traceroute on 192.168.100.227",
+    "output": "nmap -p 22,23,80,3389 -sS --script malware -T5 --traceroute 192.168.100.227"
+  },
+  {
+    "input": "Set a maximum host timeout of 45 minutes",
+    "output": "nmap --host-timeout 45m target"
+  },
+  {
+    "input": "Scan using IP protocol version 6 (TCP) for discovery (default, but explicit)",
+    "output": "nmap -sO -p 6 target"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 192.168.100.152",
+    "output": "nmap -sn -T5 192.168.100.152"
+  },
+  {
+    "input": "Scan a target and export the output in normal format with a debug level of 2",
+    "output": "nmap -oN debug_output.txt -d2 target"
+  },
+  {
+    "input": "Scan ports for HTTPS, DNS, RDP, Telnet using TCP connect scan and version detection on 192.168.0.181",
+    "output": "nmap -p 23,53,3389,443 -sT -sV 192.168.0.181"
+  },
+  {
+    "input": "Scan ports for SSH, HTTPS, FTP using UDP scan Perform OS detection and version detection on 192.168.0.0/16",
+    "output": "nmap -p 21,22,443 -sU -O -sV 192.168.0.0/16"
+  },
+  {
+    "input": "Do a ping scan on 192.168.100.0/16",
+    "output": "nmap -sn 192.168.100.0/16"
+  },
+  {
+    "input": "Scan ports for SNMP using SYN scan on 192.168.100.0/16",
+    "output": "nmap -p 161 -sS 192.168.100.0/16"
+  },
+  {
+    "input": "Scan ports for HTTPS, DNS Perform OS detection Run malware scripts on 192.168.100.0/16",
+    "output": "nmap -p 53,443 -O --script malware 192.168.100.0/16"
+  },
+  {
+    "input": "Scan using IP protocol version 4 (IPIP) for discovery",
+    "output": "nmap -sO -p 4 target"
+  },
+  {
+    "input": "Force OS detection with the retry limit at 1",
+    "output": "nmap -O --osscan-limit --max-os-tries 1 target"
+  },
+  {
+    "input": "Use the http-methods script with the path /v4/api/ and a maximum verbosity level",
+    "output": "nmap -vvv -p 80 --script http-methods --script-args http-methods.test-all,path=/v4/api/ target"
+  },
+  {
+    "input": "Scan all ports and version detection with faster timing on 10.0.0.0/28",
+    "output": "nmap -p- -sV -T5 10.0.0.0/28"
+  },
+  {
+    "input": "Perform a TCP SYN scan and use an initial TCP window size of 128",
+    "output": "nmap -sS --initial-window 128 target"
+  },
+  {
+    "input": "Scan all ports using UDP scan and version detection on 192.168.100.0/16",
+    "output": "nmap -p- -sU -sV 192.168.100.0/16"
+  },
+  {
+    "input": "Scan ports for SSH, SMTP, RDP, Telnet Run vuln scripts using IPv6 on 2001:db8::7592",
+    "output": "nmap -p 22,23,25,3389 --script vuln -6 2001:db8::7592"
+  },
+  {
+    "input": "Scan ports for RDP, Telnet using IPv6 on 2001:db8::6204",
+    "output": "nmap -p 23,3389 -6 2001:db8::6204"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 192.168.1.0/16",
+    "output": "nmap -sn -T5 192.168.1.0/16"
+  },
+  {
+    "input": "Use the SMB version detection script with maximum verbosity mode (level 3)",
+    "output": "nmap -vvv -p 445 --script smb-os-discovery target"
+  },
+  {
+    "input": "Execute the SSH brute-force script using a custom password dictionary",
+    "output": "nmap -p 22 --script ssh-brute --script-args userdb=users.txt,passdb=passwords.txt target"
+  },
+  {
+    "input": "Scan ports for Telnet using UDP scan and version detection with faster timing on 172.16.0.0/24",
+    "output": "nmap -p 23 -sU -sV -T5 172.16.0.0/24"
+  },
+  {
+    "input": "Scan ports for HTTP, FTP, DNS, RDP Run default scripts with faster timing on 10.0.0.0/16",
+    "output": "nmap -p 21,53,80,3389 -sC -T5 10.0.0.0/16"
+  },
+  {
+    "input": "Scan using a maximum delay of 2 seconds between send attempts for each port",
+    "output": "nmap --scan-delay 2s target"
+  },
+  {
+    "input": "Scan with a host timeout of 10 minutes (10m) and the 'reason' option",
+    "output": "nmap --host-timeout 10m --reason target"
+  },
+  {
+    "input": "Scan ports for SMTP, SNMP using IPv6 on 2001:db8::9317",
+    "output": "nmap -p 25,161 -6 2001:db8::9317"
+  },
+  {
+    "input": "Perform an SCTP INIT scan",
+    "output": "nmap -sY target"
+  },
+  {
+    "input": "Scan using IP protocol version 86 (ISO-IP) for discovery",
+    "output": "nmap -sO -p 86 target"
+  },
+  {
+    "input": "Scan ports for HTTPS, MySQL, SNMP, Telnet using TCP connect scan Perform OS detection and version detection with faster timing on 10.0.0.124",
+    "output": "nmap -p 23,161,443,3306 -sT -O -sV -T5 10.0.0.124"
+  },
+  {
+    "input": "Scan with timing option T4 on 192.168.1.4",
+    "output": "nmap -T4 192.168.1.4"
+  },
+  {
+    "input": "Full TCP connect scan on 192.168.1.1",
+    "output": "nmap -sT 192.168.1.1"
+  },
+  {
+    "input": "Perform a UDP scan of the 20 most common ports",
+    "output": "nmap -sU --top-ports 20 target"
+  },
+  {
+    "input": "Launch the script to check if the SMTP server is vulnerable to user enumeration with verbose mode",
+    "output": "nmap -p 25 --script smtp-enum-users -v target"
+  },
+  {
+    "input": "Use the http-brute script to attempt an attack on a specific path and export results in XML format",
+    "output": "nmap -p 80 --script http-brute --script-args http-brute.path=/login -oX brute_scan.xml target"
+  },
+  {
+    "input": "Scan ports for HTTPS, SNMP, Telnet using SYN scan Perform OS detection Run discovery scripts on 192.168.1.0/24",
+    "output": "nmap -p 23,161,443 -sS -O --script discovery 192.168.1.0/24"
+  },
+  {
+    "input": "Scan the targets and save the results as an XML file with DTD",
+    "output": "nmap -oX scan_with_dtd.xml target"
+  },
+  {
+    "input": "Scan ports for SSH, HTTP, SMTP, RDP using TCP connect scan and version detection on 192.168.100.0/24",
+    "output": "nmap -p 22,25,80,3389 -sT -sV 192.168.100.0/24"
+  },
+  {
+    "input": "Scan all ports Perform OS detection and version detection on 172.16.0.0/28",
+    "output": "nmap -p- -O -sV 172.16.0.0/28"
+  },
+  {
+    "input": "Launch the Telnet brute-force script using a custom password dictionary",
+    "output": "nmap -p 23 --script telnet-brute --script-args passdb=telnet_passwords.txt target"
+  },
+  {
+    "input": "Scan ports for SSH Perform OS detection and version detection on 192.168.100.9",
+    "output": "nmap -p 22 -O -sV 192.168.100.9"
+  },
+  {
+    "input": "Scan ports for HTTP using UDP scan and version detection and traceroute on 172.16.0.0/16",
+    "output": "nmap -p 80 -sU -sV --traceroute 172.16.0.0/16"
+  },
+  {
+    "input": "Set a maximum host timeout of 1 minute and 15 seconds",
+    "output": "nmap --host-timeout 75s target"
+  },
+  {
+    "input": "Scan ports for HTTPS, FTP using UDP scan and version detection Run default,vuln scripts on 172.16.0.67",
+    "output": "nmap -p 21,443 -sU -sV --script default,vuln 172.16.0.67"
+  },
+  {
+    "input": "Scan all ports using TCP connect scan and version detection Run discovery scripts on 192.168.1.0/16",
+    "output": "nmap -p- -sT -sV --script discovery 192.168.1.0/16"
+  },
+  {
+    "input": "Scan ports for FTP, MySQL, RDP and version detection on 172.16.0.0/28",
+    "output": "nmap -p 21,3306,3389 -sV 172.16.0.0/28"
+  },
+  {
+    "input": "Scan ports for SSH, HTTP, SNMP using TCP connect scan and version detection Run default,vuln scripts using IPv6 on 2001:db8::5958",
+    "output": "nmap -p 22,80,161 -sT -sV --script default,vuln -6 2001:db8::5958"
+  },
+  {
+    "input": "Scan a target and set the ToS/DSCP value to 240 (Voice Call Control) for the IP packet",
+    "output": "nmap --tos 240 target"
+  },
+  {
+    "input": "Perform a TCP SYN scan and add a hexadecimal data string of 'DEADBEEF'",
+    "output": "nmap -sS --data-string 'DEADBEEF' target"
+  },
+  {
+    "input": "Scan ports for HTTPS, MySQL, SNMP and version detection on 192.168.1.0/24",
+    "output": "nmap -p 161,443,3306 -sV 192.168.1.0/24"
+  },
+  {
+    "input": "Scan ports for SSH, HTTPS, SMTP Run discovery scripts on 192.168.1.0/28",
+    "output": "nmap -p 22,25,443 --script discovery 192.168.1.0/28"
+  },
+  {
+    "input": "Scan all ports and exclude OS detection",
+    "output": "nmap -p- target"
+  },
+  {
+    "input": "Scan ports for HTTPS, RDP, SNMP and version detection Run malware scripts on 192.168.0.192",
+    "output": "nmap -p 161,443,3389 -sV --script malware 192.168.0.192"
+  },
+  {
+    "input": "Set the maximum number of hosts that will be scanned simultaneously to 5",
+    "output": "nmap --max-hostgroup 5 192.168.0.0/16"
+  },
+  {
+    "input": "Perform a Window Scan in stealth mode (T1) with packet trace",
+    "output": "nmap -sW -T1 --packet-trace target"
+  },
+  {
+    "input": "Scan ports for HTTP, FTP and version detection and traceroute using IPv6 on 2001:db8::2449",
+    "output": "nmap -p 21,80 -sV --traceroute -6 2001:db8::2449"
+  },
+  {
+    "input": "Perform a host list scan without sending packets (List Scan) on the 192.168.5.0/24 range",
+    "output": "nmap -sL 192.168.5.0/24"
+  },
+  {
+    "input": "Scan a target and force Nmap to use the most comprehensive version detection mode",
+    "output": "nmap -sV --version-all target"
+  },
+  {
+    "input": "Scan ports for MySQL Run discovery scripts on 192.168.100.0/24",
+    "output": "nmap -p 3306 --script discovery 192.168.100.0/24"
+  },
+  {
+    "input": "Scan ports for SMTP, RDP using TCP connect scan on 10.0.0.0/28",
+    "output": "nmap -p 25,3389 -sT 10.0.0.0/28"
+  },
+  {
+    "input": "Do a ping scan on 192.168.1.183",
+    "output": "nmap -sn 192.168.1.183"
+  },
+  {
+    "input": "Scan ports for FTP, SNMP, Telnet using SYN scan and version detection on 10.0.0.0/16",
+    "output": "nmap -p 21,23,161 -sS -sV 10.0.0.0/16"
+  },
+  {
+    "input": "Get the commands supported by an SMTP server",
+    "output": "nmap -p 25 --script smtp-commands target"
+  },
+  {
+    "input": "Scan ports for HTTP, FTP, DNS and version detection with faster timing on 192.168.1.72",
+    "output": "nmap -p 21,53,80 -sV -T5 192.168.1.72"
+  },
+  {
+    "input": "Scan ports for HTTPS, FTP, Telnet Perform OS detection on 192.168.100.247",
+    "output": "nmap -p 21,23,443 -O 192.168.100.247"
+  },
+  {
+    "input": "Launch the http-brute script with only one attempt per password",
+    "output": "nmap -p 80 --script http-brute --script-args brute.retries=1 target"
+  },
+  {
+    "input": "Scan ports with a minimum delay of 1 second between packet send attempts",
+    "output": "nmap --scan-delay 1s target"
+  },
+  {
+    "input": "Force the scan to use raw Ethernet packets",
+    "output": "nmap --send-eth target"
+  },
+  {
+    "input": "Use the http-title script with a maximum search depth of 3",
+    "output": "nmap -p 80 --script http-title --script-args http-title.max-depth=3 target"
+  },
+  {
+    "input": "Scan ports for SSH, DNS, RDP Perform OS detection and version detection on 10.0.0.219",
+    "output": "nmap -p 22,53,3389 -O -sV 10.0.0.219"
+  },
+  {
+    "input": "Scan ports for DNS and traceroute on 10.0.0.0/24",
+    "output": "nmap -p 53 --traceroute 10.0.0.0/24"
+  },
+  {
+    "input": "Perform a scan with a very high TTL (Time-To-Live) of 254 (almost max) and a TCP Maimon scan",
+    "output": "nmap -sM --ttl 254 target"
+  },
+  {
+    "input": "Perform OS detection by ignoring hosts for which the fingerprint data is insufficient",
+    "output": "nmap -O --osscan-limit target"
+  },
+  {
+    "input": "Force Nmap to send raw IP packets (non-Ethernet) for the scan",
+    "output": "nmap --send-ip target"
+  },
+  {
+    "input": "Launch the VNC brute-force script using a custom password dictionary",
+    "output": "nmap -p 5900 --script vnc-brute --script-args passdb=vnc_passwords.txt target"
+  },
+  {
+    "input": "Scan ports for HTTP Run vuln scripts on 172.16.0.0/28",
+    "output": "nmap -p 80 --script vuln 172.16.0.0/28"
+  },
+  {
+    "input": "Scan all ports with faster timing on 10.0.0.0/16",
+    "output": "nmap -p- -T5 10.0.0.0/16"
+  },
+  {
+    "input": "Scan and force name resolution for all hosts without using ICMP timestamp ping",
+    "output": "nmap -R -sn 192.168.1.0/24"
+  },
+  {
+    "input": "Scan ports for SNMP and version detection with faster timing on 192.168.100.0/24",
+    "output": "nmap -p 161 -sV -T5 192.168.100.0/24"
+  },
+  {
+    "input": "Perform an aggressive version scan with maximum intensity level (9) and minimum RTT timeout at 10ms",
+    "output": "nmap -sV --version-intensity 9 --min-rtt-timeout 10ms target"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 192.168.0.53",
+    "output": "nmap -sn -T5 192.168.0.53"
+  },
+  {
+    "input": "Perform a port scan and exclude service detection for all ports except ports 21 and 25",
+    "output": "nmap -sV --exclude-ports 1-20,26-65535 target"
+  },
+  {
+    "input": "Scan a target and set the maximum RTT timeout to 200 milliseconds (for fast networks)",
+    "output": "nmap --max-rtt-timeout 200ms target"
+  },
+  {
+    "input": "Scan ports for HTTP, HTTPS, DNS Perform OS detection Run vuln scripts on 10.0.0.11",
+    "output": "nmap -p 53,80,443 -O --script vuln 10.0.0.11"
+  },
+  {
+    "input": "Scan ports for HTTPS, SMTP, RDP, SNMP Perform OS detection and version detection with faster timing on 192.168.0.0/16",
+    "output": "nmap -p 25,161,443,3389 -O -sV -T5 192.168.0.0/16"
+  },
+  {
+    "input": "Launch the SSH brute-force script using a custom user and password list",
+    "output": "nmap -p 22 --script ssh-brute --script-args userdb=ssh_users.txt,passdb=ssh_passwords.txt target"
+  },
+  {
+    "input": "Set a maximum host timeout of 8 minutes and 30 seconds",
+    "output": "nmap --host-timeout 510s target"
+  },
+  {
+    "input": "Scan ports for SSH, FTP, SMTP using TCP connect scan and version detection with faster timing on 172.16.0.0/24",
+    "output": "nmap -p 21,22,25 -sT -sV -T5 172.16.0.0/24"
+  },
+  {
+    "input": "Scan ports for FTP, SMTP, DNS, Telnet using UDP scan Perform OS detection and version detection Run default,vuln scripts on 192.168.1.0/24",
+    "output": "nmap -p 21,23,25,53 -sU -O -sV --script default,vuln 192.168.1.0/24"
+  },
+  {
+    "input": "Scan all ports Run default scripts with faster timing on 192.168.1.33",
+    "output": "nmap -p- -sC -T5 192.168.1.33"
+  },
+  {
+    "input": "Scan ports for MySQL, RDP, SNMP using TCP connect scan Perform OS detection on 192.168.0.0/24",
+    "output": "nmap -p 161,3306,3389 -sT -O 192.168.0.0/24"
+  },
+  {
+    "input": "Scan ports for HTTPS, DNS on 10.0.0.159",
+    "output": "nmap -p 53,443 10.0.0.159"
+  },
+  {
+    "input": "Scan all ports Perform OS detection on 192.168.100.167",
+    "output": "nmap -p- -O 192.168.100.167"
+  },
+  {
+    "input": "Scan ports for Telnet Perform OS detection on 10.0.0.237",
+    "output": "nmap -p 23 -O 10.0.0.237"
+  },
+  {
+    "input": "Scan using IP protocol version 58 (ICMPv6) for discovery",
+    "output": "nmap -sO -p 58 target"
+  },
+  {
+    "input": "Perform a TCP SYN scan and add a hexadecimal data string of '0F0F0F'",
+    "output": "nmap -sS --data-string '0F0F0F' target"
+  },
+  {
+    "input": "Scan all ports and traceroute on 10.0.0.0/24",
+    "output": "nmap -p- --traceroute 10.0.0.0/24"
+  },
+  {
+    "input": "Scan ports for SNMP and version detection with faster timing on 192.168.0.0/28",
+    "output": "nmap -p 161 -sV -T5 192.168.0.0/28"
+  },
+  {
+    "input": "Perform a port scan and force host resolution using only IPv6",
+    "output": "nmap -6 target.com"
+  },
+  {
+    "input": "Scan ports for HTTP and version detection on 192.168.100.0/24",
+    "output": "nmap -p 80 -sV 192.168.100.0/24"
+  },
+  {
+    "input": "Scan ports for SMTP on 10.0.0.0/24",
+    "output": "nmap -p 25 10.0.0.0/24"
+  },
+  {
+    "input": "Use the port scanning option to include ports 1000 to 2000 and exclude port 1500",
+    "output": "nmap -p 1000-2000 --exclude-ports 1500 target"
+  },
+  {
+    "input": "Scan all ports Run default scripts and traceroute on 10.0.0.0/24",
+    "output": "nmap -p- -sC --traceroute 10.0.0.0/24"
+  },
+  {
+    "input": "Scan ports for FTP, SMTP and traceroute on 172.16.0.0/24",
+    "output": "nmap -p 21,25 --traceroute 172.16.0.0/24"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 10.0.0.0/28",
+    "output": "nmap -sn -T5 10.0.0.0/28"
+  },
+  {
+    "input": "Scan all ports using SYN scan and version detection Run default scripts on 192.168.100.0/28",
+    "output": "nmap -p- -sS -sV -sC 192.168.100.0/28"
+  },
+  {
+    "input": "Scan the target and export the XML output to a file without DTD for simple parsing",
+    "output": "nmap -oX output.xml --no-stylesheet target"
+  },
+  {
+    "input": "Scan ports for Telnet using TCP connect scan Run default,vuln scripts with faster timing on 172.16.0.0/28",
+    "output": "nmap -p 23 -sT -sC --script vuln -T5 172.16.0.0/28"
+  },
+  {
+    "input": "Scan a target and export the output in normal format with a debug level of 0 (disabled)",
+    "output": "nmap -oN debug_output.txt -d0 target"
+  },
+  {
+    "input": "Scan all ports and version detection with faster timing using IPv6 on 2001:db8::8262",
+    "output": "nmap -p- -sV -T5 -6 2001:db8::8262"
+  },
+  {
+    "input": "Do a fast scan (top 100 ports) and skip host discovery",
+    "output": "nmap -F -Pn target"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 192.168.100.0/28",
+    "output": "nmap -sn -T5 192.168.100.0/28"
+  },
+  {
+    "input": "Perform a stealthy TCP SYN scan with a maximum rate of 1000 packets per second on interface eth0",
+    "output": "nmap -sS -e eth0 --max-rate 1000 target"
+  },
+  {
+    "input": "Scan ports for HTTPS, SNMP using SYN scan and traceroute on 10.0.0.218",
+    "output": "nmap -p 443,161 -sS --traceroute 10.0.0.218"
+  },
+  {
+    "input": "Scan ports for FTP, SMTP, DNS, RDP using UDP scan Run malware scripts on 172.16.0.0/24",
+    "output": "nmap -p 21,25,53,3389 -sU --script malware 172.16.0.0/24"
+  },
+  {
+    "input": "Scan ports for DNS, MySQL, Telnet using UDP scan on 10.0.0.0/16",
+    "output": "nmap -p 23,53,3306 -sU 10.0.0.0/16"
+  },
+  {
+    "input": "Do a ping scan on 192.168.0.62",
+    "output": "nmap -sn 192.168.0.62"
+  },
+  {
+    "input": "Launch the Telnet brute-force script using a specific user dictionary",
+    "output": "nmap -p 23 --script telnet-brute --script-args userdb=telnet_users.txt target"
+  },
+  {
+    "input": "Scan and set the 'tos' (Type of Service) to 10 for the IP packet",
+    "output": "nmap --tos 10 target"
+  },
+  {
+    "input": "Scan all ports and version detection on 192.168.100.210",
+    "output": "nmap -p- -sV 192.168.100.210"
+  },
+  {
+    "input": "Scan ports for FTP, SMTP, DNS, RDP using TCP connect scan and version detection with faster timing on 172.16.0.122",
+    "output": "nmap -p 21,25,53,3389 -sT -sV -T5 172.16.0.122"
+  },
+  {
+    "input": "Perform a scan and launch the script to retrieve the website's HTTP title",
+    "output": "nmap -p 80,443 --script http-title target.com"
+  },
+  {
+    "input": "Perform a UDP scan of the 10 most common ports with a maximum delay of 5 seconds per port",
+    "output": "nmap -sU --top-ports 10 --scan-delay 5s target"
+  },
+  {
+    "input": "Perform a TCP SYN scan and use a random spoofed source IP address (RND) for evasion",
+    "output": "nmap -sS -D RND target"
+  },
+  {
+    "input": "Scan a target and display debug level 10 information (for maximum completeness)",
+    "output": "nmap -d9 target"
+  },
+  {
+    "input": "Scan ports for RDP using TCP connect scan and version detection Run discovery scripts on 192.168.1.0/28",
+    "output": "nmap -p 3389 -sT -sV --script discovery 192.168.1.0/28"
+  },
+  {
+    "input": "Scan ports for HTTPS, SMTP, DNS, MySQL using SYN scan Run malware scripts on 10.0.0.0/16",
+    "output": "nmap -p 25,53,443,3306 -sS --script malware 10.0.0.0/16"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 192.168.1.0/16",
+    "output": "nmap -sn -T5 192.168.1.0/16"
+  },
+  {
+    "input": "Scan and retrieve information from a VNC server on port 5900",
+    "output": "nmap -p 5900 --script vnc-info target"
+  },
+  {
+    "input": "Use a stealthy Xmas Tree type scan with fragmented packets and an MTU size of 8",
+    "output": "nmap -sX -f --mtu 8 target"
+  },
+  {
+    "input": "Scan ports for SSH, HTTP, DNS, MySQL using SYN scan Perform OS detection and version detection on 172.16.0.0/16",
+    "output": "nmap -p 22,53,80,3306 -sS -O -sV 172.16.0.0/16"
+  },
+  {
+    "input": "Scan ports for SSH, HTTPS on 192.168.100.178",
+    "output": "nmap -p 22,443 192.168.100.178"
+  },
+  {
+    "input": "Perform a port scan and exclude service detection for all ports except ports 22 and 443",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 22,443 target"
+  },
+  {
+    "input": "Scan ports for HTTPS, SMTP Run default,vuln scripts on 10.0.0.79",
+    "output": "nmap -p 25,443 -sC --script vuln 10.0.0.79"
+  },
+  {
+    "input": "Do a ping scan on 192.168.100.0/28",
+    "output": "nmap -sn 192.168.100.0/28"
+  },
+  {
+    "input": "Scan ports with a minimum rate of 5 packets per second and a maximum RTT timeout of 10 seconds",
+    "output": "nmap --min-rate 5 --max-rtt-timeout 10s target"
+  },
+  {
+    "input": "Scan ports for HTTP, FTP, SMTP and version detection Run malware scripts with faster timing and traceroute on 192.168.1.0/28",
+    "output": "nmap -p 21,25,80 -sV --script malware -T5 --traceroute 192.168.1.0/28"
+  },
+  {
+    "input": "Scan ports for FTP Run auth scripts with faster timing and traceroute on 172.16.0.135",
+    "output": "nmap -p 21 --script auth -T5 --traceroute 172.16.0.135"
+  },
+  {
+    "input": "Do a ping scan on 192.168.100.65",
+    "output": "nmap -sn 192.168.100.65"
+  },
+  {
+    "input": "Perform a port scan and exclude service detection for all ports except port 21",
+    "output": "nmap -sV --version-exclude 1-65535 --version-include 21 target"
+  },
+  {
+    "input": "Use a stealth TCP NULL scan and set the initial IP ID number to a very high value",
+    "output": "nmap -sN --badsum target"
+  },
+  {
+    "input": "Scan ports for SNMP and traceroute on 192.168.0.156",
+    "output": "nmap -p 161 --traceroute 192.168.0.156"
+  },
+  {
+    "input": "Scan all ports Perform OS detection on 192.168.1.0/16",
+    "output": "nmap -p- -O 192.168.1.0/16"
+  },
+  {
+    "input": "Scan all ports Perform OS detection on 192.168.1.0/16",
+    "output": "nmap -p- -O 192.168.1.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP, MySQL and version detection on 10.0.0.0/28",
+    "output": "nmap -p 80,3306 -sV 10.0.0.0/28"
+  },
+  {
+    "input": "TCP ACK scan on 192.168.1.1",
+    "output": "nmap -sA 192.168.1.1"
+  },
+  {
+    "input": "Perform a SYN scan using IP fragmentation to evade firewalls",
+    "output": "nmap -sS -f target.com"
+  },
+  {
+    "input": "Scan ports for DNS, RDP and version detection with faster timing on 192.168.0.0/16",
+    "output": "nmap -p 53,3389 -sV -T5 192.168.0.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP, SNMP Perform OS detection and version detection on 192.168.0.0/28",
+    "output": "nmap -p 80,161 -O -sV 192.168.0.0/28"
+  },
+  {
+    "input": "Scan ports for SSH and version detection with faster timing on 192.168.0.0/24",
+    "output": "nmap -p 22 -sV -T5 192.168.0.0/24"
+  },
+  {
+    "input": "Scan ports for RDP using UDP scan Perform OS detection on 192.168.1.0/28",
+    "output": "nmap -p 3389 -sU -O 192.168.1.0/28"
+  },
+  {
+    "input": "Scan IP protocol version 89 (OSPF) on the target",
+    "output": "nmap -sO -p 89 target"
+  },
+  {
+    "input": "Scan ports for DNS and version detection and traceroute on 10.0.0.0/16",
+    "output": "nmap -p 53 -sV --traceroute 10.0.0.0/16"
+  },
+  {
+    "input": "Scan ports for HTTPS, DNS, Telnet and version detection on 192.168.1.0/24",
+    "output": "nmap -p 23,53,443 -sV 192.168.1.0/24"
+  },
+  {
+    "input": "Scan ports for SSH, RDP using UDP scan and version detection on 10.0.0.0/16",
+    "output": "nmap -p 22,3389 -sU -sV 10.0.0.0/16"
+  },
+  {
+    "input": "Scan a random set of 100 hosts on the network",
+    "output": "nmap -iR 100"
+  },
+  {
+    "input": "Scan all ports and version detection Run malware scripts on 192.168.1.0/16",
+    "output": "nmap -p- -sV --script malware 192.168.1.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP, HTTPS, FTP, SNMP with faster timing on 192.168.100.0/16",
+    "output": "nmap -p 21,80,161,443 -T5 192.168.100.0/16"
+  },
+  {
+    "input": "Scan and set the 'tos' (Type of Service) to 4 (Low-cost) for the IP packet",
+    "output": "nmap --tos 4 target"
+  },
+  {
+    "input": "Scan ports for HTTPS, RDP, SNMP using TCP connect scan on 192.168.0.0/16",
+    "output": "nmap -p 443,3389,161 -sT 192.168.0.0/16"
+  },
+  {
+    "input": "Scan ports for HTTP, HTTPS, FTP, SNMP using SYN scan Perform OS detection with faster timing on 192.168.1.0/16",
+    "output": "nmap -p 21,80,161,443 -sS -O -T5 192.168.1.0/16"
+  },
+  {
+    "input": "Scan all ports using UDP scan and version detection on 192.168.1.0/24",
+    "output": "nmap -p- -sU -sV 192.168.1.0/24"
+  },
+  {
+    "input": "Simple scan of example.com",
+    "output": "nmap example.com"
+  },
+  {
+    "input": "Scan all IPv6 ports and detect service versions",
+    "output": "nmap -6 -p- -sV 2001:db8::101"
+  },
+  {
+    "input": "Define a minimum sending rate of 20 packets per second and a maximum parallelism of 10 hosts",
+    "output": "nmap --min-rate 20 --max-parallelism 10 target"
+  },
+  {
+    "input": "Scan ports for HTTPS Run default,vuln scripts using IPv6 on 2001:db8::4951",
+    "output": "nmap -6 -p 443 -sC --script vuln 2001:db8::4951"
+  },
+  {
+    "input": "Perform a stealthy TCP Maimon scan with a TTL of 10",
+    "output": "nmap -sM --ttl 10 target"
+  },
+  {
+    "input": "Scan with max 2 retries on 192.168.1.5",
+    "output": "nmap --max-retries 2 192.168.1.5"
+  },
+  {
+    "input": "Perform a TCP SYN scan and use an initial TCP window size of 32",
+    "output": "nmap -sS --initial-window 32 target"
+  },
+  {
+    "input": "Perform a TCP Maimon scan on a specific port",
+    "output": "nmap -sM -p 8080 target"
+  },
+  {
+    "input": "Perform a port scan and display debug level 7 information with packet trace",
+    "output": "nmap -d7 --packet-trace target"
+  },
+  {
+    "input": "Disable ARP ping and use only ICMP echo ping for host discovery on the local network",
+    "output": "nmap -sn -PE --disable-arp-ping 192.168.1.0/24"
+  },
+  {
+    "input": "Do a ping scan with faster timing on 172.16.0.0/28",
+    "output": "nmap -sn -T5 172.16.0.0/28"
+  },
+  {
+    "input": "Scan ports for SSH, HTTPS, FTP, Telnet Perform OS detection and version detection on 192.168.0.0/24",
+    "output": "nmap -p 21,22,23,443 -O -sV 192.168.0.0/24"
+  },
+  {
+    "input": "Scan all ports Perform OS detection and version detection on 192.168.100.0/16",
+    "output": "nmap -p- -O -sV 192.168.100.0/16"
+  },
+  {
+    "input": "No DNS resolution scan on 192.168.0.1",
+    "output": "nmap -n 192.168.0.1"
+  },
+  {
+    "input": "Scan ports for HTTPS Run default scripts on 10.0.0.0/16",
+    "output": "nmap -p 443 -sC 10.0.0.0/16"
+  },
+  {
+    "input": "Set the size of ICMP ping packets to 100 bytes",
+    "output": "nmap -PE --data-length 100 target"
+  },
+  {
+    "input": "Perform a stealth TCP Maimon scan and set the source port to 53 (DNS)",
+    "output": "nmap -sM -g 53 target"
+  },
+  {
+    "input": "Scan ports for HTTPS, FTP, RDP, Telnet using IPv6 on 2001:db8::5529",
+    "output": "nmap -6 -p 21,23,443,3389 2001:db8::5529"
+  },
+  {
+    "input": "Set the minimum RTT size to 50ms and the maximum size to 500ms",
+    "output": "nmap --min-rtt-timeout 50ms --max-rtt-timeout 500ms target"
+  },
+  {
+    "input": "Display only open ports in grepable format and save to a file",
+    "output": "nmap --open -oG open_ports.gnmap target"
+  },
+  {
+    "input": "Do a ping scan on 192.168.100.0/28",
+    "output": "nmap -sn 192.168.100.0/28"
+  },
+  {
+    "input": "Execute all scripts from the 'safe' and 'default' categories with the aggressive option (-A)",
+    "output": "nmap -A --script safe,default target"
+  },
+  {
+    "input": "List targets only on 192.168.1.0/24",
+    "output": "nmap -sL 192.168.1.0/24"
+  },
+  {
+    "input": "Scan ports for SNMP Perform OS detection with faster timing on 192.168.1.0/24",
+    "output": "nmap -p 161 -O -T5 192.168.1.0/24"
+  },
+  {
+    "input": "Scan ports for HTTP, Telnet using SYN scan and version detection with faster timing and traceroute on 10.0.0.0/28",
+    "output": "nmap -p 23,80 -sS -sV -T5 --traceroute 10.0.0.0/28"
+  },
+  {
+    "input": "Scan ports for SSH using TCP connect scan Perform OS detection and version detection with faster timing on 172.16.0.0/16",
+    "output": "nmap -p 22 -sT -O -sV -T5 172.16.0.0/16"
+  },
+  {
+    "input": "Use an Xmas Tree type scan (with all TCP control flags enabled)",
+    "output": "nmap -sX target"
+  },
+  {
+    "input": "Scan all ports using SYN scan and version detection with faster timing using IPv6 on 2001:db8::7999",
+    "output": "nmap -6 -p- -sS -sV -T5 2001:db8::7999"
+  },
+  {
+    "input": "Scan all ports Perform OS detection and version detection Run default scripts with faster timing on 192.168.100.0/24",
+    "output": "nmap -p- -O -sV -sC -T5 192.168.100.0/24"
+  },
+  {
+    "input": "Use a port scan to target the 0.005% most likely ports",
+    "output": "nmap --port-ratio 0.00005 target"
+  },
+  {
+    "input": "Scan ports for RDP using SYN scan with faster timing on 172.16.0.0/24",
+    "output": "nmap -p 3389 -sS -T5 172.16.0.0/24"
+  },
+  {
+    "input": "Scan a target and set the source IP address to a random range for host discovery",
+    "output": "nmap -sn -D RND:10 192.168.1.0/24"
+  },
+  {
+    "input": "Scan a target and export the output in normal format with a debug level of 1",
+    "output": "nmap -oN debug_output.txt -d1 target"
+  },
+  {
+    "input": "Scan with a packet data length of 40 bytes",
+    "output": "nmap --data-length 40 target"
+  },
+  {
+    "input": "Scan ports for Telnet using TCP connect scan Perform OS detection and traceroute on 172.16.0.0/16",
+    "output": "nmap -p 23 -sT -O --traceroute 172.16.0.0/16"
+  },
+  {
+    "input": "Scan and force Nmap not to perform port bounce",
+    "output": "nmap --disable-port-bounce target"
+  },
+  {
+    "input": "Scan ports for HTTPS, DNS Run auth scripts on 172.16.0.0/16",
+    "output": "nmap -p 53,443 --script auth 172.16.0.0/16"
+  }
+]

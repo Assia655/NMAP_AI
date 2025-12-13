@@ -1,0 +1,13 @@
+flask>=2.0.0
+flask-cors>=3.0.0
+numpy>=1.19.0
+spacy>=3.0.0
+requests>=2.25.0
+
+# Note: francophone small model must be installed separately:
+# python -m spacy download fr_core_news_sm
+flasgger>=0.9.5
+fastapi>=0.95.0
+uvicorn[standard]>=0.22.0
+pydantic>=1.10.0
+neo4j>=5.9.0

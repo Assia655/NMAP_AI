@@ -1,0 +1,334 @@
+scan all ports on target
+scan ports on 192.168.1.1
+scan all ports with default scripts
+scan port 80 and 443
+scanning for open ports
+tcp syn scan on target
+udp scan on host
+full tcp connect scan
+scan ports 1-100
+scan common web ports
+scanner tous les ports
+scanner les ports ouverts
+scanner le port 80
+balayage des ports tcp
+scan syn sur cible
+scanner ports 21 22 23 25
+scanner tout les services actifs
+scan rapide ports courants
+rechercher ports ouverts
+discover hosts on network
+ping scan on subnet
+discover active hosts
+host discovery on 192.168.0.0/24
+find all machines on network
+enumerate hosts
+discover machines on network
+host enumeration
+find online hosts
+detect active machines
+découvrir les hôtes du réseau
+découvrir les machines actives
+ping scan réseau local
+énumération des hôtes
+trouver machines connectées
+découverte réseau
+identifier hôtes actifs
+enumération des machines
+rechercher hôtes en ligne
+detect service version
+service version detection
+determine service versions
+version detection on target
+identify service versions
+sV flag for versions
+banner grabbing
+detect software versions
+identify running services
+service identification
+détection de version
+identification des services
+détecter les versions logiciel
+banner grabbing
+identifier les services en cours
+détection des services actifs
+déterminer versions des services
+analyse des bannières
+os detection on target
+detect operating system
+identify os remote
+remote os detection
+aggressive scan os
+determine os fingerprint
+os fingerprinting
+detect system type
+identify remote os
+system detection
+détection du système exploitation
+identifier os distant
+déterminer système d'exploitation
+empreinte digitale os
+detection os remote
+reconnaissance système
+identifier système cible
+syn stealth scan
+syn scan stealthy
+stealth scan
+ack scan
+fin scan
+null scan
+xmas scan
+ack firewall bypass
+scan evasion technique
+evade detection
+scan syn furtif
+scan ack
+scan fin
+technique d'évasion
+contourner pare-feu
+scan discret
+scanner sans être détecté
+technique stealth
+run default scripts
+run vulnerability scripts
+nse script scanning
+execute nse scripts
+vuln script category
+safe script category
+discovery script category
+auth script category
+run custom scripts
+exécuter scripts par défaut
+scripts de vulnérabilité
+scripts nse
+scripts de découverte
+scripts de sécurité
+exécuter scripts nmap
+catégorie vuln scripts
+traceroute to target
+network path discovery
+route discovery
+traceroute scan
+path to host
+hop discovery
+network topology
+trace path to target
+traceroute vers cible
+découvrir chemin réseau
+traceroute réseau
+découverte de route
+topologie réseau
+trace du chemin
+map network topology
+network reconnaissance
+network mapping
+map subnet
+create network map
+survey network
+reconnaissance réseau
+explore network
+mapper réseau
+cartographie réseau
+reconnaissance réseau
+explorer réseau
+cartographie topologie
+mapping réseau local
+vulnerability scanning
+scan for vulnerabilities
+detect vulnerabilities
+check cve
+vulnerability assessment
+security audit
+vulnerability detection
+exploit detection
+find security issues
+scan vulnérabilités
+détection vulnérabilités
+évaluation sécurité
+audit de sécurité
+rechercher vulnérabilités
+détection de failles
+firewall evasion
+evasion technique
+bypass firewall
+timing template
+slow timing
+aggressive timing
+fragment packets
+decoy scanning
+idle scan zombie
+source port spoofing
+contourner pare-feu
+technique d'évasion
+fragmentation paquets
+scan zombie
+leurre d'adresse
+spoofing port source
+timing template
+template timing
+scan ip range
+scan subnet
+scan cidr notation
+scan list from file
+scan random hosts
+scan specific ips
+target discovery
+target enumeration
+scan network range
+scan address range
+scanner plage ip
+scan réseau subnet
+scan liste fichier
+cible découverte
+scanner plage adresses
+save scan results
+output xml format
+output normal format
+grepable output
+log scan results
+output formats
+create report
+save output file
+verbose output
+detailed results
+enregistrer résultats
+sortie fichier
+format xml
+format greppable
+résultats détaillés
+sortie verbose
+générer rapport
+aggressive scan
+timing control
+parallel scanning
+max retries
+skip ping check
+no dns resolution
+reverse dns lookup
+source port specification
+packet fragmentation
+data length randomization
+scan agressif
+contrôle timing
+scan parallèle
+max retries
+pas de vérification ping
+pas de résolution dns
+fragmentation paquets
+données aléatoires
+list scan only
+idle scan
+arp scan
+arp ping
+icmp ping
+icmp echo request
+icmp timestamp request
+icmp mask request
+udp ping
+tcp ping
+list scan
+idle scan
+arp scan
+ping icmp
+echo request
+scan arp
+ipv6 scan
+scan ipv6 address
+ipv6 target
+2001:db8::1
+ipv6 reconnaissance
+ipv6 host discovery
+ipv6 port scanning
+scan ipv6
+adresse ipv6
+cible ipv6
+reconnaissance ipv6
+scan domain
+scan example.com
+scan by hostname
+dns resolution
+reverse dns
+hostname lookup
+domain enumeration
+domain discovery
+scanner domaine
+scan nom d'hôte
+résolution dns
+énumération domaine
+découverte domaine
+fast scan
+slow scan
+timing optimization
+performance tuning
+parallel threads
+scan speed
+throughput optimization
+cpu optimization
+scan rapide
+scan lent
+optimisation vitesse
+optimisation performance
+parallélisme
+avoid detection
+stealth mode
+hide scan
+undetectable scan
+ips bypass
+ids evasion
+detection avoidance
+stay under radar
+rester discret
+éviter détection
+mode furtif
+bypass ids
+contourner ips
+full scan
+complete scan
+thorough scan
+deep scan
+comprehensive audit
+full system audit
+complete reconnaissance
+all checks scan
+scan complet
+scan thorough
+audit complet
+audit complet système
+reconnaissance complète
+service enumeration
+service discovery
+what services running
+identify services
+service mapping
+service inventory
+service detection
+running services
+énumération services
+découverte services
+identifier services
+services en cours
+inventaire services
+scan ssh port
+scan http port
+scan https port
+scan ftp port
+scan smtp port
+scan snmp port
+scan telnet port
+scan dns port
+scan ldap port
+scan kerberos port
+scanner port ssh
+scanner port http
+scanner port https
+scanner port ftp
+scanner port smtp
+show interfaces
+list interfaces
+interface enumeration
+local interfaces
+network interfaces
+interface discovery
+afficher interfaces
+lister interfaces
+énumération interfaces
