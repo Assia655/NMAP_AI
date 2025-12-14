@@ -39,13 +39,13 @@ def process():
     
     # Afficher dans le terminal
     print("\n" + "="*60)
-    print(f"🟠 REQUÊTE MEDIUM REÇUE #{request_count}")
+    print(f" REQUÊTE MEDIUM REÇUE #{request_count}")
     print("="*60)
-    print(f"⏰ Heure: {datetime.now().strftime('%H:%M:%S')}")
-    print(f"📝 Query: {query}")
-    print(f"📊 Classification: {data.get('classification', {})}")
-    print(f"🎯 Port: 5005")
-    print(f"🤖 Modèle: LoRA fine-tuned (T5-small / Phi-4)")
+    print(f" Heure: {datetime.now().strftime('%H:%M:%S')}")
+    print(f" Query: {query}")
+    print(f" Classification: {data.get('classification', {})}")
+    print(f" Port: 5005")
+    print(f" Modèle: LoRA fine-tuned (T5-small / Phi-4)")
     print("="*60 + "\n")
     
     return jsonify({
