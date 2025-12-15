@@ -26,7 +26,7 @@ CORS(app)
 print("\n Initialisation - SLM + Word2Vec...")
 classifier = ComplexityClassifierSLM()
 metrics = classifier.train()
-print(f"✅ Agent prêt ! (Accuracy: {metrics['accuracy']*100:.2f}%)\n")
+print(f" Agent prêt ! (Accuracy: {metrics['accuracy']*100:.2f}%)\n")
 
 
 # ==========================================
