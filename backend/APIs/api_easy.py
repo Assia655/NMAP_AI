@@ -4,6 +4,8 @@
 # FastAPI + Swagger - Simple & Clean
 # ==========================================
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -56,6 +58,36 @@ class NmapResponse(BaseModel):
 
 # ========== FASTAPI APP ==========
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Manage startup/shutdown without deprecated @app.on_event hooks."""
+    global neo_connection, rag_pipeline
+    # Startup
+    print("\n" + "=" * 70)
+    print("🚀 NMAP-AI RAG API - Starting")
+    print("=" * 70)
+    try:
+        neo_connection = NeoConnection(
+            uri="bolt://localhost:7687",
+            user="neo4j",
+            password="password",
+        )
+        rag_pipeline = NmapRAGPipeline(neo_connection.driver)
+        print("✅ RAG Pipeline initialized successfully!")
+        print("📚 Swagger UI: http://localhost:8000/docs")
+        print("=" * 70 + "\n")
+    except Exception as exc:
+        print(f"❌ Failed to initialize: {exc}")
+        raise
+
+    yield
+
+    # Shutdown
+    if neo_connection:
+        neo_connection.close()
+        print("\n✅ Neo4j connection closed")
+
+
 app = FastAPI(
     title="🎯 NMAP-AI RAG API",
     description="""
@@ -100,7 +132,8 @@ app = FastAPI(
     },
     license_info={
         "name": "MIT License",
-    }
+    },
+    lifespan=lifespan,
 )
 
 # CORS
@@ -116,47 +149,6 @@ app.add_middleware(
 
 neo_connection = None
 rag_pipeline = None
-
-
-# ========== STARTUP/SHUTDOWN ==========
-
-@app.on_event("startup")
-async def startup_event():
-    """Initialisation au démarrage"""
-    global neo_connection, rag_pipeline
-    
-    try:
-        print("\n" + "="*70)
-        print("🚀 NMAP-AI RAG API - Starting")
-        print("="*70)
-        
-        # Connexion Neo4j
-        neo_connection = NeoConnection(
-            uri="bolt://localhost:7687",
-            user="neo4j",
-            password="password",
-        )
-        
-        # Initialiser le RAG Pipeline
-        rag_pipeline = NmapRAGPipeline(neo_connection.driver)
-        
-        print("✅ RAG Pipeline initialized successfully!")
-        print("📚 Swagger UI: http://localhost:8000/docs")
-        print("="*70 + "\n")
-        
-    except Exception as e:
-        print(f"❌ Failed to initialize: {e}")
-        raise
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    """Nettoyage à l'arrêt"""
-    global neo_connection
-    
-    if neo_connection:
-        neo_connection.close()
-        print("\n✅ Neo4j connection closed")
 
 
 # ========== MAIN ENDPOINT ==========

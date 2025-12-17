@@ -18,8 +18,8 @@ export default function App() {
   const [error, setError] = useState(null);
   const messagesEndRef = useRef(null);
 
-  const COMPREHENSION_AGENT_URL = 'http://localhost:5001';
-  const FINAL_DECISION_AGENT_URL = 'http://localhost:5003'; // Port du Final Decision Agent
+const API_URL = 'http://localhost:8000';
+
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -29,112 +29,77 @@ export default function App() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSubmit = async () => {
-    if (!input.trim() || isLoading) return;
+const handleSubmit = async () => {
+  if (!input.trim() || isLoading) return;
 
-    const userMessage = {
-      id: Date.now(),
-      type: 'user',
-      content: input,
+  const userText = input;
+
+  const userMessage = {
+    id: Date.now(),
+    type: 'user',
+    content: userText,
+    timestamp: new Date().toLocaleTimeString()
+  };
+
+  setMessages(prev => [...prev, userMessage]);
+  setInput('');
+  setIsLoading(true);
+  setError(null);
+
+  try {
+    const response = await fetch(`${API_URL}/generate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: userText
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Backend error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('📥 Backend response:', data);
+
+    const assistantMessage = {
+      id: Date.now() + 1,
+      type: 'assistant',
+      content: data.result?.explanation || 'Commande générée avec succès.',
+      complexity: data.complexity?.level || 'easy',
+      command: data.result?.command || '',
+      explanation: data.result?.explanation || '',
+      validation: data.result?.validation?.status || 'valid',
+      confidence: data.complexity?.confidence || 0,
+      flags: data.result?.flags || [],
+      reasoning: data.comprehension
+        ? `Intent: ${data.comprehension.intent || 'n/a'}`
+        : '',
       timestamp: new Date().toLocaleTimeString()
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
-    setIsLoading(true);
-    setError(null);
+    setMessages(prev => [...prev, assistantMessage]);
 
-    try {
-      // Étape 1: Envoyer au Comprehension Agent (port 5001)
-      console.log('📤 Envoi au Comprehension Agent...');
-      const comprehensionResponse = await fetch(`${COMPREHENSION_AGENT_URL}/comprehension`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user_query: input,
-          timestamp: new Date().toISOString()
-        })
-      });
+  } catch (err) {
+    console.error('❌ Error:', err);
+    setError(err.message);
 
-      if (!comprehensionResponse.ok) {
-        throw new Error(`Erreur Comprehension Agent: ${comprehensionResponse.status}`);
-      }
-
-      const comprehensionData = await comprehensionResponse.json();
-      console.log('📥 Réponse Comprehension:', comprehensionData);
-
-      // Vérifier si la requête est dans le contexte NMAP
-      if (comprehensionData.is_in_context === false) {
-        // La requête n'est pas dans le contexte NMAP
-        console.log('⚠️ Requête hors contexte NMAP');
-        
-        const outOfContextMessage = {
-          id: Date.now() + 1,
-          type: 'assistant',
-          content: comprehensionData.message || 'Votre demande n\'est pas dans le contexte de génération de commandes NMAP. Pouvez-vous préciser votre besoin?',
-          timestamp: new Date().toLocaleTimeString()
-        };
-        
-        setMessages(prev => [...prev, outOfContextMessage]);
-        return; // Arrêter le traitement ici
-      }
-
-      // Étape 2: Envoyer la requête au Final Decision Agent (port 5003)
-      console.log('📤 Envoi au Final Decision Agent...');
-      const finalDecisionResponse = await fetch(`${FINAL_DECISION_AGENT_URL}/final-decision`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user_query: input,
-          comprehension_data: comprehensionData,
-          timestamp: new Date().toISOString()
-        })
-      });
-
-      if (!finalDecisionResponse.ok) {
-        throw new Error(`Erreur Final Decision Agent: ${finalDecisionResponse.status}`);
-      }
-
-      const finalDecisionData = await finalDecisionResponse.json();
-      console.log('📥 Réponse Final Decision Agent:', finalDecisionData);
-
-      // Étape 3: Afficher la réponse finale du Final Decision Agent
-      const assistantMessage = {
-        id: Date.now() + 1,
+    setMessages(prev => [
+      ...prev,
+      {
+        id: Date.now() + 2,
         type: 'assistant',
-        content: finalDecisionData.analysis || `Voici l'analyse de votre requête:`,
-        complexity: finalDecisionData.complexity_level || 'medium',
-        command: finalDecisionData.nmap_command || '',
-        explanation: finalDecisionData.command_explanation || '',
-        validation: finalDecisionData.validation_status || 'pending',
-        confidence: finalDecisionData.confidence_score || 0,
-        flags: finalDecisionData.flags || [],
-        reasoning: finalDecisionData.reasoning || '',
+        content: `❌ Erreur backend: ${err.message}`,
         timestamp: new Date().toLocaleTimeString()
-      };
+      }
+    ]);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
-      setMessages(prev => [...prev, assistantMessage]);
-
-    } catch (err) {
-      console.error('❌ Erreur:', err);
-      setError(err.message);
-      
-      const errorMessage = {
-        id: Date.now() + 1,
-        type: 'assistant',
-        content: `❌ Erreur: ${err.message}. Vérifiez que les agents sont actifs sur les ports 5001 et 5003.`,
-        timestamp: new Date().toLocaleTimeString()
-      };
-      
-      setMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
