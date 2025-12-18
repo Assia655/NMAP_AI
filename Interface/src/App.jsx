@@ -64,19 +64,31 @@ const handleSubmit = async () => {
     const data = await response.json();
     console.log('📥 Backend response:', data);
 
+    if (data?.type === 'out_of_context') {
+      setMessages(prev => [
+        ...prev,
+        {
+          id: Date.now() + 1,
+          type: 'assistant',
+          content: data.message || 'This assistant only handles Nmap-related requests.',
+          timestamp: new Date().toLocaleTimeString()
+        }
+      ]);
+      return;
+    }
+
+    const validationStatus = data.result?.validation?.valid;
     const assistantMessage = {
       id: Date.now() + 1,
       type: 'assistant',
-      content: data.result?.explanation || 'Commande générée avec succès.',
-      complexity: data.complexity?.level || 'easy',
+      content: data.result?.explanation || data.result?.error || data.error || 'Commande générée avec succès.',
+      complexity: data.complexity?.level || null,
       command: data.result?.command || '',
       explanation: data.result?.explanation || '',
-      validation: data.result?.validation?.status || 'valid',
+      validation: validationStatus === true ? 'valid' : validationStatus === false ? 'invalid' : 'unknown',
       confidence: data.complexity?.confidence || 0,
       flags: data.result?.flags || [],
-      reasoning: data.comprehension
-        ? `Intent: ${data.comprehension.intent || 'n/a'}`
-        : '',
+      reasoning: data.comprehension?.scores?.decision_reasoning || data.comprehension?.decision || '',
       timestamp: new Date().toLocaleTimeString()
     };
 

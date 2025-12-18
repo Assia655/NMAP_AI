@@ -16,13 +16,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 # --- Easy (RAG / Neo4j) ---
-from Agents.Agent_easy.rag_engine import NeoConnection, NmapRAGPipeline
+from Agents.Agent_easy.rag_engine import NeoConnection, NmapRAGPipeline, IntentClassifier
 
 # --- Complexity ---
 from Agents.Agent_complexity.complexity_slm_word2vec import ComplexityClassifierSLM
 
 # --- Comprehension ---
 from Agents.Agent_comprehension.nmap_agent_embeddings import NMAPEmbeddingAgent
+from Agents.Agent_hard.agent_diffusion import HardDiffusionAgent
 
 
 # =========================
@@ -49,6 +50,7 @@ neo_connection: Optional[NeoConnection] = None
 rag_pipeline: Optional[NmapRAGPipeline] = None
 complexity_agent: Optional[ComplexityClassifierSLM] = None
 comprehension_agent: Optional[NMAPEmbeddingAgent] = None
+hard_agent: Optional[HardDiffusionAgent] = None
 
 
 def _abs_path_from_backend(*parts: str) -> str:
@@ -60,7 +62,7 @@ def _abs_path_from_backend(*parts: str) -> str:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup/shutdown lifecycle (no deprecated on_event)."""
-    global neo_connection, rag_pipeline, complexity_agent, comprehension_agent
+    global neo_connection, rag_pipeline, complexity_agent, comprehension_agent, hard_agent
 
     print("\n" + "=" * 70)
     print("🚀 NMAP-AI Unified API - Starting")
@@ -98,6 +100,14 @@ async def lifespan(app: FastAPI):
     except Exception as exc:
         print(f"❌ Complexity init failed: {exc}")
         complexity_agent = None
+
+    # 4) Init Hard Diffusion Agent
+    try:
+        hard_agent = HardDiffusionAgent(seed=42)
+        print("Hard diffusion agent ready")
+    except Exception as exc:
+        print(f"Hard diffusion init failed: {exc}")
+        hard_agent = None
 
     print("📚 Swagger UI: http://localhost:8000/docs")
     print("=" * 70 + "\n")
@@ -213,22 +223,32 @@ async def complexity(req: QueryRequest):
 
 @app.post("/generate", tags=["Main"])
 async def generate(req: QueryRequest):
-    _require(rag_pipeline, "RAG pipeline")
+    _require(comprehension_agent, "Comprehension agent")
     _require(complexity_agent, "Complexity agent")
 
-    # 1) optional comprehension (if ready)
-    comp_data = None
-    if comprehension_agent is not None:
-        try:
-            comp_data = comprehension_agent.understand_query(req.query)
-        except Exception:
-            comp_data = None  # don't block
+    # 1) comprehension firewall
+    try:
+        comp_data = comprehension_agent.understand_query(req.query)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Comprehension error: {str(e)}")
+
+    if not comp_data.get("is_relevant", False):
+        return {
+            "success": False,
+            "type": "out_of_context",
+            "message": "This assistant only handles Nmap-related requests.",
+            "comprehension": comp_data,
+        }
 
     # 2) complexity routing
-    complexity = complexity_agent.classify(req.query)
+    try:
+        complexity = complexity_agent.classify(req.query)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Complexity error: {str(e)}")
     level = complexity.get("level")
 
     if level == "easy":
+        _require(rag_pipeline, "RAG pipeline")
         try:
             result = rag_pipeline.process_query(req.query)
             result["success"] = True if "success" not in result else result["success"]
@@ -254,13 +274,28 @@ async def generate(req: QueryRequest):
         }
 
     if level == "hard":
-        return {
-            "success": False,
-            "query": req.query,
-            "comprehension": comp_data,
-            "complexity": complexity,
-            "error": "HARD agent not implemented yet",
-            "timestamp": datetime.now().isoformat(),
-        }
+        _require(hard_agent, "Hard diffusion agent")
+        target = IntentClassifier().extract_target(req.query)
+        if not target:
+            return {
+                "success": False,
+                "query": req.query,
+                "comprehension": comp_data,
+                "complexity": complexity,
+                "error": "No target specified. Please provide an IP address or hostname.",
+                "timestamp": datetime.now().isoformat(),
+            }
+        try:
+            result = hard_agent.generate(req.query, target)
+            return {
+                "success": bool(result.get("ok")),
+                "query": req.query,
+                "comprehension": comp_data,
+                "complexity": complexity,
+                "result": result,
+                "timestamp": datetime.now().isoformat(),
+            }
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Hard diffusion error: {str(e)}")
 
     raise HTTPException(status_code=500, detail=f"Unknown complexity level: {level}")
