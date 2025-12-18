@@ -4,10 +4,10 @@
 // ==========================================
 
 // ========== SECTION 1: CATÉGORIES ==========
-CREATE (cat_discovery:Category {name: "Host Discovery", description: "Découverte des hôtes actifs"})
+y {name: "OS Detection", description: "Détection du système d'exploitation"})
+CREATE (cat_version:Category {name: "CREATE (cat_discovery:Category {name: "Host Discovery", description: "Découverte des hôtes actifs"})
 CREATE (cat_port_scan:Category {name: "Port Scanning", description: "Scan des ports TCP/UDP"})
-CREATE (cat_os_detection:Category {name: "OS Detection", description: "Détection du système d'exploitation"})
-CREATE (cat_version:Category {name: "Version Detection", description: "Détection des versions de services"})
+CREATE (cat_os_detection:CategorVersion Detection", description: "Détection des versions de services"})
 CREATE (cat_firewall:Category {name: "Firewall/IDS Evasion", description: "Techniques d'évasion des pare-feu"})
 CREATE (cat_advanced:Category {name: "Advanced Scanning", description: "Scans avancés et personnalisés"})
 CREATE (cat_output:Category {name: "Output", description: "Formats de sortie des résultats"})
