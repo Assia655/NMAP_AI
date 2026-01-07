@@ -24,6 +24,7 @@ from Agents.Agent_complexity.complexity_slm_word2vec import ComplexityClassifier
 # --- Comprehension ---
 from Agents.Agent_comprehension.nmap_agent_embeddings import NMAPEmbeddingAgent
 from Agents.Agent_hard.agent_diffusion import HardDiffusionAgent
+from APIs.api_medium import MediumAgent
 
 
 # =========================
@@ -50,6 +51,7 @@ neo_connection: Optional[NeoConnection] = None
 rag_pipeline: Optional[NmapRAGPipeline] = None
 complexity_agent: Optional[ComplexityClassifierSLM] = None
 comprehension_agent: Optional[NMAPEmbeddingAgent] = None
+medium_agent: Optional[MediumAgent] = None
 hard_agent: Optional[HardDiffusionAgent] = None
 
 
@@ -62,7 +64,7 @@ def _abs_path_from_backend(*parts: str) -> str:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup/shutdown lifecycle (no deprecated on_event)."""
-    global neo_connection, rag_pipeline, complexity_agent, comprehension_agent, hard_agent
+    global neo_connection, rag_pipeline, complexity_agent, comprehension_agent, medium_agent, hard_agent
 
     print("\n" + "=" * 70)
     print("🚀 NMAP-AI Unified API - Starting")
@@ -101,7 +103,16 @@ async def lifespan(app: FastAPI):
         print(f"❌ Complexity init failed: {exc}")
         complexity_agent = None
 
-    # 4) Init Hard Diffusion Agent
+    # 4) Init Medium Agent (T5 + LoRA)
+    try:
+        medium_agent = MediumAgent()
+        medium_agent.load()
+        print(f"Medium agent ready on {medium_agent.device}")
+    except Exception as exc:
+        print(f"Medium agent init failed: {exc}")
+        medium_agent = None
+
+    # 5) Init Hard Diffusion Agent
     try:
         hard_agent = HardDiffusionAgent(seed=42)
         print("Hard diffusion agent ready")
@@ -110,6 +121,7 @@ async def lifespan(app: FastAPI):
         hard_agent = None
 
     print("📚 Swagger UI: http://localhost:8000/docs")
+    print("Swagger UI: http://localhost:8000/docs")
     print("=" * 70 + "\n")
 
     yield
@@ -145,7 +157,10 @@ app.add_middleware(
 # =========================
 
 def _require(agent: Any, name: str):
-    if agent is None:
+    ready = agent is not None
+    if ready and hasattr(agent, "is_ready"):
+        ready = bool(agent.is_ready)
+    if not ready:
         raise HTTPException(status_code=503, detail=f"{name} not initialized")
 
 
@@ -186,6 +201,8 @@ async def health():
             "comprehension": "ready" if comprehension_agent else "not_ready",
             "complexity": "ready" if complexity_agent else "not_ready",
             "easy_rag": "ready" if rag_pipeline else "not_ready",
+            "medium": "ready" if medium_agent and getattr(medium_agent, "is_ready", False) else "not_ready",
+            "hard": "ready" if hard_agent else "not_ready",
         },
         "timestamp": datetime.now().isoformat(),
     }
@@ -238,6 +255,7 @@ async def generate(req: QueryRequest):
             "type": "out_of_context",
             "message": "This assistant only handles Nmap-related requests.",
             "comprehension": comp_data,
+            "timestamp": datetime.now().isoformat(),
         }
 
     # 2) complexity routing
@@ -264,14 +282,32 @@ async def generate(req: QueryRequest):
             raise HTTPException(status_code=500, detail=f"RAG error: {str(e)}")
 
     if level == "medium":
-        return {
-            "success": False,
+        _require(medium_agent, "Medium agent")
+        # Medium tier: only trigger T5+LoRA when comprehension accepted and classifier == medium.
+        try:
+            medium_result = medium_agent.generate(req.query)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Medium agent error: {str(e)}")
+
+        result_payload = {
+            "command": medium_result.get("command") if medium_result.get("valid") else None,
+            "raw_command": medium_result.get("raw_command"),
+            "corrected": medium_result.get("corrected", False),
+            "valid": medium_result.get("valid", False),
+        }
+        response = {
+            "success": bool(medium_result.get("valid")),
             "query": req.query,
             "comprehension": comp_data,
             "complexity": complexity,
-            "error": "MEDIUM agent not implemented yet",
+            "result": result_payload,
             "timestamp": datetime.now().isoformat(),
         }
+        if not medium_result.get("valid"):
+            response["warning"] = "Generated command failed validation; please refine the query."
+        return response
 
     if level == "hard":
         _require(hard_agent, "Hard diffusion agent")
