@@ -1,6 +1,6 @@
 # ==========================================
-# api.py - NMAP-AI Unified API (FastAPI)
-# Comprehension + Complexity + Easy(RAG Neo4j)
+# api1.py - NMAP-AI Unified API (FastAPI)
+# Comprehension + Complexity + Easy(RAG Neo4j) + Validation
 # Single server: http://localhost:8000
 # ==========================================
 
@@ -10,6 +10,7 @@ import os
 from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import Any, Dict, Optional
+import logging
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,9 +24,14 @@ from Agents.Agent_complexity.complexity_slm_word2vec import ComplexityClassifier
 
 # --- Comprehension ---
 from Agents.Agent_comprehension.nmap_agent_embeddings import NMAPEmbeddingAgent
-# from Agents.Agent_hard.agent_diffusion import HardDiffusionAgent
 from APIs.api_medium import MediumAgent
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # =========================
 # Models
@@ -38,6 +44,7 @@ class QueryRequest(BaseModel):
 class HealthResponse(BaseModel):
     status: str
     neo4j_connected: bool
+    validation_api_connected: bool
     nodes_in_graph: Optional[int] = None
     agents: Dict[str, str]
     timestamp: str
@@ -52,11 +59,10 @@ rag_pipeline: Optional[NmapRAGPipeline] = None
 complexity_agent: Optional[ComplexityClassifierSLM] = None
 comprehension_agent: Optional[NMAPEmbeddingAgent] = None
 medium_agent: Optional[MediumAgent] = None
-# hard_agent: Optional[HardDiffusionAgent] = None
 
 
 def _abs_path_from_backend(*parts: str) -> str:
-    """Build absolute path relative to backend/ directory (api.py location)."""
+    """Build absolute path relative to backend/ directory (api1.py location)."""
     backend_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.abspath(os.path.join(backend_dir, *parts))
 
@@ -64,7 +70,7 @@ def _abs_path_from_backend(*parts: str) -> str:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup/shutdown lifecycle (no deprecated on_event)."""
-    global neo_connection, rag_pipeline, complexity_agent, comprehension_agent, medium_agent, hard_agent
+    global neo_connection, rag_pipeline, complexity_agent, comprehension_agent, medium_agent
 
     print("\n" + "=" * 70)
     print("🚀 NMAP-AI Unified API - Starting")
@@ -78,9 +84,9 @@ async def lifespan(app: FastAPI):
             password="password",
         )
         rag_pipeline = NmapRAGPipeline(neo_connection.driver)
-        print("✅ Neo4j + RAG ready")
+        logger.info("✅ Neo4j + RAG ready")
     except Exception as exc:
-        print(f"❌ Neo4j/RAG init failed: {exc}")
+        logger.error(f"❌ Neo4j/RAG init failed: {exc}")
         raise
 
     # 2) Init Comprehension Agent
@@ -89,40 +95,39 @@ async def lifespan(app: FastAPI):
         if not os.path.exists(domain_path):
             raise FileNotFoundError(f"nmap_domain.txt not found at: {domain_path}")
         comprehension_agent = NMAPEmbeddingAgent(domain_path)
-        print("✅ Comprehension agent ready")
+        logger.info("✅ Comprehension agent ready")
     except Exception as exc:
-        print(f"❌ Comprehension init failed: {exc}")
-        comprehension_agent = None  # keep API running; endpoint will return 503
+        logger.error(f"❌ Comprehension init failed: {exc}")
+        comprehension_agent = None
 
     # 3) Init Complexity Agent
     try:
         complexity_agent = ComplexityClassifierSLM()
         complexity_agent.train()
-        print("✅ Complexity agent ready")
+        logger.info("✅ Complexity agent ready")
     except Exception as exc:
-        print(f"❌ Complexity init failed: {exc}")
+        logger.error(f"❌ Complexity init failed: {exc}")
         complexity_agent = None
 
     # 4) Init Medium Agent (T5 + LoRA)
     try:
         medium_agent = MediumAgent()
         medium_agent.load()
-        print(f"Medium/hard agent ready on {medium_agent.device}")
+        logger.info(f"✅ Medium/hard agent ready on {medium_agent.device}")
     except Exception as exc:
-        print(f"Medium/hard agent init failed: {exc}")
+        logger.error(f"❌ Medium/hard agent init failed: {exc}")
         medium_agent = None
 
-    # 5) Init Hard Diffusion Agent
-    # try:
-    #     hard_agent = HardDiffusionAgent(seed=42)
-    #     print("Hard diffusion agent ready")
-    # except Exception as exc:
-    #     print(f"Hard diffusion init failed: {exc}")
-    #     hard_agent = None
+    # 5) Test Validation API connection
+    try:
+        test_validation_connection()
+        logger.info("✅ Validation API connection successful")
+    except Exception as exc:
+        logger.warning(f"⚠️ Validation API not reachable: {exc}")
+        logger.warning("System will continue but validation will fail")
 
-    print("📚 Swagger UI: http://localhost:8000/docs")
-    print("Swagger UI: http://localhost:8000/docs")
-    print("=" * 70 + "\n")
+    logger.info("📚 Swagger UI: http://localhost:8000/docs")
+    logger.info("=" * 70 + "\n")
 
     yield
 
@@ -130,15 +135,15 @@ async def lifespan(app: FastAPI):
     if neo_connection:
         try:
             neo_connection.close()
-            print("✅ Neo4j connection closed")
+            logger.info("✅ Neo4j connection closed")
         except Exception:
             pass
 
 
 app = FastAPI(
     title="NMAP-AI Unified API",
-    description="Comprehension + Complexity + RAG(Easy) under one FastAPI server.",
-    version="1.0.0",
+    description="Comprehension + Complexity + RAG(Easy) + Validation under one FastAPI server.",
+    version="2.0.0",
     lifespan=lifespan,
 )
 
@@ -163,24 +168,160 @@ def _require(agent: Any, name: str):
     if not ready:
         raise HTTPException(status_code=503, detail=f"{name} not initialized")
 
+def _to_float(value, default=0.0):
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
 import requests
 
-def validate_command_with_kali(command: str, complexity: str):
+# Configuration for validation API
+VALIDATION_API_URL = "http://192.168.56.106:9000/validate"
+VALIDATION_TIMEOUT = 10  # seconds
+
+def test_validation_connection():
+    """Test connection to validation API"""
     try:
-        r = requests.post(
-            "http://192.168.56.106:9000/validate",
+        response = requests.get(
+            "http://192.168.56.106:9000/health",
+            timeout=5
+        )
+        return response.status_code == 200
+    except Exception as e:
+        raise ConnectionError(f"Cannot connect to validation API: {str(e)}")
+
+def validate_command_with_kali(command: str, complexity: str) -> dict:
+    """
+    Send command to Kali VM for validation
+    
+    Args:
+        command: The Nmap command to validate
+        complexity: The complexity level (easy/medium/hard)
+        
+    Returns:
+        dict with validation results
+    """
+    try:
+        logger.info(f"[VALIDATION] Sending command to Kali: {command[:50]}...")
+        logger.info(f"[VALIDATION] Complexity: {complexity}")
+        logger.info(f"[VALIDATION] Target URL: {VALIDATION_API_URL}")
+        
+        response = requests.post(
+            VALIDATION_API_URL,
             json={
                 "command": command,
                 "complexity": complexity
             },
-            timeout=5
+            timeout=VALIDATION_TIMEOUT
         )
-        return r.json()
-    except Exception:
+        
+        logger.info(f"[VALIDATION] Response status: {response.status_code}")
+        
+        if response.status_code != 200:
+            logger.error(f"[VALIDATION] HTTP error: {response.status_code}")
+            logger.error(f"[VALIDATION] Response: {response.text}")
+            return {
+                "status": "unknown",
+                "valid": False,
+                "safe": True,
+                "requires_privilege": False,
+                "errors": [f"Validation API returned status {response.status_code}"],
+                "warnings": [],
+                "suggestions": []
+            }
+        
+        validation_result = response.json()
+        logger.info(f"[VALIDATION] Result: {validation_result.get('status')}")
+        logger.info(f"[VALIDATION] Valid: {validation_result.get('valid')}")
+        
+        if validation_result.get('errors'):
+            logger.warning(f"[VALIDATION] Errors: {validation_result.get('errors')}")
+        if validation_result.get('warnings'):
+            logger.info(f"[VALIDATION] Warnings: {validation_result.get('warnings')}")
+            
+        return validation_result
+        
+    except requests.exceptions.Timeout:
+        logger.error("[VALIDATION] Request timed out")
         return {
-            "valid": True,
-            "warning": "Validation agent unreachable, skipping validation"
+            "status": "unknown",
+            "valid": False,
+            "safe": True,
+            "requires_privilege": False,
+            "errors": ["Validation request timed out"],
+            "warnings": ["Validation API is not responding"],
+            "suggestions": ["Check if validation API is running on Kali VM"]
         }
+    except requests.exceptions.ConnectionError as e:
+        logger.error(f"[VALIDATION] Connection error: {str(e)}")
+        return {
+            "status": "unknown",
+            "valid": False,
+            "safe": True,
+            "requires_privilege": False,
+            "errors": [f"Cannot connect to validation API: {str(e)}"],
+            "warnings": ["Make sure Kali VM is running and validation API is started"],
+            "suggestions": [
+                "Start validation API on Kali: uvicorn validation_api:app --host 0.0.0.0 --port 9000",
+                "Check network connectivity to 192.168.56.106:9000"
+            ]
+        }
+    except Exception as e:
+        logger.error(f"[VALIDATION] Unexpected error: {str(e)}", exc_info=True)
+        return {
+            "status": "unknown",
+            "valid": False,
+            "safe": True,
+            "requires_privilege": False,
+            "errors": [f"Validation error: {str(e)}"],
+            "warnings": [],
+            "suggestions": []
+        }
+
+def normalize_validation(validation: dict) -> dict:
+    """
+    Normalize validation response to consistent format
+    
+    Args:
+        validation: Raw validation response from Kali
+        
+    Returns:
+        Normalized validation dict with verdict
+    """
+    status = str(validation.get("status", "unknown")).lower()
+    
+    # Map status to verdict
+    mapping = {
+        "valid": "VALID",
+        "invalid": "INVALID",
+        "repairable": "REPAIRABLE",
+        "unsafe": "UNSAFE",
+        "privilege_required": "REPAIRABLE",  # Treat privilege requirement as repairable
+        "unknown": "UNKNOWN"
+    }
+    
+    verdict = mapping.get(status, "UNKNOWN")
+    
+    # Handle requires_privilege flag
+    if validation.get("requires_privilege") and status == "valid":
+        verdict = "REPAIRABLE"
+        if "suggestions" not in validation:
+            validation["suggestions"] = []
+        if "Add 'sudo' prefix" not in str(validation["suggestions"]):
+            validation["suggestions"].append("Add 'sudo' prefix for privileged operations")
+    
+    return {
+        "verdict": verdict,
+        "raw": validation,
+        "details": {
+            "errors": validation.get("errors", []),
+            "warnings": validation.get("warnings", []),
+            "suggestions": validation.get("suggestions", []),
+            "safe": validation.get("safe", True),
+            "requires_privilege": validation.get("requires_privilege", False)
+        }
+    }
 
 def generate_with_validation(
     query: str,
@@ -188,87 +329,121 @@ def generate_with_validation(
     comp_data: Dict[str, Any]
 ):
     """
-    Generate a command, validate it via Kali,
-    retry once with the other agent if invalid.
+    Generate a command and validate it via Kali.
+    Retry if validator says REPAIRABLE.
+    
+    Args:
+        query: User's natural language query
+        initial_level: Initial complexity level (easy/medium/hard)
+        comp_data: Comprehension data
+        
+    Returns:
+        dict with generation and validation results
     """
-
+    
     tried_levels = set()
     level = initial_level
-    last_result = None
+    last_command = None
     last_validation = None
+    attempts = []
 
-    for _ in range(2):  # MAX 2 attempts
+    for attempt in range(3):  # max 3 attempts
         tried_levels.add(level)
+        logger.info(f"[GENERATION] Attempt {attempt + 1}, Level: {level}")
 
-        # --- GENERATION ---
-        if level == "easy":
-            _require(rag_pipeline, "RAG pipeline")
-            gen_result = rag_pipeline.process_query(query)
-            command = gen_result.get("command")
-        else:
-            _require(medium_agent, "Medium agent")
-            gen = medium_agent.generate(query)
-            command = gen.get("command") if gen.get("valid") else None
+        # -------- GENERATION --------
+        try:
+            if level == "easy":
+                _require(rag_pipeline, "RAG pipeline")
+                gen = rag_pipeline.process_query(query)
+                command = gen.get("command")
+                generation_method = "RAG"
+            else:
+                _require(medium_agent, "Medium agent")
+                gen = medium_agent.generate(query)
+                command = gen.get("command") or gen.get("raw_command")
+                generation_method = "T5+LoRA"
+            
+            logger.info(f"[GENERATION] Method: {generation_method}")
+            logger.info(f"[GENERATION] Command: {command}")
+            
+        except Exception as e:
+            logger.error(f"[GENERATION] Error: {str(e)}", exc_info=True)
+            command = None
 
         if not command:
-            last_result = gen_result if level == "easy" else gen
+            last_validation = {
+                "verdict": "INVALID",
+                "raw": {"status": "invalid"},
+                "details": {
+                    "errors": ["Model failed to produce a command"],
+                    "warnings": [],
+                    "suggestions": ["Try rephrasing your query"]
+                }
+            }
+            attempts.append({
+                "level": level,
+                "command": None,
+                "validation": last_validation
+            })
             break
 
-        # --- VALIDATION ---
-        validation = validate_command_with_kali(command, level)
+        # -------- VALIDATION --------
+        raw_validation = validate_command_with_kali(command, level)
+        normalized = normalize_validation(raw_validation)
 
-        last_result = {
-            "command": command,
+        last_command = command
+        last_validation = normalized
+        
+        attempts.append({
             "level": level,
-            "generator": level,
-        }
-        last_validation = validation
+            "command": command,
+            "validation": normalized
+        })
 
-        normalized = normalize_validation(validation)
+        verdict = normalized["verdict"]
+        logger.info(f"[VALIDATION] Verdict: {verdict}")
 
-        if normalized["verdict"] == "VALID":
+        # ✅ VALID → SUCCESS
+        if verdict == "VALID":
+            logger.info("[RESULT] Command validated successfully")
             return {
                 "success": True,
                 "command": command,
                 "validation": normalized,
                 "final_complexity": level,
-                "attempts": list(tried_levels),
+                "attempts": attempts,
             }
 
-        # --- SWITCH AGENT ---
-        level = "medium" if level == "easy" else "easy"
-        if level in tried_levels:
-            break
+        # 🟡 REPAIRABLE → retry with different agent
+        if verdict == "REPAIRABLE":
+            logger.info("[RESULT] Command is repairable, trying different level")
+            # Try switching between easy and medium
+            if level == "easy":
+                level = "medium"
+            elif level == "medium":
+                level = "easy"
+            else:
+                level = "medium"
+                
+            if level in tried_levels:
+                logger.warning("[RESULT] Already tried this level, stopping")
+                break
+            continue
 
-    # Fallback (after retry)
+        # ❌ Everything else → STOP
+        logger.warning(f"[RESULT] Command validation failed: {verdict}")
+        break
+
+    # -------- FINAL FAILURE --------
+    logger.error("[RESULT] All generation attempts failed")
     return {
         "success": False,
-        "command": last_result.get("command") if last_result else None,
+        "command": last_command,
         "validation": last_validation,
         "final_complexity": level,
-        "attempts": list(tried_levels),
-        "message": "Unable to generate a fully valid command after retry",
-    }
-
-def normalize_validation(validation: dict) -> dict:
-    status = validation.get("status", "").lower()
-
-    if status == "valid":
-        verdict = "VALID"
-    elif status == "invalid":
-        verdict = "INVALID"
-    elif status == "repairable":
-        verdict = "REPAIRABLE"
-    elif status == "unsafe":
-        verdict = "UNSAFE"
-    elif status == "privilege_required":
-        verdict = "PRIVILEGE_REQUIRED"
-    else:
-        verdict = "UNKNOWN"
-
-    return {
-        "verdict": verdict,
-        "raw": validation
+        "attempts": attempts,
+        "message": "Command generation failed validation after multiple attempts",
     }
 
 
@@ -279,10 +454,11 @@ def normalize_validation(validation: dict) -> dict:
 @app.get("/", tags=["Root"])
 async def root():
     return {
-        "message": "NMAP-AI Unified API",
+        "message": "NMAP-AI Unified API v2.0",
         "docs": "/docs",
         "health": "/health",
         "endpoints": ["/comprehension", "/complexity", "/generate"],
+        "validation_api": VALIDATION_API_URL
     }
 
 
@@ -300,17 +476,25 @@ async def health():
             neo_ok = True
         except Exception:
             neo_ok = False
+    
+    # Test validation API
+    validation_ok = False
+    try:
+        validation_ok = test_validation_connection()
+    except Exception:
+        validation_ok = False
 
     return {
-        "status": "healthy" if neo_ok else "degraded",
+        "status": "healthy" if (neo_ok and validation_ok) else "degraded",
         "neo4j_connected": neo_ok,
+        "validation_api_connected": validation_ok,
         "nodes_in_graph": nodes_count,
         "agents": {
             "comprehension": "ready" if comprehension_agent else "not_ready",
             "complexity": "ready" if complexity_agent else "not_ready",
             "easy_rag": "ready" if rag_pipeline else "not_ready",
             "medium": "ready" if medium_agent and getattr(medium_agent, "is_ready", False) else "not_ready",
-            #"hard": "ready" if hard_agent else "not_ready",
+            "validation": "ready" if validation_ok else "not_ready",
         },
         "timestamp": datetime.now().isoformat(),
     }
@@ -328,6 +512,7 @@ async def comprehension(req: QueryRequest):
             "timestamp": datetime.now().isoformat(),
         }
     except Exception as e:
+        logger.error(f"Comprehension error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Comprehension error: {str(e)}")
 
 
@@ -335,7 +520,7 @@ async def comprehension(req: QueryRequest):
 async def complexity(req: QueryRequest):
     _require(complexity_agent, "Complexity agent")
     try:
-        result = complexity_agent.classify(req.query)  # returns dict {"level":..., ...}
+        result = complexity_agent.classify(req.query)
         return {
             "success": True,
             "query": req.query,
@@ -343,27 +528,39 @@ async def complexity(req: QueryRequest):
             "timestamp": datetime.now().isoformat(),
         }
     except Exception as e:
+        logger.error(f"Complexity error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Complexity error: {str(e)}")
 
 @app.post("/generate", tags=["Main"])
 async def generate(req: QueryRequest):
+    """
+    Main endpoint: Comprehension → Complexity → Generation → Validation
+    """
     _require(comprehension_agent, "Comprehension agent")
     _require(complexity_agent, "Complexity agent")
+    
+    logger.info(f"[REQUEST] Query: {req.query}")
 
-    # 1) comprehension firewall
+    # 1) Comprehension firewall
     try:
         comp_data = comprehension_agent.understand_query(req.query)
+        logger.info(f"[COMPREHENSION] Relevance: {comp_data.get('is_relevant')}")
     except Exception as e:
+        logger.error(f"Comprehension error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Comprehension error: {str(e)}")
+
+    confidence = _to_float(comp_data.get("confidence", 0))
+    similarity = _to_float(comp_data.get("similarity", 0))
 
     is_relevant = (
             comp_data.get("is_relevant") is True
-            or comp_data.get("confidence", 0) >= 0.3
-            or comp_data.get("similarity", 0) >= 0.3
+            or confidence >= 0.3
+            or similarity >= 0.3
             or bool(comp_data.get("keywords"))
     )
 
     if not is_relevant:
+        logger.info("[COMPREHENSION] Query out of context")
         return {
             "success": False,
             "type": "out_of_context",
@@ -372,28 +569,24 @@ async def generate(req: QueryRequest):
             "timestamp": datetime.now().isoformat(),
         }
 
-        # return {
-        #     "success": False,
-        #     "type": "out_of_context",
-        #     "message": "This assistant only handles Nmap-related requests.",
-        #     "comprehension": comp_data,
-        #     "timestamp": datetime.now().isoformat(),
-        # }
-
-    # 2) initial complexity
+    # 2) Complexity classification
     try:
         complexity = complexity_agent.classify(req.query)
+        level = complexity.get("level")
+        logger.info(f"[COMPLEXITY] Level: {level}")
     except Exception as e:
+        logger.error(f"Complexity error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Complexity error: {str(e)}")
 
-    level = complexity.get("level")
-
-    # 3) generate + validate + retry
+    # 3) Generate + validate + retry
     result = generate_with_validation(
         query=req.query,
         initial_level=level,
         comp_data=comp_data
     )
+    
+    logger.info(f"[FINAL] Success: {result.get('success')}")
+    logger.info(f"[FINAL] Command: {result.get('command')}")
 
     return {
         "success": result.get("success"),
@@ -408,101 +601,3 @@ async def generate(req: QueryRequest):
         },
         "timestamp": datetime.now().isoformat(),
     }
-
-# @app.post("/generate", tags=["Main"])
-# async def generate(req: QueryRequest):
-#     _require(comprehension_agent, "Comprehension agent")
-#     _require(complexity_agent, "Complexity agent")
-#
-#     # 1) comprehension firewall
-#     try:
-#         comp_data = comprehension_agent.understand_query(req.query)
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Comprehension error: {str(e)}")
-#
-#     if not comp_data.get("is_relevant", False):
-#         return {
-#             "success": False,
-#             "type": "out_of_context",
-#             "message": "This assistant only handles Nmap-related requests.",
-#             "comprehension": comp_data,
-#             "timestamp": datetime.now().isoformat(),
-#         }
-#
-#     # 2) complexity routing
-#     try:
-#         complexity = complexity_agent.classify(req.query)
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Complexity error: {str(e)}")
-#     level = complexity.get("level")
-#
-#     if level == "easy":
-#         _require(rag_pipeline, "RAG pipeline")
-#         try:
-#             result = rag_pipeline.process_query(req.query)
-#             result["success"] = True if "success" not in result else result["success"]
-#             return {
-#                 "success": True,
-#                 "query": req.query,
-#                 "comprehension": comp_data,
-#                 "complexity": complexity,
-#                 "result": result,
-#                 "timestamp": datetime.now().isoformat(),
-#             }
-#         except Exception as e:
-#             raise HTTPException(status_code=500, detail=f"RAG error: {str(e)}")
-#
-#     if level == "medium" or level == "hard":
-#         _require(medium_agent, "Medium agent")
-#         # Medium tier: only trigger T5+LoRA when comprehension accepted and classifier == medium.
-#         try:
-#             medium_result = medium_agent.generate(req.query)
-#         except ValueError as e:
-#             raise HTTPException(status_code=400, detail=str(e))
-#         except Exception as e:
-#             raise HTTPException(status_code=500, detail=f"Medium agent error: {str(e)}")
-#
-#         result_payload = {
-#             "command": medium_result.get("command") if medium_result.get("valid") else None,
-#             "raw_command": medium_result.get("raw_command"),
-#             "corrected": medium_result.get("corrected", False),
-#             "valid": medium_result.get("valid", False),
-#         }
-#         response = {
-#             "success": bool(medium_result.get("valid")),
-#             "query": req.query,
-#             "comprehension": comp_data,
-#             "complexity": complexity,
-#             "result": result_payload,
-#             "timestamp": datetime.now().isoformat(),
-#         }
-#         if not medium_result.get("valid"):
-#             response["warning"] = "Generated command failed validation; please refine the query."
-#         return response
-#
-#     if level == "hard":
-#         _require(hard_agent, "Hard diffusion agent")
-#         target = IntentClassifier().extract_target(req.query)
-#         if not target:
-#             return {
-#                 "success": False,
-#                 "query": req.query,
-#                 "comprehension": comp_data,
-#                 "complexity": complexity,
-#                 "error": "No target specified. Please provide an IP address or hostname.",
-#                 "timestamp": datetime.now().isoformat(),
-#             }
-#         try:
-#             result = hard_agent.generate(req.query, target)
-#             return {
-#                 "success": bool(result.get("ok")),
-#                 "query": req.query,
-#                 "comprehension": comp_data,
-#                 "complexity": complexity,
-#                 "result": result,
-#                 "timestamp": datetime.now().isoformat(),
-#             }
-#         except Exception as e:
-#             raise HTTPException(status_code=500, detail=f"Hard diffusion error: {str(e)}")
-#
-#     raise HTTPException(status_code=500, detail=f"Unknown complexity level: {level}")
