@@ -1,11 +1,18 @@
 # ==========================================
 # api_medium.py - NMAP-AI Medium Agent API (FastAPI)
 # Medium (T5 + LoRA) + Rule-based Nmap command correction
+# CPU-only, stable configuration
 # ==========================================
 
 from __future__ import annotations
 
 import os
+# --------------------------------------------------
+# FORCE CPU ONLY (disable CUDA completely)
+# --------------------------------------------------
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
+os.environ["TORCH_CUDA_AVAILABLE"] = "0"
+
 import re
 from datetime import datetime
 from typing import Any, Dict, Optional
@@ -16,13 +23,12 @@ from pydantic import BaseModel, Field
 
 try:
     import torch
-    from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, BitsAndBytesConfig
+    from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
     from peft import PeftModel
 except ImportError:
     torch = None
     AutoModelForSeq2SeqLM = None
     AutoTokenizer = None
-    BitsAndBytesConfig = None
     PeftModel = None
 
 
@@ -54,26 +60,26 @@ def _abs_backend_path(*parts: str) -> str:
 
 
 def apply_medium_rules(prompt: str, cmd: str):
-    """
-    Apply lightweight safety/intent rules after T5 generation so the command
-    stays aligned with the user's wording and common Nmap defaults.
-    """
     original_cmd = cmd
     p = prompt.lower()
 
     if "top ports" in p and "-p-" in cmd:
         cmd = cmd.replace("-p-", "").strip()
+
     if "default and vuln" in p:
         cmd = re.sub(r"--script\s+\S+", "--script default,vuln", cmd)
         if "--script" not in cmd:
             cmd = f"nmap --script default,vuln {cmd.replace('nmap', '').strip()}"
+
     if "default scripts" in p and "vuln" not in p:
         if "--script" not in cmd:
             cmd = f"nmap --script default {cmd.replace('nmap', '').strip()}"
+
     if "ping scan" in p:
         cmd = re.sub(r"-sV|-O|-p-|--script\s+\S+", "", cmd).strip()
         if "-sn" not in cmd:
             cmd = f"nmap -sn {cmd.replace('nmap', '').strip()}"
+
     if "service detection" in p or "services" in p:
         if "-sV" not in cmd:
             cmd = cmd.replace("nmap", "nmap -sV")
@@ -93,7 +99,7 @@ def is_valid_nmap(cmd: str) -> bool:
 
 class MediumAgent:
     """
-    T5 + LoRA medium-tier agent with post-generation rules.
+    T5 + LoRA medium-tier agent (CPU-only).
     """
 
     def __init__(
@@ -102,8 +108,10 @@ class MediumAgent:
         lora_path: Optional[str] = None,
     ):
         self.base_model = base_model
-        self.lora_path = lora_path or _abs_backend_path("Agents", "Agent_medium", "T5", "T5_qlora-nmap")
-        self.device = "cuda" if torch and torch.cuda.is_available() else "cpu"
+        self.lora_path = lora_path or _abs_backend_path(
+            "Agents", "Agent_medium", "T5", "T5_qlora-nmap"
+        )
+        self.device = "cpu"
         self.model: Optional[PeftModel] = None
         self.tokenizer: Optional[Any] = None
 
@@ -113,27 +121,26 @@ class MediumAgent:
 
     def load(self):
         if not (torch and AutoTokenizer and AutoModelForSeq2SeqLM and PeftModel):
-            raise RuntimeError("Medium agent dependencies are missing (torch/transformers/peft).")
-
-        bnb_config = None
-        if self.device == "cuda":
-            if BitsAndBytesConfig is None:
-                raise RuntimeError("bitsandbytes is required for 4-bit CUDA loading.")
-            bnb_config = BitsAndBytesConfig(
-                load_in_4bit=True,
-                bnb_4bit_use_double_quant=True,
-                bnb_4bit_quant_type="nf4",
-                bnb_4bit_compute_dtype=torch.bfloat16,
+            raise RuntimeError(
+                "Medium agent dependencies are missing (torch/transformers/peft)."
             )
 
+        # -----------------------------
+        # Load base model on CPU ONLY
+        # -----------------------------
         base_model = AutoModelForSeq2SeqLM.from_pretrained(
-            self.base_model,
-            quantization_config=bnb_config,
-            device_map="auto" if self.device == "cuda" else None,
+            self.base_model
         )
-        self.model = PeftModel.from_pretrained(base_model, self.lora_path)
+
+        base_model.to(self.device)
+
+        self.model = PeftModel.from_pretrained(
+            base_model,
+            self.lora_path
+        )
         self.model.to(self.device)
         self.model.eval()
+
         self.tokenizer = AutoTokenizer.from_pretrained(self.lora_path)
 
     def generate(self, query: str) -> Dict[str, Any]:
@@ -142,7 +149,14 @@ class MediumAgent:
         if not self.is_ready:
             raise RuntimeError("Medium agent not initialized.")
 
-        inputs = self.tokenizer(query, return_tensors="pt").to(self.device)
+        inputs = self.tokenizer(
+            query,
+            return_tensors="pt"
+        )
+
+        # Ensure tensors are on CPU
+        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+
         with torch.no_grad():
             outputs = self.model.generate(
                 **inputs,
@@ -150,9 +164,16 @@ class MediumAgent:
                 num_beams=1,
                 do_sample=False,
             )
-        raw_cmd = self.tokenizer.decode(outputs[0], skip_special_tokens=True).split("\n")[0].strip()
+
+        raw_cmd = (
+            self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+            .split("\n")[0]
+            .strip()
+        )
+
         final_cmd, corrected = apply_medium_rules(query, raw_cmd)
         valid = is_valid_nmap(final_cmd)
+
         return {
             "command": final_cmd,
             "raw_command": raw_cmd,
@@ -167,7 +188,7 @@ class MediumAgent:
 
 app = FastAPI(
     title="NMAP-AI Medium API",
-    description="Medium Agent (T5 + LoRA) for Nmap command generation",
+    description="Medium Agent (T5 + LoRA) for Nmap command generation (CPU-only)",
     version="1.0.0",
 )
 
@@ -184,17 +205,15 @@ medium_agent = MediumAgent()
 
 @app.on_event("startup")
 async def startup_event():
-    global medium_agent
     try:
         medium_agent.load()
-        print(f"ok. Medium agent ready on {medium_agent.device}")
+        print("✅ Medium agent ready on CPU")
     except Exception as e:
-        print(f"Medium agent init failed: {e}")
+        print(f"❌ Medium agent init failed: {e}")
 
 
 def _require(agent: Any, name: str):
-    ready = agent is not None and (not hasattr(agent, "is_ready") or agent.is_ready)
-    if not ready:
+    if agent is None or not agent.is_ready:
         raise HTTPException(status_code=503, detail=f"{name} not initialized")
 
 
@@ -228,9 +247,14 @@ async def generate(req: QueryRequest):
             "timestamp": datetime.now().isoformat(),
         }
         if not result["valid"]:
-            response["warning"] = "Generated command failed validation; please refine the query."
+            response["warning"] = (
+                "Generated command failed validation; please refine the query."
+            )
         return response
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Medium agent error: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Medium agent error: {str(e)}"
+        )
