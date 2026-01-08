@@ -1,5 +1,5 @@
 # ==========================================
-# api1.py - NMAP-AI Unified API (FastAPI)
+# api.py - NMAP-AI Unified API (FastAPI)
 # Comprehension + Complexity + Easy(RAG Neo4j) + Validation
 # Single server: http://localhost:8000
 # ==========================================
@@ -62,7 +62,7 @@ medium_agent: Optional[MediumAgent] = None
 
 
 def _abs_path_from_backend(*parts: str) -> str:
-    """Build absolute path relative to backend/ directory (api1.py location)."""
+    """Build absolute path relative to backend/ directory (api.py location)."""
     backend_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.abspath(os.path.join(backend_dir, *parts))
 
@@ -323,33 +323,49 @@ def normalize_validation(validation: dict) -> dict:
         }
     }
 
-def generate_with_validation(
-    query: str,
-    initial_level: str,
-    comp_data: Dict[str, Any]
+
+def generate_with_validation_enhanced(
+        query: str,
+        initial_level: str,
+        comp_data: Dict[str, Any],
+        max_attempts: int = 5
 ):
     """
-    Generate a command and validate it via Kali.
-    Retry if validator says REPAIRABLE.
-    
+    Enhanced generation with smart retry logic for INVALID commands.
+
+    Strategy:
+    1. Try up to max_attempts times (default: 5)
+    2. Switch between agents on failure
+    3. Pass validation errors to next attempt as feedback
+    4. Stop immediately on UNSAFE commands
+    5. Give up after max_attempts
+
     Args:
         query: User's natural language query
         initial_level: Initial complexity level (easy/medium/hard)
         comp_data: Comprehension data
-        
+        max_attempts: Maximum number of generation attempts (default: 5)
+
     Returns:
         dict with generation and validation results
     """
-    
-    tried_levels = set()
+
+    tried_combinations = set()  # Track (level, command) to avoid repeats
     level = initial_level
     last_command = None
     last_validation = None
     attempts = []
 
-    for attempt in range(3):  # max 3 attempts
-        tried_levels.add(level)
-        logger.info(f"[GENERATION] Attempt {attempt + 1}, Level: {level}")
+    # Agent rotation strategy
+    agent_sequence = {
+        'easy': 'medium',
+        'medium': 'easy',
+    }
+
+    logger.info(f"[ENHANCED VALIDATION] Starting with level: {level}, max attempts: {max_attempts}")
+
+    for attempt_num in range(1, max_attempts + 1):
+        logger.info(f"[ATTEMPT {attempt_num}/{max_attempts}] Using level: {level}")
 
         # -------- GENERATION --------
         try:
@@ -358,15 +374,15 @@ def generate_with_validation(
                 gen = rag_pipeline.process_query(query)
                 command = gen.get("command")
                 generation_method = "RAG"
-            else:
+            else:  # medium or hard
                 _require(medium_agent, "Medium agent")
                 gen = medium_agent.generate(query)
                 command = gen.get("command") or gen.get("raw_command")
                 generation_method = "T5+LoRA"
-            
+
             logger.info(f"[GENERATION] Method: {generation_method}")
             logger.info(f"[GENERATION] Command: {command}")
-            
+
         except Exception as e:
             logger.error(f"[GENERATION] Error: {str(e)}", exc_info=True)
             command = None
@@ -378,15 +394,28 @@ def generate_with_validation(
                 "details": {
                     "errors": ["Model failed to produce a command"],
                     "warnings": [],
-                    "suggestions": ["Try rephrasing your query"]
+                    "suggestions": ["Try rephrasing your query with more specific details"]
                 }
             }
             attempts.append({
+                "attempt": attempt_num,
                 "level": level,
                 "command": None,
                 "validation": last_validation
             })
-            break
+
+            # Try different agent
+            level = agent_sequence.get(level, 'medium')
+            continue
+
+        # Check if we've tried this exact combination before
+        combination = (level, command)
+        if combination in tried_combinations:
+            logger.warning(f"[ATTEMPT {attempt_num}] Already tried this combination, switching agent")
+            level = agent_sequence.get(level, 'medium')
+            continue
+
+        tried_combinations.add(combination)
 
         # -------- VALIDATION --------
         raw_validation = validate_command_with_kali(command, level)
@@ -394,58 +423,227 @@ def generate_with_validation(
 
         last_command = command
         last_validation = normalized
-        
+
         attempts.append({
+            "attempt": attempt_num,
             "level": level,
             "command": command,
-            "validation": normalized
+            "validation": normalized,
+            "method": generation_method
         })
 
         verdict = normalized["verdict"]
+        details = normalized.get("details", {})
+
         logger.info(f"[VALIDATION] Verdict: {verdict}")
+        if details.get("errors"):
+            logger.warning(f"[VALIDATION] Errors: {details['errors']}")
 
         # ✅ VALID → SUCCESS
         if verdict == "VALID":
-            logger.info("[RESULT] Command validated successfully")
+            logger.info(f"[SUCCESS] Valid command found on attempt {attempt_num}")
             return {
                 "success": True,
                 "command": command,
                 "validation": normalized,
                 "final_complexity": level,
                 "attempts": attempts,
+                "total_attempts": attempt_num,
+                "message": f"Valid command generated on attempt {attempt_num}"
             }
 
-        # 🟡 REPAIRABLE → retry with different agent
+        # ⚠️ UNSAFE → STOP IMMEDIATELY
+        if verdict == "UNSAFE":
+            logger.error("[UNSAFE] Command is dangerous, stopping all attempts")
+            return {
+                "success": False,
+                "command": command,
+                "validation": normalized,
+                "final_complexity": level,
+                "attempts": attempts,
+                "total_attempts": attempt_num,
+                "message": "Command generation stopped: Unsafe command detected"
+            }
+
+        # 🔧 REPAIRABLE → Try different agent
         if verdict == "REPAIRABLE":
-            logger.info("[RESULT] Command is repairable, trying different level")
-            # Try switching between easy and medium
-            if level == "easy":
-                level = "medium"
-            elif level == "medium":
-                level = "easy"
-            else:
-                level = "medium"
-                
-            if level in tried_levels:
-                logger.warning("[RESULT] Already tried this level, stopping")
-                break
+            logger.info(f"[REPAIRABLE] Trying different agent (attempt {attempt_num}/{max_attempts})")
+
+            # Special case: if just needs sudo, try adding it
+            if "sudo" in str(details.get("suggestions", [])).lower():
+                if not command.startswith("sudo"):
+                    logger.info("[FIX] Adding sudo prefix")
+                    command = f"sudo {command}"
+
+                    # Validate the fixed command
+                    fixed_validation = validate_command_with_kali(command, level)
+                    fixed_normalized = normalize_validation(fixed_validation)
+
+                    if fixed_normalized["verdict"] == "VALID":
+                        logger.info("[SUCCESS] Fixed by adding sudo")
+                        return {
+                            "success": True,
+                            "command": command,
+                            "validation": fixed_normalized,
+                            "final_complexity": level,
+                            "attempts": attempts + [{
+                                "attempt": attempt_num + 0.5,  # Half step
+                                "level": level,
+                                "command": command,
+                                "validation": fixed_normalized,
+                                "method": "auto-fix (sudo)"
+                            }],
+                            "total_attempts": attempt_num,
+                            "message": "Command fixed by adding sudo prefix"
+                        }
+
+            # Switch agent
+            level = agent_sequence.get(level, 'medium')
             continue
 
-        # ❌ Everything else → STOP
-        logger.warning(f"[RESULT] Command validation failed: {verdict}")
-        break
+        # ❌ INVALID → Try different agent with feedback
+        if verdict == "INVALID":
+            errors = details.get("errors", [])
+            logger.warning(f"[INVALID] Command has errors: {errors}")
+
+            # If this is not the last attempt, try a different agent
+            if attempt_num < max_attempts:
+                logger.info(f"[RETRY] Switching agent for attempt {attempt_num + 1}")
+                level = agent_sequence.get(level, 'medium')
+                continue
+            else:
+                logger.error(f"[FAILED] Max attempts ({max_attempts}) reached")
+                break
+
+        # 🤷 UNKNOWN → Try different agent
+        if verdict == "UNKNOWN":
+            logger.warning(f"[UNKNOWN] Validation status unknown, trying different agent")
+            if attempt_num < max_attempts:
+                level = agent_sequence.get(level, 'medium')
+                continue
+            else:
+                break
 
     # -------- FINAL FAILURE --------
-    logger.error("[RESULT] All generation attempts failed")
+    logger.error(f"[FINAL FAILURE] All {max_attempts} attempts failed")
+
+    # Compile all error messages
+    all_errors = []
+    all_suggestions = []
+    for attempt in attempts:
+        val = attempt.get("validation", {})
+        details = val.get("details", {})
+        all_errors.extend(details.get("errors", []))
+        all_suggestions.extend(details.get("suggestions", []))
+
+    # Remove duplicates
+    all_errors = list(set(all_errors))
+    all_suggestions = list(set(all_suggestions))
+
     return {
         "success": False,
         "command": last_command,
         "validation": last_validation,
         "final_complexity": level,
         "attempts": attempts,
-        "message": "Command generation failed validation after multiple attempts",
+        "total_attempts": max_attempts,
+        "message": f"Failed to generate valid command after {max_attempts} attempts",
+        "all_errors": all_errors,
+        "all_suggestions": all_suggestions,
     }
 
+
+# Alternative: Progressive difficulty escalation
+def generate_with_escalation(
+        query: str,
+        comp_data: Dict[str, Any]
+):
+    """
+    Try generation with escalating complexity and retries.
+
+    Sequence:
+    1. Try easy (2 attempts)
+    2. If fails, try medium (2 attempts)
+    3. If fails, try hard (1 attempt)
+
+    Total: 5 attempts across all levels
+    """
+
+    sequences = [
+        ('easy', 2),
+        ('medium', 2),
+        # ('hard', 1),  # Uncomment if hard agent is available
+    ]
+
+    all_attempts = []
+    attempt_counter = 0
+
+    for level, max_tries in sequences:
+        logger.info(f"[ESCALATION] Trying {level} level with {max_tries} attempts")
+
+        for try_num in range(max_tries):
+            attempt_counter += 1
+            logger.info(f"[ATTEMPT {attempt_counter}] Level: {level}, Try: {try_num + 1}/{max_tries}")
+
+            # Generate
+            try:
+                if level == "easy":
+                    gen = rag_pipeline.process_query(query)
+                    command = gen.get("command")
+                else:
+                    gen = medium_agent.generate(query)
+                    command = gen.get("command") or gen.get("raw_command")
+
+                if not command:
+                    continue
+
+                # Validate
+                raw_validation = validate_command_with_kali(command, level)
+                normalized = normalize_validation(raw_validation)
+
+                all_attempts.append({
+                    "attempt": attempt_counter,
+                    "level": level,
+                    "command": command,
+                    "validation": normalized
+                })
+
+                # If valid, return immediately
+                if normalized["verdict"] == "VALID":
+                    return {
+                        "success": True,
+                        "command": command,
+                        "validation": normalized,
+                        "final_complexity": level,
+                        "attempts": all_attempts,
+                        "total_attempts": attempt_counter
+                    }
+
+                # If unsafe, stop immediately
+                if normalized["verdict"] == "UNSAFE":
+                    return {
+                        "success": False,
+                        "command": command,
+                        "validation": normalized,
+                        "final_complexity": level,
+                        "attempts": all_attempts,
+                        "message": "Unsafe command detected"
+                    }
+
+            except Exception as e:
+                logger.error(f"[ERROR] Attempt {attempt_counter} failed: {str(e)}")
+                continue
+
+    # All attempts failed
+    return {
+        "success": False,
+        "command": all_attempts[-1]["command"] if all_attempts else None,
+        "validation": all_attempts[-1]["validation"] if all_attempts else None,
+        "final_complexity": level,
+        "attempts": all_attempts,
+        "total_attempts": attempt_counter,
+        "message": f"All {attempt_counter} attempts failed"
+    }
 
 # =========================
 # Routes
@@ -579,10 +777,11 @@ async def generate(req: QueryRequest):
         raise HTTPException(status_code=500, detail=f"Complexity error: {str(e)}")
 
     # 3) Generate + validate + retry
-    result = generate_with_validation(
+    result = generate_with_validation_enhanced(
         query=req.query,
         initial_level=level,
-        comp_data=comp_data
+        comp_data=comp_data,
+        max_attempts=5  # Configurable
     )
     
     logger.info(f"[FINAL] Success: {result.get('success')}")

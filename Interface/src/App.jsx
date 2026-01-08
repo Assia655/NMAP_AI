@@ -77,20 +77,36 @@ const handleSubmit = async () => {
       return;
     }
 
-    const validationStatus = data.result?.validation?.valid;
-    const assistantMessage = {
-      id: Date.now() + 1,
-      type: 'assistant',
-      content: data.result?.explanation || data.result?.error || data.error || 'Commande générée avec succès.',
-      complexity: data.complexity?.level || null,
-      command: data.result?.command || '',
-      explanation: data.result?.explanation || '',
-      validation: validationStatus === true ? 'valid' : validationStatus === false ? 'invalid' : 'unknown',
-      confidence: data.complexity?.confidence || 0,
-      flags: data.result?.flags || [],
-      reasoning: data.comprehension?.scores?.decision_reasoning || data.comprehension?.decision || '',
-      timestamp: new Date().toLocaleTimeString()
-    };
+const validationStatus = data.result?.validation?.verdict;
+
+const assistantMessage = {
+  id: Date.now() + 1,
+  type: 'assistant',
+  content:
+    data.result?.explanation ||
+    data.result?.error ||
+    data.error ||
+    'Commande générée avec succès.',
+  complexity: data.complexity?.level || null,
+  command: data.result?.command || '',
+  explanation: data.result?.explanation || '',
+
+  validation:
+    validationStatus === 'VALID'
+      ? 'valid'
+      : validationStatus === 'INVALID'
+      ? 'invalid'
+      : 'unknown',
+
+  confidence: data.complexity?.confidence || 0,
+  flags: data.result?.flags || [],
+  reasoning:
+    data.comprehension?.scores?.decision_reasoning ||
+    data.comprehension?.decision ||
+    '',
+  timestamp: new Date().toLocaleTimeString(),
+};
+
 
     setMessages(prev => [...prev, assistantMessage]);
 
@@ -134,15 +150,19 @@ const handleSubmit = async () => {
   };
 
   const getValidationIcon = (status) => {
-    switch(status) {
-      case 'valid':
-        return <Check className="w-4 h-4 text-green-400" />;
-      case 'invalid':
-        return <X className="w-4 h-4 text-red-400" />;
-      default:
-        return <AlertCircle className="w-4 h-4 text-yellow-400" />;
-    }
+  switch (status) {
+    case 'valid':
+      return <Check className="w-4 h-4 text-green-400" />;
+    case 'privilege_required':
+      return <AlertCircle className="w-4 h-4 text-yellow-400" />;
+    case 'invalid':
+    case 'unsafe':
+      return <X className="w-4 h-4 text-red-400" />;
+    default:
+      return <AlertCircle className="w-4 h-4 text-gray-400" />;
+  }
   };
+
 
   return (
     <div className="h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-green-400 font-mono flex flex-col">
@@ -239,7 +259,26 @@ const handleSubmit = async () => {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
                             <Terminal className="w-4 h-4 text-green-500" />
-                            <span className="text-xs font-bold text-green-400">COMMANDE FINALE VALIDÉE</span>
+                            <span className={`text-xs font-bold ${
+                              message.validation === 'valid'
+                                ? 'text-green-400'
+                                : message.validation === 'privilege_required'
+                                ? 'text-yellow-400'
+                                : 'text-red-400'
+                            }`}>
+                              {message.validation === 'valid'
+                                  ? 'COMMANDE VALIDÉE'
+                                  : message.validation === 'privilege_required'
+                                  ? 'PRIVILÈGES REQUIS'
+                                  : message.validation === 'repairable'
+                                  ? 'COMMANDE RÉPARABLE'
+                                  : message.validation === 'invalid'
+                                  ? 'COMMANDE NON VALIDE'
+                                  : message.validation === 'unsafe'
+                                  ? 'COMMANDE DANGEREUSE'
+                                  : 'VALIDATION INCONNUE'}
+
+                            </span>
                           </div>
                           <div className="flex items-center space-x-3">
                             {message.confidence > 0 && (
