@@ -1,161 +1,169 @@
-# NMAP_AI - Rapport technique
+# NMAP_AI - Technical Report
 
-## 1) Resume
-Ce projet genere des commandes Nmap a partir d'une requete en langage naturel.
-Le pipeline combine comprehension, classification de complexite, generation et validation.
+## Team
+- Assia Haimeur
+- Kaoutar Boudribila
+- Douae El Hannach
+- Fatima Ezzahraa GAROUD
+- Intissar Raissouni
 
-## 2) Schema global
-Le pipeline principal suit la chaine suivante:
+## 1) Summary
+This project generates Nmap commands from natural language queries.
+The pipeline combines comprehension, complexity classification, generation, and validation.
+
+## 2) Global diagram
+The main pipeline follows this chain:
 1) Comprehension Agent
 2) Complexity Agent
 3) Generation (Easy / Medium / Hard)
 4) Validation (Kali API)
 5) Retry / Escalation
 
-![Schema global](images/Schema.jpeg)
+![Global diagram](images/Schema.jpeg)
 
-## 3) Agents et fonctionnement
+## 3) Agents and how they work
 
 ### 3.1 Comprehension Agent (spaCy embeddings)
-Fichier: `backend/Agents/Agent_comprehension/nmap_agent_embeddings.py`
+File: `backend/Agents/Agent_comprehension/nmap_agent_embeddings.py`
 
 Role:
-- Filtrer les requetes hors contexte (non Nmap)
+- Filter out-of-context queries (non-Nmap)
 
-Fonctionnement:
-- Charge spaCy `en_core_web_sm`
-- Calcule un embedding du domaine Nmap a partir de `nmap_domain.txt`
-- Mesure la similarite cosinus entre requete et domaine
-- Detecte des mots hors contexte (pdf, video, music, etc.)
+How it works:
+- Loads spaCy `en_core_web_sm`
+- Computes a domain embedding from `nmap_domain.txt`
+- Uses cosine similarity between the query and domain
+- Detects out-of-context keywords (pdf, video, music, etc.)
 
-Sorties:
+Outputs:
 - `is_relevant`, `confidence`, `keywords`, `reason`
 
-![Exemple comprehension](images/Exemple.png)
+![Comprehension example](images/Exemple.png)
 
 ### 3.2 Complexity Agent (SLM + Word2Vec)
-Fichier: `backend/Agents/Agent_complexity/complexity_slm_word2vec.py`
+File: `backend/Agents/Agent_complexity/complexity_slm_word2vec.py`
 
 Role:
-- Classer la requete en `easy`, `medium`, `hard`
+- Classify the query into `easy`, `medium`, `hard`
 
-Fonctionnement:
+How it works:
 - Unigram language model (SLM) + Word2Vec
-- Combine les scores (50% SLM, 50% W2V)
-- Retourne la classe avec la meilleure proba
+- Combines the scores (50% SLM, 50% W2V)
+- Returns the class with the highest probability
 
-Sorties:
+Outputs:
 - `level`, `confidence`, `probabilities`, `recommended_model`
 
 ### 3.3 Easy Agent (RAG + Neo4j)
-Fichier: `backend/Agents/Agent_easy/rag_engine.py`
+File: `backend/Agents/Agent_easy/rag_engine.py`
 
 Role:
-- Generer des commandes fiables pour les cas simples
+- Generate reliable commands for simple cases
 
-Fonctionnement:
-- Knowledge Graph Neo4j: Scans, Options, Categories, Examples, Validation
-- IntentClassifier: detecte l'intention (host discovery, port scan, vuln, etc.)
-- Extraction de cible (IP/hostname) et ports
-- CommandGenerator: choisit un scan et options compatibles
-- CommandValidator: verifie conflits et prerequisites
+How it works:
+- Neo4j Knowledge Graph: Scans, Options, Categories, Examples, Validation
+- IntentClassifier: detects intent (host discovery, port scan, vuln, etc.)
+- Extracts target (IP/hostname) and ports
+- CommandGenerator: selects a scan and compatible options
+- CommandValidator: checks conflicts and prerequisites
 
-Avantages:
-- Explicable
-- Robuste sur requetes simples
+Strengths:
+- Explainable
+- Robust for simple queries
 
 ### 3.4 Medium Agent (T5 + LoRA)
-Fichier: `backend/APIs/api_medium.py`
+File: `backend/APIs/api_medium.py`
 
 Role:
-- Generer du texte plus flexible tout en respectant la syntaxe
+- Generate more flexible text while keeping valid syntax
 
-Fonctionnement:
-- T5 finetune via LoRA (PEFT)
-- Generation autoregressive token par token
-- Regles correctives (ex: ping scan -> -sn)
-- Execution CPU only (stable)
+How it works:
+- T5 fine-tuned with LoRA (PEFT)
+- Autoregressive token-by-token generation
+- Corrective rules (ex: ping scan -> -sn)
+- CPU-only execution (stable)
 
-![Exemple medium](images/medium.png)
+![Medium example](images/medium.png)
 
 ### 3.5 Hard Agent (Diffusion token-level)
-Fichiers:
+Files:
 - `backend/Agents/Agent_hard/train_model.py`
 - `backend/Agents/Agent_hard/token_level_tokenizer.py`
 - `backend/Agents/Agent_hard/quick_test.py`
 
 Role:
-- Explorer la diffusion en espace d'embeddings pour generer des commandes
+- Explore diffusion in embedding space to generate commands
 
-Tokenisation:
+Tokenization:
 - Flags: `-sS`, `-sU`, `--script`, `-p`
 - Placeholders: `<IP>`, `<PORT_RANGE>`, `<TARGET>`
-- Unknowns types: `<UNK_FLAG>`, `<UNK_ARG>`, `<UNK_TARGET>`
+- Typed unknowns: `<UNK_FLAG>`, `<UNK_ARG>`, `<UNK_TARGET>`
 
-Modele:
+Model:
 - Transformer encoder/decoder
-- d_model=384, 6 couches, 8 heads
-- Diffusion schedule 200 timesteps (betas lineaires)
+- d_model=384, 6 layers, 8 heads
+- Diffusion schedule: 200 timesteps (linear betas)
 
 Loss:
-- MSE sur embeddings
-- CrossEntropy sur tokens
-- Loss totale = MSE + 0.5 * CE
+- MSE on embeddings
+- CrossEntropy on tokens
+- Total loss = MSE + 0.5 * CE
 
 Generation:
-- Bruit initial -> denoising iteratif
-- Projection vers vocab via similarite d'embeddings
+- Start from noise -> iterative denoising
+- Project to vocab via embedding similarity
 - Top-k sampling
-- Post-traitement: dedup + commande minimale (nmap + un seul -p)
+- Post-processing: dedup + minimal command (nmap + one -p)
 
-Etat:
-- Non integre dans `backend/api.py`
-- `backend/Agents/Agent_hard/__init__.py` reference `agent_diffusion.py` (fichier absent)
+State:
+- Not integrated in `backend/api.py`
+- `backend/Agents/Agent_hard/__init__.py` references `agent_diffusion.py` (missing file)
 
-## 4) Pourquoi la diffusion ne fonctionne pas (et ne marchera pas ici)
+## 4) Why diffusion does not work (and will not here)
 
-Probleme structurel:
-- La diffusion gaussienne suppose un espace continu et lisse.
-- Le texte Nmap est discret, symbolique et fortement contraint.
+Structural issue:
+- Gaussian diffusion assumes a smooth continuous space.
+- Nmap text is discrete, symbolic, and strongly constrained.
 
-Effets observes:
-- Tokens incoherents (flags incompatibles, options hors contexte)
+Observed effects:
+- Incoherent tokens (incompatible flags, wrong options)
 - Repetitions
-- Fragments inutiles (ex: "open", "Ports:")
+- Useless fragments (ex: "open", "Ports:")
 
-Raison profonde:
-- Le modele optimise une distance dans l'espace embedding, pas la validite syntaxique.
-- La generation est non-autoregressive: pas de dependances explicites entre tokens.
-- Le post-traitement corrige la forme mais pas la structure globale.
+Root cause:
+- The model optimizes distance in embedding space, not syntax validity.
+- Generation is non-autoregressive: no explicit token dependencies.
+- Post-processing fixes surface form but not global structure.
 
 Conclusion:
-Dans ce cadre (diffusion gaussienne sur embeddings + generation non autoregressive),
-le modele ne peut pas produire des commandes Nmap fiables. Meme avec plus de donnees,
-il restera instable car la representation continue n'encode pas la grammaire discretes.
+In this setup (Gaussian diffusion on embeddings + non-autoregressive generation),
+the model cannot reliably output correct Nmap commands. Even with more data,
+it remains unstable because the continuous representation does not encode
+strict discrete grammar.
 
-![Erreur diffusion](images/Erreur%20diffusion.png)
+![Diffusion error](images/Erreur%20diffusion.png)
 
 ## 5) Validation
-Fichier: `backend/api.py`
+File: `backend/api.py`
 
-- Validation via une API sur VM Kali
+- Validation via an API on a Kali VM
 - Verdicts: VALID / INVALID / REPAIRABLE / UNSAFE
-- Retry automatique jusqu'a 5 tentatives
+- Automatic retry up to 5 attempts
 
 ![Validation Kali](images/Validation%20Kali.png)
 
 ## 6) Interface
-Dossier: `Interface/`
+Folder: `Interface/`
 
-- UI pour entrer une requete
-- Affiche commande generee et validation
+- UI for entering a query
+- Displays generated command and validation
 
 ![Interface](images/interface.png)
 
-## 7) Technologies utilisees (hors diffusion)
-- FastAPI (API unifiee)
+## 7) Technologies used (outside diffusion)
+- FastAPI (unified API)
 - spaCy embeddings (comprehension)
 - Word2Vec (complexity)
 - Neo4j (RAG)
 - Transformers + PEFT LoRA (T5)
-- Validation API externe (Kali)
+- External validation API (Kali)
