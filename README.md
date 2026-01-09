@@ -12,7 +12,7 @@ Le pipeline principal suit la chaine suivante:
 4) Validation (Kali API)
 5) Retry / Escalation
 
-![Schema global](images/Sch%EF%BC%AEa%20global.jpeg)
+![Schema global](images/Schema.jpeg)
 
 ## 3) Agents et fonctionnement
 
@@ -31,7 +31,7 @@ Fonctionnement:
 Sorties:
 - `is_relevant`, `confidence`, `keywords`, `reason`
 
-![Exemple comprehension](images/Exemple%20compr%EF%BC%A9ension.png)
+![Exemple comprehension](images/Exemple.png)
 
 ### 3.2 Complexity Agent (SLM + Word2Vec)
 Fichier: `backend/Agents/Agent_complexity/complexity_slm_word2vec.py`
